@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import Notification from "../../components/Notification";
 import DashboardCard from "./DashboardCard";
 import { subject } from "./SubjectData";
+import LoadingComp from "../../components/LoadingComp";
 import { GET_STUDENT_DASHBOARD_RESET } from "./DashboardConstants";
 import { useEffect } from "react";
 import { getDashboardContentStudentAction } from "./DashboardActions";
@@ -42,7 +43,7 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { dashboardContent, error } = useSelector(
+  const { dashboardContent,loading, error } = useSelector(
     (state) => state.getDashboardContentStudent
   );
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -69,12 +70,18 @@ const Dashboard = () => {
   return (
     <>
       <div className={classes.dashboardContainer}>
+      {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {dashboardContent &&
           dashboardContent.searchFilterModel.ddlSubject.map((s) => (
             <Link key={s.id} to={`/student-subject-view/${s.Key}`}>
               <DashboardCard subject={s} key={s.id} />
             </Link>
           ))}
+          </>
+        )}
       </div>
       <Notification notify={notify} setNotify={setNotify} />
     </>

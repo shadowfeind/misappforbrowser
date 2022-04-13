@@ -10,6 +10,7 @@ import {
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
+import LoadingComp from "../../../components/LoadingComp";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
 import { Search } from "@material-ui/icons";
@@ -130,7 +131,7 @@ const TotalStudentAttendance = () => {
   );
 
   const {
-    listTotalStudentAttendanceData,
+    listTotalStudentAttendanceData,loading,
     error: listTotalStudentAttendanceDataError,
   } = useSelector((state) => state.getListTotalStudentAttendance);
 
@@ -160,9 +161,6 @@ const TotalStudentAttendance = () => {
   }
 
   useEffect(() => {
-    if (!allTotalStudentAttendanceData) {
-      dispatch(getAllTotalStudentAttendanceAction());
-    }
     if (allTotalStudentAttendanceData) {
       setProgramDdl(
         allTotalStudentAttendanceData.searchFilterModel.ddlFacultyProgramLink
@@ -183,6 +181,11 @@ const TotalStudentAttendance = () => {
       );
     }
   }, [allTotalStudentAttendanceData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_TOTAL_STUDENT_ATTENDANCE_RESET})
+    dispatch(getAllTotalStudentAttendanceAction());
+  },[])
 
   useEffect(() => {
     if (subjectOptions) {
@@ -390,6 +393,10 @@ const TotalStudentAttendance = () => {
           </TableContainer>
         )}
         {listTotalStudentAttendanceData && <TblPagination />} */}
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {listTotalStudentAttendanceData &&
           listTotalStudentAttendanceData?.dbStudentClassAttendanceModelLst?.map(
             (item) => {
@@ -397,15 +404,16 @@ const TotalStudentAttendance = () => {
                 listTotalStudentAttendanceData.dbModelTotalStudentAttendanceCountLst.filter(
                   (a) => a.IDHREmployee === item.IDHREmployee
                 );
-              return (
+              
                 <TotalStudentAttendanceListCollapse
                   item={item}
                   key={item.$id}
                   attendance={currentAttendance}
                 />
-              );
             }
           )}
+          </>
+        )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

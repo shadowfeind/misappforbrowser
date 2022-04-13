@@ -10,6 +10,7 @@ import {
   InputAdornment,
 } from "@material-ui/core";
 import CustomContainer from "../../components/CustomContainer";
+import LoadingComp from "../../components/LoadingComp";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import ConfirmDialog from "../../components/ConfirmDialog";
@@ -130,13 +131,13 @@ const Resources = () => {
   const { allInitialData, error: allInitialDataError } = useSelector(
     (state) => state.getAllInitialResourcesData
   );
-  const { allResources, error: allResourcesError } = useSelector(
+  const { allResources,loading, error: allResourcesError } = useSelector(
     (state) => state.getAllResourcesList
   );
   const { allOtherResourcesOptions, error: allOtherResourcesOptionsError } =
     useSelector((state) => state.getAllOtherOptionsForResourcesSelect);
 
-  const { getCreateResource, error: getCreateResourceError } = useSelector(
+  const { getCreateResource,loading:loadingCreate, error: getCreateResourceError } = useSelector(
     (state) => state.getCreateResource
   );
   const { success: postResourceSuccess, error: postResourceError } =
@@ -224,9 +225,6 @@ const Resources = () => {
   }
 
   useEffect(() => {
-    if (!allInitialData) {
-      dispatch(getAllInitialResourcesDataAction());
-    }
     if (allInitialData) {
       unstable_batchedUpdates(() => {
         setDdlSubject(allInitialData.searchFilterModel.ddlSubjectForTeacher);
@@ -247,6 +245,11 @@ const Resources = () => {
       }
     }
   }, [allInitialData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_ALL_RESOURCES_LIST_RESET})
+    dispatch(getAllInitialResourcesDataAction());
+  },[])
 
   useEffect(() => {
     if (allResources) {
@@ -393,7 +396,7 @@ const Resources = () => {
                 errors={errors.programValue}
               />
             </Grid> */}
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Classes"
@@ -425,7 +428,7 @@ const Resources = () => {
                 options={ddlSection ? ddlSection : test}
                 errors={errors.section}
               />
-            </Grid>
+            </Grid> */}
 
             <Grid item xs={12}>
               <Button
@@ -453,9 +456,20 @@ const Resources = () => {
         <div style={{ height: "10px" }}></div>
 
         <div style={{ marginBottom: "25px" }}>
+
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
           {allResources?.dbModelTeacherLst.map((item) => (
             <ResourcesListCollapse item={item} key={item.$id} />
           ))}
+          {allResources?.dbModelTeacherLst?.length <
+          1 && (
+          <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
+        )}
+        </>
+        )}
         </div>
       </CustomContainer>
       <Popup
@@ -463,6 +477,10 @@ const Resources = () => {
         setOpenPopup={setOpenPopup}
         title="Resources Form"
       >
+      {loadingCreate ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ResourcesForm
           setOpenPopup={setOpenPopup}
           searchFilterModel={
@@ -470,6 +488,8 @@ const Resources = () => {
           }
           dbModel={getCreateResource && getCreateResource.dbModel}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

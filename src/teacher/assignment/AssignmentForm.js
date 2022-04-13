@@ -76,11 +76,11 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 300,
   },
 });
 
-const AssignmentForm = ({ students, formDatas }) => {
+const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
   const [checked, setChecked] = useState(false);
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
@@ -184,16 +184,14 @@ const AssignmentForm = ({ students, formDatas }) => {
           <TableHead>
             <TableRow>
               <StyledTableCell style={{ textAlign: "left" }}>
-                <label>Select All</label>
                 <Checkbox
                   checked={checked}
                   onChange={(e) => handleAllChecked(e.target.checked)}
                 />
               </StyledTableCell>
               <StyledTableCell>Roll No. </StyledTableCell>
-              <StyledTableCell>University Registration No</StyledTableCell>
+
               <StyledTableCell>Full Name</StyledTableCell>
-              <StyledTableCell>Academic Shift</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -223,12 +221,6 @@ const AssignmentForm = ({ students, formDatas }) => {
                     </StyledTableCell>
                     <StyledTableCell component="th" scope="row">
                       {s.FullName}
-                    </StyledTableCell>
-                    <StyledTableCell component="th" scope="row">
-                      {s.MobileNumber}
-                    </StyledTableCell>
-                    <StyledTableCell component="th" scope="row">
-                      {s.EmailID}
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
@@ -282,12 +274,14 @@ const AssignmentForm = ({ students, formDatas }) => {
           type="file"
           errors={errors.image}
         />
+        {imgSrc && (
         <img
           src={imgSrc}
           height={200}
           width={200}
           style={{ marginLeft: "10px" }}
         />
+        )}
 
         <div
           style={{

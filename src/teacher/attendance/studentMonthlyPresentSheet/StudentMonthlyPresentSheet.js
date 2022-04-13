@@ -202,9 +202,6 @@ const StudentMonthlyPresentSheet = () => {
   }
 
   useEffect(() => {
-    if (!allStudentMonthlyPresentSheetData) {
-      dispatch(getAllStudentPresentSheetDataAction());
-    }
     if (allStudentMonthlyPresentSheetData) {
       setProgramDdl(
         allStudentMonthlyPresentSheetData.searchFilterModel
@@ -241,6 +238,11 @@ const StudentMonthlyPresentSheet = () => {
       setNepYear(allStudentMonthlyPresentSheetData.searchFilterModel.npYear);
     }
   }, [allStudentMonthlyPresentSheetData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_STUDENT_PRESENT_RESET})
+    dispatch(getAllStudentPresentSheetDataAction());
+  },[])
 
   // useEffect(() => {
   //   if (subjectOptions) {
@@ -361,7 +363,7 @@ const StudentMonthlyPresentSheet = () => {
               />
             </Grid>
 
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Academic Year"
@@ -416,7 +418,7 @@ const StudentMonthlyPresentSheet = () => {
                 options={ddlShift ? ddlShift : test}
                 errors={errors.shift}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl

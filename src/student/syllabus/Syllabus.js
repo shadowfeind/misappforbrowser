@@ -7,6 +7,7 @@ import CustomContainer from "../../components/CustomContainer";
 import { Button, Toolbar } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../components/Popup";
+import LoadingComp from "../../components/LoadingComp";
 import { GET_ALL_SYLLABUS_STUDENT_RESET } from "./SyllabusConstants";
 import { getAllSyllabusStudentAction } from "./SyllabusActions";
 
@@ -28,7 +29,7 @@ const Syllabus=()=>{
   });
   const dispatch = useDispatch();
 
-  const { allSyllabus, error: allSyllabusError } = useSelector(
+  const { allSyllabus,loading, error: allSyllabusError } = useSelector(
     (state) => state.getAllSyllabusStudent
   );
 
@@ -56,7 +57,13 @@ const Syllabus=()=>{
 return (
     <>
       <CustomContainer>
+      {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
       {allSyllabus && <iframe src={url} width="100%" height="700" />}
+      </>
+        )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

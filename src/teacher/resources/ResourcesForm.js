@@ -96,7 +96,8 @@ const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
         type="file"
         errors={errors.image}
       />
-      <img src={imgSrc} height={200} width={200} />
+      {imgSrc && (
+      <img src={imgSrc} height={200} width={200} />)}
       <div style={{ height: "5px" }}></div>
       <CheckBoxControl
         label="isActive"

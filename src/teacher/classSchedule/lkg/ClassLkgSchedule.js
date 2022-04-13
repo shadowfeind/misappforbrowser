@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingComp from "../../../components/LoadingComp";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import Notification from "../../../components/Notification";
 import { API_URL } from "../../../constants";
@@ -36,7 +37,7 @@ const ClassLkgSchedule = () => {
   });
   const dispatch = useDispatch();
 
-  const { allClassScheduleList, error: allClassScheduleListError } =
+  const { allClassScheduleList,loading, error: allClassScheduleListError } =
     useSelector((state) => state.getListClassSchedule);
   // const { editClassSchedule, error: editClassScheduleError } = useSelector(
   //   (state) => state.getEditClassSchedule
@@ -117,7 +118,13 @@ const ClassLkgSchedule = () => {
             </Button>
           )}
         </Toolbar> */}
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {allClassScheduleList && <iframe src={url} width="100%" height="700" />}
+        </>
+        )}
       </CustomContainer>
       {/* <Popup
         openPopup={openPopup}

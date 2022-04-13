@@ -3,6 +3,7 @@ import { Button, makeStyles, Toolbar, Grid } from "@material-ui/core";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
+import LoadingComp from "../../../components/LoadingComp";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
@@ -86,7 +87,7 @@ const StudentMonthlyPresentSheet = () => {
     (state) => state.getAllOtherOptionsForStudent
   );
 
-  const { getListStudentAttendance, error: getListStudentAttendanceError } =
+  const { getListStudentAttendance,loading, error: getListStudentAttendanceError } =
     useSelector((state) => state.getListStudentAttendance);
 
   if (allStudentAttendanceDataError) {
@@ -117,9 +118,6 @@ const StudentMonthlyPresentSheet = () => {
   }
 
   useEffect(() => {
-    if (!allStudentAttendanceData) {
-      dispatch(getAllStudentAttendanceAction());
-    }
     if (allStudentAttendanceData) {
       unstable_batchedUpdates(() => {
         setDdlSubject(
@@ -141,6 +139,11 @@ const StudentMonthlyPresentSheet = () => {
       });
     }
   }, [allStudentAttendanceData, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_STUDENT_ATTENDANCE_RESET})
+    dispatch(getAllStudentAttendanceAction());
+  },[])
 
   // const nepMonthHandler = (value) => {
   //   setNepMonth(value);
@@ -239,6 +242,10 @@ const StudentMonthlyPresentSheet = () => {
             </Grid>
           </Grid>
         </MobileTopSelectContainer>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {getListStudentAttendance && (
           <StudentMonthlyPresentSheetListCollapse
             attendance={getListStudentAttendance}
@@ -246,6 +253,8 @@ const StudentMonthlyPresentSheet = () => {
         )}
         {getListStudentAttendance?.dbModelLst.length < 1 && (
           <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
+        )}
+        </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
