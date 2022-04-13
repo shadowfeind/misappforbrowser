@@ -1,0 +1,13 @@
+{
+  "appId": "io.ionic.studentmis",
+  "appName": "student-mis-mobile-app",
+  "bundledWebRuntime": false,
+  "npmClient": "yarn",
+  "webDir": "dist",
+  "cordova": {},
+  "plugins": {
+    "PushNotifications": {
+      "presentationOptions": ["badge", "sound", "alert"]
+    }
+  }
+}
