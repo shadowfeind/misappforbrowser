@@ -3,11 +3,13 @@ import { makeStyles, Grid } from "@material-ui/core";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
+import LoadingComp from "../../components/LoadingComp";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
   DOWNLOAD_OLD_QUESTIONS_RESET,
   GET_ALL_OLD_QUESTIONS_TEACHER_RESET,
+  GET_LIST_OLD_QUESTIONS_TEACHER_RESET,
 } from "./OldQuestionsConstants";
 import {
   getAllOldQuestionsTeacherAction,
@@ -65,7 +67,7 @@ const OldQuestions = () => {
     (state) => state.getSubjectOldQuestions
   );
 
-  const { listOldQuestionsTeacher } = useSelector(
+  const { listOldQuestionsTeacher,loading } = useSelector(
     (state) => state.getListOldQuestionsTeacher
   );
 
@@ -110,13 +112,15 @@ const OldQuestions = () => {
   }
 
   useEffect(() => {
-    if (!oldQuestionsTeacher) {
-      dispatch(getAllOldQuestionsTeacherAction());
-    }
     if (oldQuestionsTeacher) {
       setDdlClass(oldQuestionsTeacher.searchFilterModel.ddlClass);
     }
   }, [dispatch, oldQuestionsTeacher]);
+
+  useEffect(()=>{
+    dispatch({type:GET_LIST_OLD_QUESTIONS_TEACHER_RESET})
+    dispatch(getAllOldQuestionsTeacherAction());
+  },[])
 
   useEffect(() => {
     if (subjectOldQuestions) {
@@ -166,13 +170,18 @@ const OldQuestions = () => {
             </Grid>
           </Grid>
         </MobileTopSelectContainer>
-
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {listOldQuestionsTeacher &&
           listOldQuestionsTeacher.dbModelTeacherLst.map((s) => (
             <OldQuestionListCollapse item={s} key={s.$id} />
           ))}
         {listOldQuestionsTeacher?.dbModelTeacherLst.length < 1 && (
           <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
+        )}
+        </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />

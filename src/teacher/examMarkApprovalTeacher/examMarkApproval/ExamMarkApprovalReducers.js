@@ -53,7 +53,7 @@ export const getExamMarkApprovalSearchDataReducer = (state = {}, action) => {
       case GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_FAIL:
         return { loading: false, error: action.payload };
         case GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_RESET:
-        return { loading: false, error: action.payload };
+        return {};
       default:
         return state;
     }

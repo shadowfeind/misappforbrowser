@@ -57,7 +57,7 @@ export const getListOldQuestionsTeacherReducer = (state = {}, action) => {
       case GET_LIST_OLD_QUESTIONS_TEACHER_FAIL:
         return { loading: false, error: action.payload };
       case GET_LIST_OLD_QUESTIONS_TEACHER_RESET:
-        return { loading: false, error: action.payload };
+        return {};
       default:
         return state;
     }

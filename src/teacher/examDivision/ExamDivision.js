@@ -4,7 +4,7 @@ import { makeStyles } from "@material-ui/core";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
-
+import LoadingComp from "../../components/LoadingComp";
 import { getAllExamDivisionAction } from "./ExamDivisionActions";
 
 import { GET_ALL_EXAM_DIVISION_RESET } from "./ExamDivisionConstants";
@@ -33,7 +33,7 @@ const ExamDivision = () => {
 
   const dispatch = useDispatch();
 
-  const { examDivision, error } = useSelector(
+  const { examDivision,loading, error } = useSelector(
     (state) => state.getAllExamDivision
   );
 
@@ -55,6 +55,10 @@ const ExamDivision = () => {
   return (
     <>
       <CustomContainer>
+      {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <MobileTopSelectContainer>
           <h3 style={{ margin: "0", textAlign: "center" }}>Exam Division</h3>
         </MobileTopSelectContainer>
@@ -62,6 +66,8 @@ const ExamDivision = () => {
           examDivision?.dbModelLst.map((item) => (
             <ExamDivisionListCollapse item={item} key={item.$id} />
           ))}
+          </>
+        )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
     </>

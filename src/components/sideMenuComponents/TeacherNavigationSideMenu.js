@@ -108,7 +108,7 @@ const TeacherNavigationSideMenu = () => {
           Pid
         </Typography>
       </NavLink>
-      <NavLink
+      {/* <NavLink
         to={"/quick-links"}
         activeStyle={isActive}
         className={classes.textBox}
@@ -118,7 +118,7 @@ const TeacherNavigationSideMenu = () => {
           <Face fontSize="small" />
           Quick Links
         </Typography>
-      </NavLink>
+      </NavLink> */}
       <NavLink
         to={"/resources"}
         activeStyle={isActive}

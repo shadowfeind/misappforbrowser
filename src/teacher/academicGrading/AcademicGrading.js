@@ -4,7 +4,7 @@ import useCustomTable from "../../customHooks/useCustomTable";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
-
+import LoadingComp from "../../components/LoadingComp";
 import { getAllAcademicGradingAction } from "./AcademicGradingActions";
 
 import { GET_ALL_ACADEMIC_GRADING_RESET } from "./AcademicGradingConstants";
@@ -20,7 +20,7 @@ const AcademicGrading = () => {
 
   const dispatch = useDispatch();
 
-  const { academicGrading, error } = useSelector(
+  const { academicGrading,loading, error } = useSelector(
     (state) => state.academicGrading
   );
 
@@ -42,6 +42,10 @@ const AcademicGrading = () => {
   return (
     <>
       <CustomContainer>
+      {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <MobileTopSelectContainer>
           <h3 style={{ margin: "0", textAlign: "center" }}>Academic Grading</h3>
         </MobileTopSelectContainer>
@@ -49,6 +53,8 @@ const AcademicGrading = () => {
           academicGrading?.dbModelLst.map((item) => (
             <AcademicGradingListCollapse item={item} key={item.$id} />
           ))}
+          </>
+        )}
       </CustomContainer>
 
       <Notification notify={notify} setNotify={setNotify} />

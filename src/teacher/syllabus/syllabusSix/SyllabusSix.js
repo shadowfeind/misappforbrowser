@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ConfirmDialog from "../../../components/ConfirmDialog";
+import LoadingComp from "../../../components/LoadingComp";
 import Notification from "../../../components/Notification";
 import { API_URL } from "../../../constants";
 import CustomContainer from "../../../components/CustomContainer";
@@ -31,7 +32,7 @@ const SyllabusSix = () => {
   const dispatch = useDispatch();
 
  
-  const { listSyllabus, error: listSyllabusError } = useSelector(
+  const { listSyllabus,loading, error: listSyllabusError } = useSelector(
     (state) => state.getListSyllabus
   );
 
@@ -62,7 +63,13 @@ const SyllabusSix = () => {
   return (
     <>
       <CustomContainer>
+      {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {listSyllabus && <iframe src={url} width="100%" height="700" />}
+        </>
+        )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

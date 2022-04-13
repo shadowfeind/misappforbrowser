@@ -5,6 +5,7 @@ import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
+import LoadingComp from "../../../components/LoadingComp";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
 import {
@@ -19,6 +20,7 @@ import { getEventAction } from "../../examMarkEntry/ExamMarkEntryActions";
 import { GET_EVENT_RESET } from "../../examMarkEntry/ExamMarkEntryConstants";
 import {
   GET_ACTIVE_SUBJECT_RESET,
+  GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_RESET,
   GET_ALL_OTHER_OPTIONS_FOR_SELECT_TEACHER_RESET,
   GET_EXAM_MARK_APPROVAL_INITIAL_DATA_RESET,
   GET_EXAM_MARK_APPROVAL_SCHEULE_HEADER_RESET,
@@ -97,11 +99,11 @@ const ExamMarkApproval = () => {
   const { activeSubject, success: activeSubjectSuccess } = useSelector(
     (state) => state.getActiveSubject
   );
-  const { searchData } = useSelector(
+  const { searchData,loading } = useSelector(
     (state) => state.getExamMarkApprovalSearchData
   );
 
-  const { bulkData } = useSelector(
+  const { bulkData,loading:loadingBulk } = useSelector(
     (state) => state.getBulkExamMarkApprovalSearchData
   );
 
@@ -177,9 +179,6 @@ const ExamMarkApproval = () => {
   }
 
   useEffect(() => {
-    if (!examMarkApprovalInitialDatas) {
-      dispatch(getInitialExamMarkApprovalDataAction());
-    }
     if (examMarkApprovalInitialDatas) {
       unstable_batchedUpdates(() => {
         setDdlSchedule(
@@ -206,6 +205,11 @@ const ExamMarkApproval = () => {
       });
     }
   }, [examMarkApprovalInitialDatas, dispatch]);
+
+  useEffect(()=>{
+    dispatch({type:GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_RESET})
+    dispatch(getInitialExamMarkApprovalDataAction());
+  },[])
 
   const subjectHandler = (value) => {
     setSchedule(value);
@@ -323,7 +327,7 @@ const ExamMarkApproval = () => {
                 errors={errors.schedule}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="AcademicYear"
@@ -377,7 +381,7 @@ const ExamMarkApproval = () => {
                 options={ddlSection}
                 errors={errors.section}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl
@@ -413,7 +417,10 @@ const ExamMarkApproval = () => {
           </Grid>
         </MobileTopSelectContainer>
         <div style={{ height: "15px" }}></div>
-
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         {searchData &&
           searchData?.dbModelLsts?.map((item) => (
             <ExamMarkApprovalListCollapse item={item} key={item.$id} />
@@ -421,12 +428,18 @@ const ExamMarkApproval = () => {
         {searchData?.dbModelLsts?.length < 1 && (
           <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
         )}
+        </>
+        )}
       </CustomContainer>
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
         title="Bulk Edit"
       >
+       {loadingBulk ? (
+          <LoadingComp />
+        ) : (
+          <>
         <ExamMarkApprovalBulk
           statusData={
             bulkData && bulkData.searchFilterModel.ddlStudentExamStatus
@@ -434,6 +447,8 @@ const ExamMarkApproval = () => {
           search={bulkData && bulkData.searchFilterModel}
           bulkData={bulkData && bulkData.dbModelLsts}
         />
+        </>
+        )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

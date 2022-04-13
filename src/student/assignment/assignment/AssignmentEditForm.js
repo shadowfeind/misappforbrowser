@@ -3,6 +3,7 @@ import { Button, Grid, makeStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
+import LoadingComp from "../../../components/LoadingComp";
 import { putSingleAssignmentStudentAction } from "./AssignmentActions";
 import { Link, useParams } from "react-router-dom";
 import KeyboardBackspaceIcon from "@material-ui/icons/KeyboardBackspace";
@@ -88,7 +89,7 @@ const AssignmentEditForm = () => {
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
-  const { singleAssignment, error: singleAssignmentError } = useSelector(
+  const { singleAssignment,loading, error: singleAssignmentError } = useSelector(
     (state) => state.getSingleAssignmentStudent
   );
   const {
@@ -173,6 +174,10 @@ const AssignmentEditForm = () => {
   return (
     <>
       <div className={classes.editContainer} style={{ marginBottom: "70px" }}>
+      {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <div className={classes.editTopHeader}>
           <div onClick={goBack}>
             <KeyboardBackspaceIcon /> &nbsp;&nbsp;Go Back
@@ -209,11 +214,6 @@ const AssignmentEditForm = () => {
             <strong>Full Marks: </strong>
             {values.TotalMark}
           </p>
-          <p>
-            <strong>Assignment Summary: </strong>
-            {values.AssignmentSummary}
-          </p>
-
           <p>
             <strong>MarksObtained: </strong>
             {values.MarksObtained}
@@ -274,6 +274,8 @@ const AssignmentEditForm = () => {
             SUBMIT
           </Button>
         </div>
+        </>
+        )}
       </div>
       <Notification notify={notify} setNotify={setNotify} />
     </>

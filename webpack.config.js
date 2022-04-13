@@ -7,7 +7,7 @@ module.exports = {
     path: path.join(__dirname, "dist"),
     filename: "index.bundle.js",
     chunkFilename: "[name].chunk.js",
-    publicPath: "/distMobile/",
+    publicPath: "",
   },
   devServer: {
     port: 3060,

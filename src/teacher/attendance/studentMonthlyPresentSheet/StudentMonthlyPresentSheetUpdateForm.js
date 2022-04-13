@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import Paper from "@material-ui/core/Paper";
+import LoadingComp from "../../../components/LoadingComp";
 import { useDispatch, useSelector } from "react-redux";
 import { postStudentPresentListAction } from "./StudentMonthlyPresentSheetActions";
 import ClearIcon from "@material-ui/icons/Clear";
@@ -41,7 +42,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 300,
   },
 });
 
@@ -57,7 +58,7 @@ const StudentMonthlyPresentSheetUpdateForm = () => {
     type: "",
   });
 
-  const { getListForUpdateStudentPresent } = useSelector(
+  const { getListForUpdateStudentPresent,loading } = useSelector(
     (state) => state.getListForUpdateStudentPresent
   );
   const {
@@ -119,17 +120,18 @@ const StudentMonthlyPresentSheetUpdateForm = () => {
   return (
     <div style={{ marginBottom: "56px" }}>
       <TableContainer component={Paper}>
+      {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
             <TableRow>
               <StyledTableCell>
-                <label>Select All</label>
                 <Checkbox checked={checked} onChange={handleAllSelectChange} />
               </StyledTableCell>
               <StyledTableCell>Roll No. </StyledTableCell>
               <StyledTableCell>Student Name</StyledTableCell>
-              <StyledTableCell>Mobile</StyledTableCell>
-              <StyledTableCell>Email</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -153,16 +155,12 @@ const StudentMonthlyPresentSheetUpdateForm = () => {
                     <StyledTableCell component="th" scope="row">
                       {s.FullName}
                     </StyledTableCell>
-                    <StyledTableCell component="th" scope="row">
-                      {s.MobileNumber}
-                    </StyledTableCell>
-                    <StyledTableCell component="th" scope="row">
-                      {s.EmailID}
-                    </StyledTableCell>
                   </StyledTableRow>
                 ))}
           </TableBody>
         </Table>
+        </>
+        )}
       </TableContainer>
       <div
         style={{
