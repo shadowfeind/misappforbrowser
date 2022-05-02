@@ -5,7 +5,7 @@ import {
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
-const DatePickerControl = ({ name, label, value, onChange , errors = null}) => {
+const DatePickerControl = ({ name, label, value, onChange, errors = null }) => {
   const converToDefaultEventPara = (name, value) => ({
     target: {
       name,
@@ -26,6 +26,7 @@ const DatePickerControl = ({ name, label, value, onChange , errors = null}) => {
         onChange={(date) => {
           onChange(converToDefaultEventPara(name, date));
         }}
+        style={{ width: "100%" }}
         {...(errors && { error: true, helperText: errors })}
       />
     </MuiPickersUtilsProvider>

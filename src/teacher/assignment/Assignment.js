@@ -99,23 +99,32 @@ const Assignment = () => {
     (state) => state.getAllOtherOptionsForAssignmentSelect
   );
 
-  const { getListTeacherAssignment,loading, error: getListTeacherAssignmentError } =
-    useSelector((state) => state.getListTeacherAssignment);
+  const {
+    getListTeacherAssignment,
+    loading,
+    error: getListTeacherAssignmentError,
+  } = useSelector((state) => state.getListTeacherAssignment);
 
   const {
-    teacherAssignmentSingleCreate,loading:loadingCreate,
+    teacherAssignmentSingleCreate,
+    loading: loadingCreate,
     error: teacherAssignmentSingleCreateError,
   } = useSelector((state) => state.getSingleCreateTeacherAssignment);
 
   const { success: postTeacherAssignment, error: postTeacherAssignmentError } =
     useSelector((state) => state.postTeacherAssignment);
 
-  const { assignmentContent,loading:loadingTable, error: assignmentContentError } = useSelector(
-    (state) => state.getTeacherAssignmentContent
-  );
+  const {
+    assignmentContent,
+    loading: loadingTable,
+    error: assignmentContentError,
+  } = useSelector((state) => state.getTeacherAssignmentContent);
 
-  const { singleTeacherAssignment,loading:loadingEdit, error: singleTeacherAssignmentError } =
-    useSelector((state) => state.getSingleToEditTeacherAssignment);
+  const {
+    singleTeacherAssignment,
+    loading: loadingEdit,
+    error: singleTeacherAssignmentError,
+  } = useSelector((state) => state.getSingleToEditTeacherAssignment);
 
   const {
     success: putSingleToEditTeacherAssignmentSuccess,
@@ -290,10 +299,10 @@ const Assignment = () => {
     }
   }, [allAssignmentTeacherData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_TEACHER_ASSIGNMENT_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_TEACHER_ASSIGNMENT_RESET });
     dispatch(getAllAssignmentTeacherAction());
-  },[])
+  }, []);
 
   const validate = () => {
     let temp = {};
@@ -532,20 +541,22 @@ const Assignment = () => {
           <LoadingComp />
         ) : (
           <>
-        {getListTeacherAssignment?.dbTeacherAssignmentLstBySection.map(
-          (item) => (
-            <AssignmentListCollapse
-              item={item}
-              key={item.$id}
-              setOpenPopup3={setOpenPopup3}
-            />
-          )
-        )}
-        {getListTeacherAssignment?.dbTeacherAssignmentLstBySection?.length <
-          1 && (
-          <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
-        )}
-        </>
+            {getListTeacherAssignment?.dbTeacherAssignmentLstBySection.map(
+              (item) => (
+                <AssignmentListCollapse
+                  item={item}
+                  key={item.$id}
+                  setOpenPopup3={setOpenPopup3}
+                />
+              )
+            )}
+            {getListTeacherAssignment?.dbTeacherAssignmentLstBySection?.length <
+              1 && (
+              <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                No Assignment
+              </h4>
+            )}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -553,22 +564,22 @@ const Assignment = () => {
         setOpenPopup={setOpenPopup}
         title="Create Assignment"
       >
-      {loadingCreate ? (
+        {loadingCreate ? (
           <LoadingComp />
         ) : (
           <>
-        <AssignmentForm
-          students={
-            teacherAssignmentSingleCreate &&
-            teacherAssignmentSingleCreate.dbModelLstForStudentSection
-          }
-          formDatas={
-            teacherAssignmentSingleCreate &&
-            teacherAssignmentSingleCreate.dbTeacherAssignmentModel
-          }
-          setOpenPopup={setOpenPopup}
-        />
-        </>
+            <AssignmentForm
+              students={
+                teacherAssignmentSingleCreate &&
+                teacherAssignmentSingleCreate.dbModelLstForStudentSection
+              }
+              formDatas={
+                teacherAssignmentSingleCreate &&
+                teacherAssignmentSingleCreate.dbTeacherAssignmentModel
+              }
+              setOpenPopup={setOpenPopup}
+            />
+          </>
         )}
       </Popup>
       <Popup
@@ -576,17 +587,17 @@ const Assignment = () => {
         setOpenPopup={setOpenPopup2}
         title="All Assignment"
       >
-      {loadingTable ? (
+        {loadingTable ? (
           <LoadingComp />
         ) : (
           <>
-        <AssignmentTableCollapseAll
-          allAssignment={
-            assignmentContent && assignmentContent.AssignmentContentLst
-          }
-          setOpenPopup2={setOpenPopup2}
-        />
-        </>
+            <AssignmentTableCollapseAll
+              allAssignment={
+                assignmentContent && assignmentContent.AssignmentContentLst
+              }
+              setOpenPopup2={setOpenPopup2}
+            />
+          </>
         )}
       </Popup>
       <Popup
@@ -594,18 +605,18 @@ const Assignment = () => {
         setOpenPopup={setOpenPopup3}
         title="Edit Assignment"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AssignmentEditForm
-          singleAssignment={
-            singleTeacherAssignment &&
-            singleTeacherAssignment.dbTeacherAssignmentModel
-          }
-          setOpenPop3={setOpenPopup3}
-        />
-        </>
+            <AssignmentEditForm
+              singleAssignment={
+                singleTeacherAssignment &&
+                singleTeacherAssignment.dbTeacherAssignmentModel
+              }
+              setOpenPop3={setOpenPopup3}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

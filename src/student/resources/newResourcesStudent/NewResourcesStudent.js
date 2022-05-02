@@ -114,8 +114,11 @@ const NewResourcesStudent = () => {
     (state) => state.getAllNewResourcesStudent
   );
 
-  const { newResourcesStudentList,loading, error: newResourcesStudentListError } =
-    useSelector((state) => state.getNewResourcesStudentList);
+  const {
+    newResourcesStudentList,
+    loading,
+    error: newResourcesStudentListError,
+  } = useSelector((state) => state.getNewResourcesStudentList);
 
   const {
     success: downloadNewResourcesSuccess,
@@ -214,7 +217,7 @@ const NewResourcesStudent = () => {
   }, [newResourcesStudentList]);
 
   useEffect(() => {
-    dispatch({type:GET_NEW_SOURCES_STUDENT_LIST_RESET})
+    dispatch({ type: GET_NEW_SOURCES_STUDENT_LIST_RESET });
     dispatch(getAllNewResourcesStudentAction());
   }, []);
 
@@ -236,7 +239,19 @@ const NewResourcesStudent = () => {
     <>
       <CustomContainer>
         <MobileTopSelectContainer>
-          <Grid container style={{ fontSize: "12px" }}>
+          <h3 style={{ textAlign: "center", marginTop: "0" }}>E Materials</h3>
+          <div style={{ textAlign: "center" }}>
+            {ddlFacultySubject?.map((subject) => (
+              <Chip
+                key={subject.Key}
+                label={subject.Value}
+                variant="outlined"
+                style={{ marginRight: "5px", marginBottom: "5px" }}
+                onClick={(e) => handleExamScheduleSearch(subject.Key)}
+              />
+            ))}
+          </div>
+          {/* <Grid container style={{ fontSize: "12px" }}>
             <Grid item container>
               <SelectControl
                 name="facultySubject"
@@ -247,19 +262,24 @@ const NewResourcesStudent = () => {
                 errors={errors.facultySubject}
               />
             </Grid>
-          </Grid>
+          </Grid> */}
         </MobileTopSelectContainer>
         {loading ? (
           <LoadingComp />
         ) : (
           <>
-        {newResourcesStudentList?.courseDeliveyPlanStudentLst.map((item) => (
-          <NewResourcesListCollapse item={item} key={item.$id} />
-        ))}
-        {newResourcesStudentList?.courseDeliveyPlanStudentLst.length < 1 && (
-          <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
-        )}
-        </>
+            {newResourcesStudentList?.courseDeliveyPlanStudentLst.map(
+              (item) => (
+                <NewResourcesListCollapse item={item} key={item.$id} />
+              )
+            )}
+            {newResourcesStudentList?.courseDeliveyPlanStudentLst.length <
+              1 && (
+              <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                No Data
+              </h4>
+            )}
+          </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />

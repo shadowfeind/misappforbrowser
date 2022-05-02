@@ -62,11 +62,7 @@ export const DashboardCard = ({ subject }) => {
           component="h4"
           className={classes.topHeading}
         >
-          {subject.Value}{" "}
-          <span style={{ textAlign: "right", fontSize: "16px", color: "#666" }}>
-            {" "}
-            - Credit 4
-          </span>
+          {subject.Value}
         </Typography>
 
         <Typography

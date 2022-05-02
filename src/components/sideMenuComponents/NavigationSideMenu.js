@@ -1,17 +1,19 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { makeStyles, Typography } from "@material-ui/core";
-import {
-  School,
-  Accessible,
-  PeopleOutline,
-  ChromeReaderMode,
-  Face,
-  Assessment,
-  Settings,
-  PostAdd,
-  RecordVoiceOver,
-} from "@material-ui/icons";
+import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
+import VideocamIcon from "@material-ui/icons/Videocam";
+import ReportProblemIcon from "@material-ui/icons/ReportProblem";
+import MenuBookIcon from "@material-ui/icons/MenuBook";
+import DescriptionIcon from "@material-ui/icons/Description";
+import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
+import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
+import BookIcon from "@material-ui/icons/Book";
+import DvrRoundedIcon from "@material-ui/icons/DvrRounded";
+import DashboardIcon from "@material-ui/icons/Dashboard";
+import HowToRegRoundedIcon from "@material-ui/icons/HowToRegRounded";
+import TrendingUpIcon from "@material-ui/icons/TrendingUp";
+import { ChromeReaderMode, PeopleOutline } from "@material-ui/icons";
 
 const useStyles = makeStyles({
   root: {
@@ -57,11 +59,15 @@ const NavigationSideMenu = () => {
       >
         <Typography variant="h6">
           {" "}
-          <ChromeReaderMode fontSize="medium" />
+          <DashboardIcon fontSize="medium" />
           DashBoard
         </Typography>
       </NavLink>
-      <NavLink to={"/student-pid"} activeStyle={isActive} className={classes.textBox}>
+      <NavLink
+        to={"/student-pid"}
+        activeStyle={isActive}
+        className={classes.textBox}
+      >
         <Typography variant="h6">
           <ChromeReaderMode fontSize="medium" />
           Profile
@@ -98,7 +104,16 @@ const NavigationSideMenu = () => {
           Class Schedule
         </Typography>
       </NavLink>
-
+      <NavLink
+        to={"/student-leaverequest"}
+        activeStyle={isActive}
+        className={classes.textBox}
+      >
+        <Typography variant="h6">
+          <ReportProblemIcon fontSize="medium" />
+          Leave Requests
+        </Typography>
+      </NavLink>
       {/* <NavLink
         to={"/quick-links"}
         activeStyle={isActive}
@@ -116,8 +131,8 @@ const NavigationSideMenu = () => {
         className={classes.textBox}
       >
         <Typography variant="h6">
-          <Assessment fontSize="medium" />
-          Resources
+          <BookIcon fontSize="medium" />
+          E-Material
         </Typography>
       </NavLink>
       <NavLink
@@ -126,7 +141,7 @@ const NavigationSideMenu = () => {
         className={classes.textBox}
       >
         <Typography variant="h6">
-          <PostAdd fontSize="medium" />
+          <AssignmentTurnedInIcon fontSize="medium" />
           Assignment
         </Typography>
       </NavLink>
@@ -136,7 +151,7 @@ const NavigationSideMenu = () => {
         className={classes.textBox}
       >
         <Typography variant="h6">
-          <RecordVoiceOver fontSize="medium" />
+          <DescriptionIcon fontSize="medium" />
           Syllabus
         </Typography>
       </NavLink>
@@ -147,7 +162,7 @@ const NavigationSideMenu = () => {
       >
         <Typography variant="h6">
           {" "}
-          <Accessible fontSize="medium" />
+          <MenuBookIcon fontSize="medium" />
           Old Questions
         </Typography>
       </NavLink>
@@ -157,7 +172,7 @@ const NavigationSideMenu = () => {
         className={classes.textBox}
       >
         <Typography variant="h6">
-          <Accessible fontSize="medium" />
+          <HowToRegRoundedIcon fontSize="medium" />
           Attendance
         </Typography>
       </NavLink>

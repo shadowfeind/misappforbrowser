@@ -4,6 +4,14 @@ import moment from "moment";
 
 export const API_URL = "https://vidyacube.com";
 
+//for fcm token
+export const tokenHeader = {
+  headers: {
+    "Content-Type": "application/json",
+    Authorization: `key=AAAACB9i9IE:APA91bEuqomtN9gss5UOVzngtIofWkWo9tUWAZ_2LYBNeKbuZXXns-S6NuBWEgYCnQj8gsI6YbvlbxKIByeYvHjgf2U-GjTTPCB44_K6yjcPhvDHqQD5WaUCshNEDzAuz3r91MeBJe3D`,
+  },
+};
+
 export const tokenConfig = () => {
   const user = JSON.parse(localStorage.getItem("blueberryToken"));
 

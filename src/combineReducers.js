@@ -210,6 +210,29 @@ import {
 } from "./teacher/syllabus/syllabusPg/SyllabusReducers";
 import { getDashboardContentReducer } from "./teacher/dashboard/DashboardReducers";
 import { getAllHoliday } from "./student/holiday/HolidayReducers";
+import {
+  studentDeleteLeaveRequestReducer,
+  studentDownloadLeaveRequestReducer,
+  studentGetAllLeaveRequestReducer,
+  studentGetListLeaveRequestReducer,
+  studentGetSingleCreateLeaveRequestReducer,
+  studentGetSingleDeleteLeaveRequestReducer,
+  studentGetSingleEditLeaveRequestReducer,
+  studentPostLeaveRequestReducer,
+  studentPutLeaveRequestReducer,
+} from "./student/leaveRequest/StudentLeaveRequestReducers";
+import {
+  deleteLeaveRequestReducer,
+  downloadLeaveRequestReducer,
+  getAllLeaveRequestReducer,
+  getListLeaveRequestReducer,
+  getSingleCreateLeaveRequestReducer,
+  getSingleDeleteLeaveRequestReducer,
+  getSingleEditLeaveRequestReducer,
+  getSingleEditSentLeaveRequestReducer,
+  postLeaveRequestReducer,
+  putLeaveRequestReducer,
+} from "./teacher/leaveRequest/TeacherLeaveRequestReducers";
 
 export const reducers = combineReducers({
   getFCMToken: getFCMTokenReducer,
@@ -249,6 +272,16 @@ export const reducers = combineReducers({
   getAllSyllabusStudent: getAllSyllabusStudentReducer,
   //holiday calendar
   holiday: getAllHoliday,
+  //leave request student
+  studentGetAllLeaveRequest: studentGetAllLeaveRequestReducer,
+  studentGetListLeaveRequest: studentGetListLeaveRequestReducer,
+  studentGetSingleCreateLeaveRequest: studentGetSingleCreateLeaveRequestReducer,
+  studentGetSingleEditLeaveRequest: studentGetSingleEditLeaveRequestReducer,
+  studentPostLeaveRequest: studentPostLeaveRequestReducer,
+  studentPutLeaveRequest: studentPutLeaveRequestReducer,
+  studentGetSingleDeleteLeaveRequest: studentGetSingleDeleteLeaveRequestReducer,
+  studentDeleteLeaveRequest: studentDeleteLeaveRequestReducer,
+  studentDownloadLeaveRequest: studentDownloadLeaveRequestReducer,
 
   //TEACHER COMBINE REDUCERS:
   getDashboardContent: getDashboardContentReducer,
@@ -380,4 +413,15 @@ export const reducers = combineReducers({
   //Syllabus Teacher
   getAllSyllabus: getAllSyllabusReducer,
   getListSyllabus: getListSyllabusReducer,
+  //leave request teacher
+  getAllLeaveRequest: getAllLeaveRequestReducer,
+  getListLeaveRequest: getListLeaveRequestReducer,
+  getSingleCreateLeaveRequest: getSingleCreateLeaveRequestReducer,
+  getSingleEditLeaveRequest: getSingleEditLeaveRequestReducer,
+  postLeaveRequest: postLeaveRequestReducer,
+  putLeaveRequest: putLeaveRequestReducer,
+  getSingleDeleteLeaveRequest: getSingleDeleteLeaveRequestReducer,
+  deleteLeaveRequest: deleteLeaveRequestReducer,
+  downloadLeaveRequest: downloadLeaveRequestReducer,
+  getSingleEditSentLeaveRequest: getSingleEditSentLeaveRequestReducer,
 });

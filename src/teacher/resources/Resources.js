@@ -131,15 +131,19 @@ const Resources = () => {
   const { allInitialData, error: allInitialDataError } = useSelector(
     (state) => state.getAllInitialResourcesData
   );
-  const { allResources,loading, error: allResourcesError } = useSelector(
-    (state) => state.getAllResourcesList
-  );
+  const {
+    allResources,
+    loading,
+    error: allResourcesError,
+  } = useSelector((state) => state.getAllResourcesList);
   const { allOtherResourcesOptions, error: allOtherResourcesOptionsError } =
     useSelector((state) => state.getAllOtherOptionsForResourcesSelect);
 
-  const { getCreateResource,loading:loadingCreate, error: getCreateResourceError } = useSelector(
-    (state) => state.getCreateResource
-  );
+  const {
+    getCreateResource,
+    loading: loadingCreate,
+    error: getCreateResourceError,
+  } = useSelector((state) => state.getCreateResource);
   const { success: postResourceSuccess, error: postResourceError } =
     useSelector((state) => state.postResource);
 
@@ -246,10 +250,10 @@ const Resources = () => {
     }
   }, [allInitialData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_ALL_RESOURCES_LIST_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ALL_RESOURCES_LIST_RESET });
     dispatch(getAllInitialResourcesDataAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (allResources) {
@@ -456,20 +460,20 @@ const Resources = () => {
         <div style={{ height: "10px" }}></div>
 
         <div style={{ marginBottom: "25px" }}>
-
-        {loading ? (
-          <LoadingComp />
-        ) : (
-          <>
-          {allResources?.dbModelTeacherLst.map((item) => (
-            <ResourcesListCollapse item={item} key={item.$id} />
-          ))}
-          {allResources?.dbModelTeacherLst?.length <
-          1 && (
-          <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
-        )}
-        </>
-        )}
+          {loading ? (
+            <LoadingComp />
+          ) : (
+            <>
+              {allResources?.dbModelTeacherLst.map((item) => (
+                <ResourcesListCollapse item={item} key={item.$id} />
+              ))}
+              {allResources?.dbModelTeacherLst?.length < 1 && (
+                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                  No Resources
+                </h4>
+              )}
+            </>
+          )}
         </div>
       </CustomContainer>
       <Popup
@@ -477,18 +481,18 @@ const Resources = () => {
         setOpenPopup={setOpenPopup}
         title="Resources Form"
       >
-      {loadingCreate ? (
+        {loadingCreate ? (
           <LoadingComp />
         ) : (
           <>
-        <ResourcesForm
-          setOpenPopup={setOpenPopup}
-          searchFilterModel={
-            getCreateResource && getCreateResource.searchFilterModel
-          }
-          dbModel={getCreateResource && getCreateResource.dbModel}
-        />
-        </>
+            <ResourcesForm
+              setOpenPopup={setOpenPopup}
+              searchFilterModel={
+                getCreateResource && getCreateResource.searchFilterModel
+              }
+              dbModel={getCreateResource && getCreateResource.dbModel}
+            />
+          </>
         )}
       </Popup>
       <Notification notify={notify} setNotify={setNotify} />

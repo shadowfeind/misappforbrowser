@@ -68,7 +68,7 @@ const Holiday = () => {
     <>
       <div
         style={{
-          margin: "80px 10px 10px 10px",
+          margin: "10px",
         }}
       >
         <Calendar

@@ -43,7 +43,7 @@ const Dashboard = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const history = useHistory();
-  const { dashboardContent,loading, error } = useSelector(
+  const { dashboardContent, loading, error } = useSelector(
     (state) => state.getDashboardContentStudent
   );
   const { userInfo } = useSelector((state) => state.userLogin);
@@ -61,6 +61,11 @@ const Dashboard = () => {
     if (!userInfo) {
       history.push("/login");
     }
+    if (userInfo) {
+      if (userInfo.IDHRRole === 5) {
+        history.push("/teacher-dashboard");
+      }
+    }
   }, [dispatch, userInfo]);
 
   useEffect(() => {
@@ -70,16 +75,16 @@ const Dashboard = () => {
   return (
     <>
       <div className={classes.dashboardContainer}>
-      {loading ? (
+        {loading ? (
           <LoadingComp />
         ) : (
           <>
-        {dashboardContent &&
-          dashboardContent.searchFilterModel.ddlSubject.map((s) => (
-            <Link key={s.id} to={`/student-subject-view/${s.Key}`}>
-              <DashboardCard subject={s} key={s.id} />
-            </Link>
-          ))}
+            {dashboardContent &&
+              dashboardContent.searchFilterModel.ddlSubject.map((s) => (
+                <Link key={s.id} to={`/student-subject-view/${s.Key}`}>
+                  <DashboardCard subject={s} key={s.id} />
+                </Link>
+              ))}
           </>
         )}
       </div>

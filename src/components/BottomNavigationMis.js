@@ -97,7 +97,7 @@ const BottomNavigationMis = () => {
       />
       <BottomNavigationAction
         className={classes.bnav}
-        label="Resources"
+        label="E-Material"
         icon={<WorkIcon />}
       />
       <BottomNavigationAction

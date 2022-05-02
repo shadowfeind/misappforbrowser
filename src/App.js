@@ -15,6 +15,12 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
+const TeacherLeaveRequest = lazy(() =>
+  import("./teacher/leaveRequest/TeacherLeaveRequest")
+);
+const StudentLeaveRequest = lazy(() =>
+  import("./student/leaveRequest/StudentLeaveRequest")
+);
 const AssignmentEditForm = lazy(() =>
   import("./student/assignment/assignment/AssignmentEditForm")
 );
@@ -187,6 +193,11 @@ const App = () => {
             />
             <Route
               exact
+              path={"/student-leaverequest"}
+              component={StudentLeaveRequest}
+            />
+            <Route
+              exact
               path={"/student-dashboard"}
               component={DashboardStudent}
             />
@@ -205,6 +216,10 @@ const App = () => {
             <Route
               path={"/attendance/table-details"}
               component={StudentMonthlyPresentSheetMobileTable}
+            />
+            <Route
+              path={"/leaverequest-teacher"}
+              component={TeacherLeaveRequest}
             />
             <Route
               path={"/attendance/table-edit"}

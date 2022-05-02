@@ -8,6 +8,7 @@ import {
   TableBody,
   Toolbar,
   Grid,
+  Chip,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import useCustomTable from "../../../customHooks/useCustomTable";
@@ -127,13 +128,17 @@ const Assignment = () => {
     (state) => state.getAllAssignmentStudent
   );
 
-  const { assignmentList,loading, error: assignmentListError } = useSelector(
-    (state) => state.getAssignmentListStudent
-  );
+  const {
+    assignmentList,
+    loading,
+    error: assignmentListError,
+  } = useSelector((state) => state.getAssignmentListStudent);
 
-  const { singleAssignment,loading:loadingEdit, error: singleAssignmentError } = useSelector(
-    (state) => state.getSingleAssignmentStudent
-  );
+  const {
+    singleAssignment,
+    loading: loadingEdit,
+    error: singleAssignmentError,
+  } = useSelector((state) => state.getSingleAssignmentStudent);
 
   const {
     success: putSingleAssignmentSuccess,
@@ -265,7 +270,7 @@ const Assignment = () => {
   }, [assignment, dispatch, subjectIdFromDashboard]);
 
   useEffect(() => {
-    dispatch({type:GET_ASSIGNMENT_LIST_STUDENT_RESET})
+    dispatch({ type: GET_ASSIGNMENT_LIST_STUDENT_RESET });
     dispatch(getAllAssignmentStudentAction()); //every time component is mounted this api must be called
   }, []);
 
@@ -292,7 +297,19 @@ const Assignment = () => {
     <>
       <CustomContainer>
         <MobileTopSelectContainer>
-          <Grid container>
+          <h3 style={{ textAlign: "center", marginTop: "0" }}>Assignments</h3>
+          <div style={{ textAlign: "center" }}>
+            {ddlFacultySubject?.map((subject) => (
+              <Chip
+                key={subject.Key}
+                label={subject.Value}
+                variant="outlined"
+                style={{ marginRight: "5px", marginBottom: "5px" }}
+                onClick={(e) => handleExamScheduleSearch(subject.Key)}
+              />
+            ))}
+          </div>
+          {/* <Grid container>
             <Grid item xs={12}>
               <SelectControl
                 name="facultySubject"
@@ -303,27 +320,28 @@ const Assignment = () => {
                 errors={errors.facultySubject}
               />
             </Grid>
-          </Grid>
+          </Grid> */}
         </MobileTopSelectContainer>
         {loading ? (
           <LoadingComp />
         ) : (
           <>
-        <div style={{ marginBottom: "30px" }}>
-        
-          {assignmentList?.dbstuentSubmissionLst.map((item) => (
-            <AssignmentListCollapse
-              item={item}
-              key={item.$id}
-              facultySubject={facultySubject && facultySubject}
-              setOpenPopup={setOpenPopup}
-            />
-          ))}
-        </div>
-        {assignmentList?.dbstuentSubmissionLst.length < 1 && (
-          <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
-        )}
-        </>
+            <div style={{ marginBottom: "30px" }}>
+              {assignmentList?.dbstuentSubmissionLst.map((item) => (
+                <AssignmentListCollapse
+                  item={item}
+                  key={item.$id}
+                  facultySubject={facultySubject && facultySubject}
+                  setOpenPopup={setOpenPopup}
+                />
+              ))}
+            </div>
+            {assignmentList?.dbstuentSubmissionLst.length < 1 && (
+              <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                No Assignment
+              </h4>
+            )}
+          </>
         )}
       </CustomContainer>
       <Popup
@@ -331,17 +349,17 @@ const Assignment = () => {
         setOpenPopup={setOpenPopup}
         title="Edit Assignment"
       >
-      {loadingEdit ? (
+        {loadingEdit ? (
           <LoadingComp />
         ) : (
           <>
-        <AssignmentEditForm
-          setOpenPopup={setOpenPopup}
-          singleAssignment={
-            singleAssignment && singleAssignment.dbStudentSubmissionModel
-          }
-        />
-        </>
+            <AssignmentEditForm
+              setOpenPopup={setOpenPopup}
+              singleAssignment={
+                singleAssignment && singleAssignment.dbStudentSubmissionModel
+              }
+            />
+          </>
         )}
       </Popup>
 
