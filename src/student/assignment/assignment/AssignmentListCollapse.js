@@ -65,7 +65,7 @@ const AssignmentListCollapse = ({ item, facultySubject, setOpenPopup }) => {
     <>
       <ListForTable onClick={handleClick}>
         <p>
-          <span
+          {/* <span
             style={{
               padding: "8px 10px",
               borderRadius: "50%",
@@ -75,8 +75,13 @@ const AssignmentListCollapse = ({ item, facultySubject, setOpenPopup }) => {
             }}
           >
             {item.AssignmentName[0]}
-          </span>
-          <span style={{ paddingLeft: "12px" }}>{item.AssignmentName}</span>{" "}
+          </span> */}
+          <span style={{ paddingLeft: "12px" }}>
+            {item.AssignmentName}<br/>
+              <span style={{ fontSize: "12px", paddingLeft: "12px" }}>
+                {item.AssignmentDate.slice(0, 10)} / {item.DueDate.slice(0, 10)}
+              </span>
+          </span>{" "}
           <span
             style={{ fontSize: "10px", color: "#444", paddingLeft: "10px" }}
           >

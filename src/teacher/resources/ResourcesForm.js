@@ -91,7 +91,7 @@ const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
       <div style={{ height: "5px" }}></div>
       <InputControl
         name="ImageUploaded"
-        label="Select File"
+        // label="Select File"
         onChange={(e) => handleImage(e)}
         type="file"
         errors={errors.image}

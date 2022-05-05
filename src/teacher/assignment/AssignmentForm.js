@@ -268,19 +268,22 @@ const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
 
         <InputControl
           name="ImageUploaded"
-          label="Select File"
+          // label="Select File"
           // value={values.ClassLocation}
           onChange={(e) => handleImage(e)}
           type="file"
           errors={errors.image}
         />
         {imgSrc && (
-        <img
-          src={imgSrc}
-          height={200}
-          width={200}
-          style={{ marginLeft: "10px" }}
-        />
+          <img
+            src={
+              imgSrc
+                ? imgSrc
+                : formDatas && `${API_URL}${formDatas.FullPath}`
+            }
+            height={200}
+            width={200}
+          />
         )}
 
         <div

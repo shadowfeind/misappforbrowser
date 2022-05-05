@@ -614,6 +614,10 @@ const Assignment = () => {
                 singleTeacherAssignment &&
                 singleTeacherAssignment.dbTeacherAssignmentModel
               }
+              assignmentImage={
+                singleTeacherAssignment &&
+                singleTeacherAssignment.FullPath
+              }
               setOpenPop3={setOpenPopup3}
             />
           </>

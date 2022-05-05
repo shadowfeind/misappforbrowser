@@ -173,9 +173,9 @@ export const getSingleCreateTeacherAssignmentAction =
       dispatch({
         type: GET_SINGLE_CREATE_TEACHER_ASSIGNMENT_FAIL,
         payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        error.Message && error.response.data.Message
+        ? error.response.data.Message
+        : error.message,
       });
     }
   };
@@ -243,9 +243,9 @@ export const getTeacherAssignmentContentAction =
       dispatch({
         type: GET_TEACHER_ASSIGNMENT_CONTENT_FAIL,
         payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        error.Message && error.response.data.Message
+        ? error.response.data.Message
+        : error.message,
       });
     }
   };
@@ -268,60 +268,67 @@ export const getSingleToEditTeacherAssignmentAction =
       dispatch({
         type: GET_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_FAIL,
         payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
-            : error.message,
+        error.Message && error.response.data.Message
+        ? error.response.data.Message
+        : error.message,
       });
     }
   };
 
-export const putSingleToEditTeacherAssignmentAction =
+  export const putSingleToEditTeacherAssignmentAction =
   (image, singleAssignment) => async (dispatch) => {
     try {
       dispatch({ type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_REQUEST });
 
-      let formData = new FormData();
-      formData.append("ImageUploaded", image);
+      if (image) {
+        let formData = new FormData();
+        formData.append("ImageUploaded", image);
 
-      const { data } = await axios.post(
-        `${API_URL}/api/TeacherAssignment/FileUpload`,
-        formData,
-        tokenConfig()
-      );
-
-      if (data) {
-        const newDate = singleAssignment.AssignmentDate.toISOString().slice(
-          0,
-          10
+        const { data: imageData } = await axios.post(
+          `${API_URL}/api/TeacherAssignment/FileUpload`,
+          formData,
+          tokenConfig
         );
-        const newData = {
-          ...singleAssignment,
-          DocumentName: data,
-          AssignmentDate: newDate,
-        };
+        //renaming data as it was undefined when consoled
 
+        if (imageData !== undefined) {
+          debugger;
+          const jsonData = JSON.stringify({
+            dbTeacherAssignmentModel: {
+              ...singleAssignment,
+              DocumentName: imageData,
+            },
+          });
+          console.log(data);
+          debugger;
+          console.log(jsonData);
+          debugger;
+
+          const { data } = await axios.put(
+            `${API_URL}/api/TeacherAssignment/PutTeacherAssignment`,
+            jsonData,
+            tokenConfig
+          );
+        }
+      } else {
         const jsonData = JSON.stringify({
-          dbTeacherAssignmentModel: newData,
+          dbTeacherAssignmentModel: singleAssignment,
         });
-
-        console.log(jsonData);
-
-        const { data } = await axios.put(
+        await axios.put(
           `${API_URL}/api/TeacherAssignment/PutTeacherAssignment`,
           jsonData,
-          tokenConfig()
+          tokenConfig
         );
       }
       dispatch({
         type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_SUCCESS,
-        payload: data,
       });
     } catch (error) {
       dispatch({
         type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_FAIL,
         payload:
-          error.message && error.response.data.message
-            ? error.response.data.message
+          error.Message && error.response.data.Message
+            ? error.response.data.Message
             : error.message,
       });
     }

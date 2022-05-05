@@ -64,7 +64,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
     <>
       <ListForTable onClick={handleClick}>
         <p>
-          <span
+          {/* <span
             style={{
               padding: "8px 10px",
               borderRadius: "50%",
@@ -74,8 +74,14 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
             }}
           >
             {item.FullName[0]}
-          </span>
-          <span style={{ paddingLeft: "12px" }}>{item.FullName}</span>{" "}
+          </span> */}
+          <span style={{ paddingLeft: "12px" }}>
+            {item.FullName}<br/>
+              <span style={{ fontSize: "12px", paddingLeft: "12px" }}>
+                {item.AssignmentDate.slice(0, 10)} / {item.DueDate.slice(0, 10)}
+              </span>
+         
+          </span>{" "}
           <span
             style={{ fontSize: "10px", color: "#444", paddingLeft: "10px" }}
           >
@@ -112,7 +118,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
               className={classes.button}
               onClick={() => downloadHandler(item.IDAssignment)}
             >
-            Teacher &nbsp;
+              Teacher &nbsp;
               <CloudDownloadIcon style={{ fontSize: 12 }} />
             </Button>
             {item.DocumentSubmitted !== null && (
@@ -121,7 +127,8 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
                 color="primary"
                 className={classes.button}
                 onClick={() => downloadSubmittedHandler(item.IDAssignment)}
-              >Student &nbsp;
+              >
+                Student &nbsp;
                 <CloudDownloadIcon style={{ fontSize: 12 }} />
               </Button>
             )}
@@ -131,7 +138,8 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
               className={classes.button}
               onClick={() => updateHandler(item.IDAssignment)}
             >
-              <EditIcon style={{ fontSize: 12 }} />&nbsp; Edit
+              <EditIcon style={{ fontSize: 12 }} />
+              &nbsp; Edit
             </Button>
           </p>
         </div>
