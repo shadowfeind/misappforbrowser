@@ -530,7 +530,7 @@ const Assignment = () => {
                 type="submit"
                 className={classes.button}
                 onClick={allHandler}
-              >
+              >All&nbsp;
                 <ZoomInIcon />
               </Button>
               <div style={{ height: "10px" }}></div>
@@ -613,6 +613,10 @@ const Assignment = () => {
               singleAssignment={
                 singleTeacherAssignment &&
                 singleTeacherAssignment.dbTeacherAssignmentModel
+              }
+              assignmentImage={
+                singleTeacherAssignment &&
+                singleTeacherAssignment.FullPath
               }
               setOpenPop3={setOpenPopup3}
             />

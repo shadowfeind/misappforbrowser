@@ -6,6 +6,7 @@ import { useForm, Form } from "../../customHooks/useForm";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import { putSingleToEditTeacherAssignmentAction } from "./AssignmentActions";
 import { makeStyles } from "@material-ui/styles";
+import { API_URL } from "../../constants";
 
 const initialFormValues = {
   IDAssignment: 0,
@@ -52,7 +53,7 @@ const useStyles = makeStyles({
   },
 });
 
-const AssignmentEditForm = ({ singleAssignment, setOpenPop3 }) => {
+const AssignmentEditForm = ({ singleAssignment,assignmentImage, setOpenPop3 }) => {
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
 
@@ -182,11 +183,19 @@ const AssignmentEditForm = ({ singleAssignment, setOpenPop3 }) => {
         <div style={{ height: "5px" }}></div>
         <InputControl
           name="ImageUploaded"
-          label="Select File"
+          // label="Select File"
           onChange={(e) => handleImage(e)}
           type="file"
         />
-        <img src={imgSrc} height={200} width={200} />
+        <img
+              src={
+                imgSrc
+                  ? imgSrc
+                  : assignmentImage && `${API_URL}${assignmentImage}`
+              }
+              height={200}
+              width={200}
+            />
 
         <div
           style={{
