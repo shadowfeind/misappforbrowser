@@ -530,7 +530,7 @@ const Assignment = () => {
                 type="submit"
                 className={classes.button}
                 onClick={allHandler}
-              >
+              >All&nbsp;
                 <ZoomInIcon />
               </Button>
               <div style={{ height: "10px" }}></div>

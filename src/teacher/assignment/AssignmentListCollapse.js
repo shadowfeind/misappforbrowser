@@ -107,11 +107,12 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
           </p>
           <p>
             <Button
-              variant="contained"
-              color="default"
+              variant="outlined"
+              color="primary"
               className={classes.button}
               onClick={() => downloadHandler(item.IDAssignment)}
             >
+            Teacher &nbsp;
               <CloudDownloadIcon style={{ fontSize: 12 }} />
             </Button>
             {item.DocumentSubmitted !== null && (
@@ -120,17 +121,17 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
                 color="primary"
                 className={classes.button}
                 onClick={() => downloadSubmittedHandler(item.IDAssignment)}
-              >
+              >Student &nbsp;
                 <CloudDownloadIcon style={{ fontSize: 12 }} />
               </Button>
             )}
             <Button
-              variant="contained"
+              variant="outlined"
               color="primary"
               className={classes.button}
               onClick={() => updateHandler(item.IDAssignment)}
             >
-              <EditIcon style={{ fontSize: 12 }} />
+              <EditIcon style={{ fontSize: 12 }} />&nbsp; Edit
             </Button>
           </p>
         </div>

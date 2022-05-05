@@ -2,7 +2,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import moment from "moment";
 
-export const API_URL = "https://vidyacube.com";
+export const API_URL = "https://mis.vidyacube.com";
 
 //for fcm token
 export const tokenHeader = {
@@ -24,7 +24,7 @@ export const tokenConfig = () => {
     console.log(isExpired);
     if (isExpired) {
       localStorage.removeItem("blueberryToken");
-      window.location.href = "https://vidyacube.com/";
+      window.location.href = "https://mis.vidyacube.com/";
       return;
     }
 
@@ -36,7 +36,7 @@ export const tokenConfig = () => {
     };
     return tokenReturn;
   } else {
-    window.location.href = "https://vidyacube.com/";
+    window.location.href = "https://mis.vidyacube.com/";
     return {};
   }
 };

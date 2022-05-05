@@ -158,7 +158,7 @@ const TeacherNavigationSideMenu = () => {
       >
         <Typography variant="h6">
           <AssignmentTurnedInIcon fontSize="small" />
-          Assignment
+          Assignment/Homework
         </Typography>
       </NavLink>
       <NavLink
