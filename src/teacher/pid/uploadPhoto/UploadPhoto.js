@@ -7,12 +7,11 @@ import {
   GET_ALL_UPLOADPHOTO_RESET,
   UPLOADPHOTO_RESET,
 } from "./UploadPhotoConstants";
-import {
-  getAllUploadPhotoAction,
-  uploadPhotoActionAction,
-} from "./UploadPhotoActions";
 import { API_URL } from "../../../constants";
 import UploadPhotoForm from "./UploadPhotoForm";
+import { getAllUploadPhotoAction } from "./UploadPhotoActions";
+import { getHeaderContentAction } from "../../dashboard/DashboardActions";
+import { getAllPersonalInformationAction } from "../personalinformation/PersonalInformationActions";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -25,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UploadPhoto = () => {
+const UploadPhoto = ({setEditPhotoPopup}) => {
   const [url, setUrl] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -57,8 +56,11 @@ const UploadPhoto = () => {
       message: "Successfully Uploaded",
       type: "success",
     });
+    setEditPhotoPopup(false);
     dispatch({ type: UPLOADPHOTO_RESET });
     dispatch(getAllUploadPhotoAction());
+    dispatch(getHeaderContentAction());
+    dispatch(getAllPersonalInformationAction());
   }
   if (uploadPhotoError) {
     setNotify({
@@ -70,11 +72,8 @@ const UploadPhoto = () => {
   }
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
-    if (!allUploadPhoto) {
       dispatch(getAllUploadPhotoAction());
-    }
-  }, [dispatch, allUploadPhoto]);
+  }, []);
 
   return (
     <CustomContainer>

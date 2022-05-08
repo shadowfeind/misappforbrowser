@@ -33,6 +33,9 @@ import DraftsIcon from "@material-ui/icons/Drafts";
 import MobileScreenShareIcon from "@material-ui/icons/MobileScreenShare";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
+import CameraEnhanceIcon from "@material-ui/icons/CameraEnhance";
+import UploadPhoto from "../uploadPhoto/UploadPhoto";
+import { getTeacherResetPasswordReducer } from "./PersonalInformationReducers";
 
 const useStyles = makeStyles((theme) => ({
   profileContainer: {
@@ -101,6 +104,8 @@ const useStyles = makeStyles((theme) => ({
 
 const PersonalInformation = () => {
   const [openPopup, setOpenPopup] = useState(false);
+  const [editPhotoPopup, setEditPhotoPopup] = useState(false);
+  const [resetOpenPopup, setResetOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -123,6 +128,15 @@ const PersonalInformation = () => {
     success: updateSinglePersonalInformationSuccess,
     error: updateSinglePersonalInformationError,
   } = useSelector((state) => state.updateSinglePersonalInformation);
+  
+  const { success: uploadPhotoSuccess } = useSelector(
+    (state) => state.uploadPhotoStudent
+  );
+
+  const { getTeacherResetPassword, loading: resetPasswordLoading } =
+    useSelector((state) => state.getTeacherResetPassword);
+
+
   if (error) {
     setNotify({
       isOpen: true,
@@ -159,9 +173,19 @@ const PersonalInformation = () => {
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_RESET });
     setOpenPopup(false);
   }
-  const editHandler = () => {
-    dispatch(getSinglePersonalInformationAction());
-    setOpenPopup(true);
+  // const editHandler = () => {
+  //   dispatch(getSinglePersonalInformationAction());
+  //   setOpenPopup(true);
+  // };
+  
+  const resetPasswordHandler = () => {
+    // dispatch(getTeacherResetPasswordReducer());
+    setResetOpenPopup(true);
+  };
+
+
+  const handleImageChange = () => {
+    setEditPhotoPopup(true);
   };
 
   useEffect(() => {
@@ -174,20 +198,35 @@ const PersonalInformation = () => {
           <LoadingComp />
         ) : (
           <>
-      <div className={classes.profileContainer}>
-        <h3>Profile</h3>
-        {headerContent && (
-          <>
-            <div className={classes.profileImageContainer}>
-              <img
-                src={`${API_URL}${headerContent.FullPath}`}
-                width="80px"
-                height="80px"
-                style={{ borderRadius: "50%", border: "2px solid #fff" }}
-              />
-              <h2>{headerContent.FullName}</h2>
-              <h4>{headerContent.Email}</h4>
-            </div>
+          <div className={classes.profileContainer}>
+            <h3>Profile</h3>
+            {headerContent && (
+              <>
+                <div className={classes.profileImageContainer}>
+                  <div className={classes.imageContainer}>
+                    <img
+                      src={`${API_URL}${headerContent.FullPath}`}
+                      width="80px"
+                      height="80px"
+                      style={{ borderRadius: "50%", border: "2px solid #fff" }}
+                    />
+                    <div onClick={handleImageChange}>
+                      <CameraEnhanceIcon
+                        style={{
+                          width: "20px",
+                          position: "relative",
+                          left: "20px",
+                          bottom: "24px",
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <h2>{headerContent.FullName}</h2>
+                  <h4>{headerContent.Email}</h4>
+                  <h5 onClick={resetPasswordHandler} style={{ margin: "6px" }}>
+                    Change Password
+                  </h5>
+                </div>
             <div className={classes.profileOtherContainer}>
               <div>
                 <h5>Main Class</h5>
@@ -241,6 +280,21 @@ const PersonalInformation = () => {
       </div>
       </>
         )}
+        <Popup
+        openPopup={resetOpenPopup}
+        setOpenPopup={setResetOpenPopup}
+        title="Change Password"
+      >
+        {resetPasswordLoading ? <LoadingComp /> : <>test</>}
+      </Popup>
+      <Popup
+        openPopup={editPhotoPopup}
+        setOpenPopup={setEditPhotoPopup}
+        title="Change Profile Picture"
+      >
+        <UploadPhoto setEditPhotoPopup={setEditPhotoPopup} />
+      </Popup>
+      <Notification notify={notify} setNotify={setNotify} />
     </CustomContainer>
   );
 };

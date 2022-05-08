@@ -6,6 +6,10 @@ import { GET_ALL_PERSONALINFORMATION_FAIL,
     GET_SINGLE_PERSONALINFORMATION_REQUEST,
     GET_SINGLE_PERSONALINFORMATION_RESET,
     GET_SINGLE_PERSONALINFORMATION_SUCCESS,
+    GET_TEACHER_RESET_PASSWORD_FAIL,
+    GET_TEACHER_RESET_PASSWORD_REQUEST,
+    GET_TEACHER_RESET_PASSWORD_RESET,
+    GET_TEACHER_RESET_PASSWORD_SUCCESS,
     UPDATE_SINGLE_PERSONALINFORMATION_FAIL,
     UPDATE_SINGLE_PERSONALINFORMATION_REQUEST,
     UPDATE_SINGLE_PERSONALINFORMATION_RESET,
@@ -50,6 +54,24 @@ export const getAllPersonalInformation = (state = {}, action) => {
       case UPDATE_SINGLE_PERSONALINFORMATION_FAIL:
         return { loading: false, error: action.payload };
       case UPDATE_SINGLE_PERSONALINFORMATION_RESET:
+        return {};
+      default:
+        return state;
+    }
+  };
+
+  export const getTeacherResetPasswordReducer = (state = {}, action) => {
+    switch (action.type) {
+      case GET_TEACHER_RESET_PASSWORD_REQUEST:
+        return { loading: true };
+      case GET_TEACHER_RESET_PASSWORD_SUCCESS:
+        return {
+          loading: false,
+          getTeacherResetPassword: action.payload,
+        };
+      case GET_TEACHER_RESET_PASSWORD_FAIL:
+        return { loading: false, error: action.payload };
+      case GET_TEACHER_RESET_PASSWORD_RESET:
         return {};
       default:
         return state;
