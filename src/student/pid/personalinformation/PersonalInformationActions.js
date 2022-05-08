@@ -10,6 +10,9 @@ import {
   GET_SINGLE_PERSONALINFORMATION_FAIL,
   GET_SINGLE_PERSONALINFORMATION_REQUEST,
   GET_SINGLE_PERSONALINFORMATION_SUCCESS,
+  GET_STUDENT_RESET_PASSWORD_FAIL,
+  GET_STUDENT_RESET_PASSWORD_REQUEST,
+  GET_STUDENT_RESET_PASSWORD_SUCCESS,
   UPDATE_SINGLE_PERSONALINFORMATION_FAIL,
   UPDATE_SINGLE_PERSONALINFORMATION_REQUEST,
   UPDATE_SINGLE_PERSONALINFORMATION_SUCCESS,
@@ -96,6 +99,25 @@ export const updateSinglePersonalInformationAction =
     } catch (error) {
       dispatch({
         type: UPDATE_SINGLE_PERSONALINFORMATION_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+
+
+  export const getStudentResetPasswordAction = () => async (dispatch) => {
+    try {
+      dispatch({ type: GET_STUDENT_RESET_PASSWORD_REQUEST });
+  
+      // const { data } = await axios.get(
+      //   `${API_URL}/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`,
+      //   tokenConfig()
+      // );
+  
+      dispatch({ type: GET_STUDENT_RESET_PASSWORD_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: GET_STUDENT_RESET_PASSWORD_FAIL,
         payload: error.message ? error.message : error.Message,
       });
     }

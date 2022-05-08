@@ -13,6 +13,8 @@ import {
 } from "./UploadPhotoActions";
 import { API_URL } from "../../../constants";
 import UploadPhotoForm from "./UploadPhotoForm";
+import { getHeaderContentAction } from "../../dashboard/DashboardActions";
+import { getAllPersonalInformationAction } from "../personalinformation/PersonalInformationActions";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -25,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UploadPhoto = () => {
+const UploadPhoto = ({setEditStudentPhotoPopup}) => {
   const [url, setUrl] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -37,7 +39,9 @@ const UploadPhoto = () => {
 
   const dispatch = useDispatch();
 
-  const { allUploadPhoto, allUploadPhotoError } = useSelector((state) => state.getAllUploadPhotoStudent);
+  const { allUploadPhoto, allUploadPhotoError } = useSelector(
+    (state) => state.getAllUploadPhotoStudent
+  );
   const { success: uploadPhotoSuccess, error: uploadPhotoError } = useSelector(
     (state) => state.uploadPhotoStudent
   );
@@ -55,8 +59,11 @@ const UploadPhoto = () => {
       message: "Successfully Uploaded",
       type: "success",
     });
+    setEditStudentPhotoPopup(false);
     dispatch({ type: UPLOADPHOTO_STUDENT_RESET });
     dispatch(getAllUploadPhotoStudentAction());
+    dispatch(getHeaderContentAction());
+    dispatch(getAllPersonalInformationAction());
   }
   if (uploadPhotoError) {
     setNotify({
@@ -68,28 +75,18 @@ const UploadPhoto = () => {
   }
 
   useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/" });
-    if (!allUploadPhoto) {
-      dispatch(getAllUploadPhotoStudentAction());
-    }
-  }, [dispatch, allUploadPhoto]);
+    dispatch(getAllUploadPhotoStudentAction());
+  }, []);
 
-//   useEffect(()=>{
-// if (uploadPhotoSuccess){
-//   setUrl(`${API_URL}${uploadPhotoSuccess.FullPath}`);
-// }
-//   },[uploadPhotoSuccess]);
+  //   useEffect(()=>{
+  // if (uploadPhotoSuccess){
+  //   setUrl(`${API_URL}${uploadPhotoSuccess.FullPath}`);
+  // }
+  //   },[uploadPhotoSuccess]);
 
   return (
     <CustomContainer>
-      upload Photo
-      <br />
-      {/* {photo && <img src={`${API_URL}${photo.dbModel.FullPath}`} />} */}
-      <UploadPhotoForm
-        uploadPhoto={
-          allUploadPhoto && allUploadPhoto
-        }
-      />
+      <UploadPhotoForm uploadPhoto={allUploadPhoto && allUploadPhoto} />
       <Notification notify={notify} setNotify={setNotify} />
     </CustomContainer>
   );

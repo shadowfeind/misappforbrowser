@@ -34,6 +34,8 @@ import DraftsIcon from "@material-ui/icons/Drafts";
 import MobileScreenShareIcon from "@material-ui/icons/MobileScreenShare";
 import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
+import CameraEnhanceIcon from "@material-ui/icons/CameraEnhance";
+import UploadPhoto from "../uploadPhoto/UploadPhoto";
 
 const useStyles = makeStyles((theme) => ({
   profileContainer: {
@@ -103,6 +105,8 @@ const useStyles = makeStyles((theme) => ({
 
 const PersonalInformation = () => {
   const [openPopup, setOpenPopup] = useState(false);
+  const [editStudentPhotoPopup, setEditStudentPhotoPopup] = useState(false);
+  const [resetOpenPopup, setResetOpenPopup] = useState(false);
   const [notify, setNotify] = useState({
     isOpen: false,
     message: "",
@@ -113,7 +117,7 @@ const PersonalInformation = () => {
 
   const dispatch = useDispatch();
 
-  const { getAllPersonalInformation,loading, error } = useSelector(
+  const { getAllPersonalInformation, loading, error } = useSelector(
     (state) => state.getAllPersonalInformation
   );
   const { singlePersonalInformation, error: singlePersonalInformationError } =
@@ -122,6 +126,13 @@ const PersonalInformation = () => {
   const { headerContent, error: headerContentError } = useSelector(
     (state) => state.getHeaderContent
   );
+
+  const { success: uploadPhotoSuccess } = useSelector(
+    (state) => state.uploadPhotoStudent
+  );
+
+  const { getStudentResetPassword, loading: resetPasswordLoading } =
+    useSelector((state) => state.getStudentResetPassword);
 
   const {
     success: updateSinglePersonalInformationSuccess,
@@ -169,90 +180,123 @@ const PersonalInformation = () => {
   //   setOpenPopup(true);
   // };
 
+  const resetPasswordHandler = () => {
+    // dispatch(getStudentResetPasswordAction());
+    setResetOpenPopup(true);
+  };
+
+  const handleImageChange = () => {
+    setEditStudentPhotoPopup(true);
+  };
+
   useEffect(() => {
     dispatch(getAllPersonalInformationAction());
   }, []);
-
-  // useEffect(() => {
-  //   if (listPersonalInformation) {
-  //     setTableData([...listPersonalInformation.dbModel]);
-  //   }
-  // }, [listPersonalInformation]);
   return (
     <CustomContainer>
-     {loading ? (
-          <LoadingComp />
-        ) : (
-          <>
-      <div className={classes.profileContainer}>
-        <h3>Profile</h3>
-        {headerContent && (
-          <>
-            <div className={classes.profileImageContainer}>
-              <img
-                src={`${API_URL}${headerContent.FullPath}`}
-                width="80px"
-                height="80px"
-                style={{ borderRadius: "50%", border: "2px solid #fff" }}
-              />
-              <h2>{headerContent.FullName}</h2>
-              <h4>{headerContent.Email}</h4>
-            </div>
-            <div className={classes.profileOtherContainer}>
-              <div>
-                <h5>Class</h5>
-                <p>{headerContent?.ClassName}</p>
-              </div>
-              <div
-                style={{
-                  height: "40px",
-                  width: "1px",
-                  backgroundColor: "#d3d3d3",
-                }}
-              ></div>
-              <div>
-                <h5>Roll No</h5>
-                <p>1</p>
-              </div>
-              <div
-                style={{
-                  height: "40px",
-                  width: "1px",
-                  backgroundColor: "#d3d3d3",
-                }}
-              ></div>
-              <div>
-                <h5>Section</h5>
-                <p>A</p>
-              </div>
-            </div>
-            <div className={classes.profileContainerDetails}>
-              <h4>About</h4>
-              <p>
-                <LocationOnIcon /> <span>Lives at </span>Tinkune, Kathmandu
-              </p>
-              <p>
-                <DraftsIcon /> <span>Email at </span>
-                {headerContent.Email}
-              </p>
-              <p>
-                <MobileScreenShareIcon /> <span>Call at </span>
-                {headerContent.MobileNumber}
-              </p>
-              <p>
-                <PermIdentityIcon /> <span>Main Guardian Name </span>
-                {headerContent.FatherName}
-              </p>
-              <p>
-                <ContactPhoneIcon /> <span>Guardian Contact </span>
-                {headerContent.FatherContactNo}
-              </p>
-            </div>
-          </>
-        )}
-      </div>
-      </>
-        )}
+      {loading ? (
+        <LoadingComp />
+      ) : (
+        <>
+          <div className={classes.profileContainer}>
+            <h3>Profile</h3>
+            {headerContent && (
+              <>
+                <div className={classes.profileImageContainer}>
+                  <div className={classes.imageContainer}>
+                    <img
+                      src={`${API_URL}${headerContent.FullPath}`}
+                      width="80px"
+                      height="80px"
+                      style={{ borderRadius: "50%", border: "2px solid #fff" }}
+                    />
+                    <div onClick={handleImageChange}>
+                      <CameraEnhanceIcon
+                        style={{
+                          width: "20px",
+                          position: "relative",
+                          left: "20px",
+                          bottom: "24px",
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <h2>{headerContent.FullName}</h2>
+                  <h4>{headerContent.Email}</h4>
+                  <h5 onClick={resetPasswordHandler} style={{ margin: "6px" }}>
+                    Change Password
+                  </h5>
+                </div>
+                <div className={classes.profileOtherContainer}>
+                  <div>
+                    <h5>Class</h5>
+                    <p>{headerContent?.ClassName}</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "40px",
+                      width: "1px",
+                      backgroundColor: "#d3d3d3",
+                    }}
+                  ></div>
+                  <div>
+                    <h5>Roll No</h5>
+                    <p>1</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "40px",
+                      width: "1px",
+                      backgroundColor: "#d3d3d3",
+                    }}
+                  ></div>
+                  <div>
+                    <h5>Section</h5>
+                    <p>A</p>
+                  </div>
+                </div>
+                <div className={classes.profileContainerDetails}>
+                  <h4>About</h4>
+                  <p>
+                    <LocationOnIcon /> <span>Lives at </span>Tinkune, Kathmandu
+                  </p>
+                  <p>
+                    <DraftsIcon /> <span>Email at </span>
+                    {headerContent.Email}
+                  </p>
+                  <p>
+                    <MobileScreenShareIcon /> <span>Call at </span>
+                    {headerContent.MobileNumber}
+                  </p>
+                  <p>
+                    <PermIdentityIcon /> <span>Main Guardian Name </span>
+                    {headerContent.FatherName}
+                  </p>
+                  <p>
+                    <ContactPhoneIcon /> <span>Guardian Contact </span>
+                    {headerContent.FatherContactNo}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+        </>
+      )}
+      <Popup
+        openPopup={resetOpenPopup}
+        setOpenPopup={setResetOpenPopup}
+        title="Change Password"
+      >
+        {resetPasswordLoading ? <LoadingComp /> : <>test</>}
+      </Popup>
+      <Popup
+        openPopup={editStudentPhotoPopup}
+        setOpenPopup={setEditStudentPhotoPopup}
+        title="Change Profile Picture"
+      >
+        <UploadPhoto setEditStudentPhotoPopup={setEditStudentPhotoPopup} />
+      </Popup>
+      <Notification notify={notify} setNotify={setNotify} />
     </CustomContainer>
   );
 };
