@@ -82,14 +82,14 @@ export const updateSinglePersonalInformationAction =
     }
   };
 
-export const getTeacherResetPasswordAction = () => async (dispatch) => {
+export const getTeacherResetPasswordAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_TEACHER_RESET_PASSWORD_REQUEST });
 
-    // const { data } = await axios.get(
-    //   `${API_URL}/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`,
-    //   tokenConfig()
-    // );
+    const { data } = await axios.get(
+      `${API_URL}/api/AccountRemote/GetChangePassword/${id}`,
+      tokenConfig()
+    );
 
     dispatch({ type: GET_TEACHER_RESET_PASSWORD_SUCCESS, payload: data });
   } catch (error) {

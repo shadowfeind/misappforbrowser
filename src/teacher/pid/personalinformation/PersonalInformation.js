@@ -18,11 +18,13 @@ import Notification from "../../../components/Notification";
 import {
   getAllPersonalInformationAction,
   getSinglePersonalInformationAction,
+  getTeacherResetPasswordAction,
 } from "./PersonalInformationActions";
 import {
   GET_ALL_PERSONALINFORMATION_RESET,
   GET_ALL_PERSONALINFORMATION_SUCCESS,
   GET_SINGLE_PERSONALINFORMATION_RESET,
+  GET_TEACHER_RESET_PASSWORD_RESET,
   UPDATE_SINGLE_PERSONALINFORMATION_RESET,
 } from "./PersonalInformationConstants";
 import ListPersonalInformation from "../listComponent/ListPersonalInformation";
@@ -36,6 +38,7 @@ import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import CameraEnhanceIcon from "@material-ui/icons/CameraEnhance";
 import UploadPhoto from "../uploadPhoto/UploadPhoto";
 import { getTeacherResetPasswordReducer } from "./PersonalInformationReducers";
+import ResetPasswordForm from "./ResetPasswordForm";
 
 const useStyles = makeStyles((theme) => ({
   profileContainer: {
@@ -133,7 +136,7 @@ const PersonalInformation = () => {
     (state) => state.uploadPhotoStudent
   );
 
-  const { getTeacherResetPassword, loading: resetPasswordLoading } =
+  const { getTeacherResetPassword,error:getTeacherResetPasswordError, loading: resetPasswordLoading } =
     useSelector((state) => state.getTeacherResetPassword);
 
 
@@ -145,6 +148,17 @@ const PersonalInformation = () => {
     });
     dispatch({ type: GET_ALL_PERSONALINFORMATION_RESET });
   }
+
+  if (getTeacherResetPasswordError) {
+    setNotify({
+      isOpen: true,
+      message: getTeacherResetPasswordError,
+      type: "error",
+    });
+    dispatch({ type: GET_TEACHER_RESET_PASSWORD_RESET });
+    setResetOpenPopup(false);
+  }
+
   if (updateSinglePersonalInformationSuccess) {
     setNotify({
       isOpen: true,
@@ -178,19 +192,19 @@ const PersonalInformation = () => {
   //   setOpenPopup(true);
   // };
   
-  const resetPasswordHandler = () => {
-    // dispatch(getTeacherResetPasswordReducer());
-    setResetOpenPopup(true);
-  };
-
+  useEffect(() => {
+    dispatch(getAllPersonalInformationAction());
+  }, []);
 
   const handleImageChange = () => {
     setEditPhotoPopup(true);
   };
 
-  useEffect(() => {
-    dispatch(getAllPersonalInformationAction());
-  }, []);
+  const resetPasswordHandler = (id) => {
+    dispatch(getTeacherResetPasswordAction(id));
+    setResetOpenPopup(true);
+  };
+
 
   return (
     <CustomContainer>
@@ -223,7 +237,7 @@ const PersonalInformation = () => {
                   </div>
                   <h2>{headerContent.FullName}</h2>
                   <h4>{headerContent.Email}</h4>
-                  <h5 onClick={resetPasswordHandler} style={{ margin: "6px" }}>
+                  <h5 onClick={() =>resetPasswordHandler(getAllPersonalInformation.dbModel.IDHREmployee)} style={{ margin: "6px" }}>
                     Change Password
                   </h5>
                 </div>
@@ -285,7 +299,12 @@ const PersonalInformation = () => {
         setOpenPopup={setResetOpenPopup}
         title="Change Password"
       >
-        {resetPasswordLoading ? <LoadingComp /> : <>test</>}
+        {resetPasswordLoading ? <LoadingComp /> : <>
+          <ResetPasswordForm 
+          // userId = {singlePersonalInformation && singlePersonalInformation.dbModel.IDHREmployee}
+          resetPassword={getTeacherResetPassword && getTeacherResetPassword}
+          setResetOpenPopup={setResetOpenPopup} />
+        </>}
       </Popup>
       <Popup
         openPopup={editPhotoPopup}
