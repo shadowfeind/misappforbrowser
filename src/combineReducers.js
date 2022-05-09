@@ -128,6 +128,7 @@ import {
   getAllPersonalInformation,
   getSinglePersonalInformationReducer,
   getTeacherResetPasswordReducer,
+  postTeacherPasswordReducer,
   updateSinglePersonalInformationReducer,
 } from "./teacher/pid/personalinformation/PersonalInformationReducers";
 import {
@@ -234,7 +235,7 @@ import {
   postLeaveRequestReducer,
   putLeaveRequestReducer,
 } from "./teacher/leaveRequest/TeacherLeaveRequestReducers";
-import { getStudentResetPasswordReducer } from "./student/pid/personalinformation/PersonalInformationReducers";
+import { getStudentResetPasswordReducer, postStudentPasswordReducer } from "./student/pid/personalinformation/PersonalInformationReducers";
 
 export const reducers = combineReducers({
   getFCMToken: getFCMTokenReducer,
@@ -246,6 +247,7 @@ export const reducers = combineReducers({
   uploadPhotoStudent: uploadPhotoStudentReducer,
   getAllUploadPhotoStudent: getAllUploadPhotoStudentReducer,
   getStudentResetPassword: getStudentResetPasswordReducer,
+  postStudentPassword : postStudentPasswordReducer,
   //user profile reducers ends
   //attendance start
   getAllStudentAttendance: getAllStudentAttendanceReducer,
@@ -308,6 +310,7 @@ export const reducers = combineReducers({
   //PID PersonalInformation
   getAllPersonalInformation: getAllPersonalInformation,
   getTeacherResetPassword: getTeacherResetPasswordReducer,
+  postTeacherPassword: postTeacherPasswordReducer,
   getSinglePersonalInformation: getSinglePersonalInformationReducer,
   updateSinglePersonalInformation: updateSinglePersonalInformationReducer,
   //PID ContactAddress

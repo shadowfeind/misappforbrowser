@@ -25,6 +25,7 @@ import {
   GET_ALL_PERSONALINFORMATION_SUCCESS,
   GET_SINGLE_PERSONALINFORMATION_RESET,
   GET_TEACHER_RESET_PASSWORD_RESET,
+  POST_TEACHER_PASSWORD_RESET,
   UPDATE_SINGLE_PERSONALINFORMATION_RESET,
 } from "./PersonalInformationConstants";
 import ListPersonalInformation from "../listComponent/ListPersonalInformation";
@@ -131,6 +132,11 @@ const PersonalInformation = () => {
     success: updateSinglePersonalInformationSuccess,
     error: updateSinglePersonalInformationError,
   } = useSelector((state) => state.updateSinglePersonalInformation);
+
+  const {
+    success: postTeacherPasswordSuccess,
+    error: postTeacherPasswordError,
+  } = useSelector((state) => state.postTeacherPassword);
   
   const { success: uploadPhotoSuccess } = useSelector(
     (state) => state.uploadPhotoStudent
@@ -148,6 +154,28 @@ const PersonalInformation = () => {
     });
     dispatch({ type: GET_ALL_PERSONALINFORMATION_RESET });
   }
+
+  if (postTeacherPasswordError) {
+    setNotify({
+      isOpen: true,
+      message: postTeacherPasswordError,
+      type: "error",
+    });
+    dispatch({ type: POST_TEACHER_PASSWORD_RESET });
+    setResetOpenPopup(false);
+  }
+
+  if (postTeacherPasswordSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Changed Password",
+      type: "success",
+    });
+    dispatch(getAllPersonalInformationAction());
+    dispatch({ type: POST_TEACHER_PASSWORD_RESET });
+    setResetOpenPopup(false);
+  }
+
 
   if (getTeacherResetPasswordError) {
     setNotify({
@@ -301,8 +329,10 @@ const PersonalInformation = () => {
       >
         {resetPasswordLoading ? <LoadingComp /> : <>
           <ResetPasswordForm 
-          // userId = {singlePersonalInformation && singlePersonalInformation.dbModel.IDHREmployee}
-          resetPassword={getTeacherResetPassword && getTeacherResetPassword}
+          userId = {getTeacherResetPassword && getTeacherResetPassword.IDUser}
+          // resetPassword={getTeacherResetPassword && getTeacherResetPassword}
+          // confirmPassword={getTeacherResetPassword && getTeacherResetPassword.confirmPassword}
+          // newPassword={getTeacherResetPassword && getTeacherResetPassword.NewPassword}
           setResetOpenPopup={setResetOpenPopup} />
         </>}
       </Popup>

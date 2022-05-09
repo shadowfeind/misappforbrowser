@@ -13,12 +13,15 @@ import {
   GET_STUDENT_RESET_PASSWORD_FAIL,
   GET_STUDENT_RESET_PASSWORD_REQUEST,
   GET_STUDENT_RESET_PASSWORD_SUCCESS,
+  POST_STUDENT_PASSWORD_FAIL,
+  POST_STUDENT_PASSWORD_REQUEST,
+  POST_STUDENT_PASSWORD_SUCCESS,
   UPDATE_SINGLE_PERSONALINFORMATION_FAIL,
   UPDATE_SINGLE_PERSONALINFORMATION_REQUEST,
   UPDATE_SINGLE_PERSONALINFORMATION_SUCCESS,
 } from "./PersonalInformationConstants";
 
-export const getAllPersonalInformationAction = () => async (dispatch) => {
+export const getAllStudentPersonalInformationAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_PERSONALINFORMATION_REQUEST });
 
@@ -105,14 +108,14 @@ export const updateSinglePersonalInformationAction =
   };
 
 
-  export const getStudentResetPasswordAction = () => async (dispatch) => {
+  export const getStudentResetPasswordAction = (id) => async (dispatch) => {
     try {
       dispatch({ type: GET_STUDENT_RESET_PASSWORD_REQUEST });
   
-      // const { data } = await axios.get(
-      //   `${API_URL}/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`,
-      //   tokenConfig()
-      // );
+      const { data } = await axios.get(
+        `${API_URL}/api/AccountRemote/GetChangePassword/${id}`,
+        tokenConfig()
+      );
   
       dispatch({ type: GET_STUDENT_RESET_PASSWORD_SUCCESS, payload: data });
     } catch (error) {
@@ -122,3 +125,37 @@ export const updateSinglePersonalInformationAction =
       });
     }
   };
+
+  export const postStudentPasswordAction = (IDUser,NewPassword,ConfirmPassword) => async (dispatch) => {
+    try {
+      dispatch({ type: POST_STUDENT_PASSWORD_REQUEST });
+  
+      const jsonData = JSON.stringify({ IDUser: IDUser.userId,NewPassword });
+  
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
+      // console.log("NewPassword",NewPassword);
+      // console.log("IDUser",IDUser);
+      console.log(jsonData);
+  
+      const { data } = await axios.post(
+        `${API_URL}/api/AccountRemote/Post`,
+        jsonData,
+        tokenConfig()
+      );
+  
+      dispatch({
+        type: POST_STUDENT_PASSWORD_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: POST_STUDENT_PASSWORD_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
+  

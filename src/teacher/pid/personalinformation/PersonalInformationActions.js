@@ -10,6 +10,9 @@ import {
   GET_TEACHER_RESET_PASSWORD_FAIL,
   GET_TEACHER_RESET_PASSWORD_REQUEST,
   GET_TEACHER_RESET_PASSWORD_SUCCESS,
+  POST_TEACHER_PASSWORD_FAIL,
+  POST_TEACHER_PASSWORD_REQUEST,
+  POST_TEACHER_PASSWORD_SUCCESS,
   UPDATE_SINGLE_PERSONALINFORMATION_FAIL,
   UPDATE_SINGLE_PERSONALINFORMATION_REQUEST,
   UPDATE_SINGLE_PERSONALINFORMATION_SUCCESS,
@@ -95,6 +98,39 @@ export const getTeacherResetPasswordAction = (id) => async (dispatch) => {
   } catch (error) {
     dispatch({
       type: GET_TEACHER_RESET_PASSWORD_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const postTeacherPasswordAction = (IDUser,NewPassword,ConfirmPassword) => async (dispatch) => {
+  try {
+    dispatch({ type: POST_TEACHER_PASSWORD_REQUEST });
+
+    const jsonData = JSON.stringify({ IDUser: IDUser.userId,NewPassword });
+
+    // const config = {
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // };
+    // console.log("NewPassword",NewPassword);
+    // console.log("IDUser",IDUser);
+    console.log(jsonData);
+
+    const { data } = await axios.post(
+      `${API_URL}/api/AccountRemote/Post`,
+      jsonData,
+      tokenConfig()
+    );
+
+    dispatch({
+      type: POST_TEACHER_PASSWORD_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: POST_TEACHER_PASSWORD_FAIL,
       payload: error.message ? error.message : error.Message,
     });
   }
