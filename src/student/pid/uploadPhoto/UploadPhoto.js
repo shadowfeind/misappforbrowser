@@ -14,7 +14,7 @@ import {
 import { API_URL } from "../../../constants";
 import UploadPhotoForm from "./UploadPhotoForm";
 import { getHeaderContentAction } from "../../dashboard/DashboardActions";
-import { getAllPersonalInformationAction } from "../personalinformation/PersonalInformationActions";
+import { getAllStudentPersonalInformationAction } from "../personalinformation/PersonalInformationActions";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -63,7 +63,7 @@ const UploadPhoto = ({setEditStudentPhotoPopup}) => {
     dispatch({ type: UPLOADPHOTO_STUDENT_RESET });
     dispatch(getAllUploadPhotoStudentAction());
     dispatch(getHeaderContentAction());
-    dispatch(getAllPersonalInformationAction());
+    dispatch(getAllStudentPersonalInformationAction());
   }
   if (uploadPhotoError) {
     setNotify({

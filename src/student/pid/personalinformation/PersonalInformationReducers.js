@@ -15,6 +15,10 @@ import {
   GET_STUDENT_RESET_PASSWORD_REQUEST,
   GET_STUDENT_RESET_PASSWORD_RESET,
   GET_STUDENT_RESET_PASSWORD_SUCCESS,
+  POST_STUDENT_PASSWORD_FAIL,
+  POST_STUDENT_PASSWORD_REQUEST,
+  POST_STUDENT_PASSWORD_RESET,
+  POST_STUDENT_PASSWORD_SUCCESS,
   UPDATE_SINGLE_PERSONALINFORMATION_FAIL,
   UPDATE_SINGLE_PERSONALINFORMATION_REQUEST,
   UPDATE_SINGLE_PERSONALINFORMATION_RESET,
@@ -103,3 +107,17 @@ export const getStudentResetPasswordReducer = (state = {}, action) => {
   }
 };
 
+export const postStudentPasswordReducer = (state = {}, action) => {
+  switch (action.type) {
+    case POST_STUDENT_PASSWORD_REQUEST:
+      return { loading: true };
+    case POST_STUDENT_PASSWORD_SUCCESS:
+      return { loading: false, success: true };
+    case POST_STUDENT_PASSWORD_FAIL:
+      return { loading: false, error: action.payload };
+    case POST_STUDENT_PASSWORD_RESET:
+      return {};
+    default:
+      return state;
+  }
+};

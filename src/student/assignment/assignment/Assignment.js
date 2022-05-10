@@ -298,7 +298,15 @@ const Assignment = () => {
       <CustomContainer>
         <MobileTopSelectContainer>
           <h3 style={{ textAlign: "center", marginTop: "0" }}>Assignments</h3>
-          <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              textAlign: "center",
+              overflowX: "auto",
+              overflowYy: "hidden",
+              whiteSpace: "nowrap",
+              paddingBottom: "10px",
+            }}
+          >
             {ddlFacultySubject?.map((subject) => (
               <Chip
                 key={subject.Key}

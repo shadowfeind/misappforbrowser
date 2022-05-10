@@ -8,6 +8,7 @@ import {
   TableBody,
   Toolbar,
   Grid,
+  Chip,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import useCustomTable from "../../../customHooks/useCustomTable";
@@ -240,7 +241,15 @@ const NewResourcesStudent = () => {
       <CustomContainer>
         <MobileTopSelectContainer>
           <h3 style={{ textAlign: "center", marginTop: "0" }}>E Materials</h3>
-          <div style={{ textAlign: "center" }}>
+          <div
+            style={{
+              textAlign: "center",
+              overflowX: "auto",
+              overflowYy: "hidden",
+              whiteSpace: "nowrap",
+              paddingBottom: "10px",
+            }}
+          >
             {ddlFacultySubject?.map((subject) => (
               <Chip
                 key={subject.Key}

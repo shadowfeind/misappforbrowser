@@ -17,13 +17,17 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import {
   getAllPersonalInformationAction,
+  getAllStudentPersonalInformationAction,
   getSinglePersonalInformationAction,
+  getStudentResetPasswordAction,
 } from "./PersonalInformationActions";
 import {
   GET_ALL_PERSONALINFORMATION_RESET,
   GET_ALL_PERSONALINFORMATION_SUCCESS,
   GET_LIST_PERSONALINFORMATION_RESET,
   GET_SINGLE_PERSONALINFORMATION_RESET,
+  GET_STUDENT_RESET_PASSWORD_RESET,
+  POST_STUDENT_PASSWORD_RESET,
   UPDATE_SINGLE_PERSONALINFORMATION_RESET,
 } from "./PersonalInformationConstants";
 import ListPersonalInformation from "../listComponent/ListPersonalInformation";
@@ -36,6 +40,7 @@ import PermIdentityIcon from "@material-ui/icons/PermIdentity";
 import ContactPhoneIcon from "@material-ui/icons/ContactPhone";
 import CameraEnhanceIcon from "@material-ui/icons/CameraEnhance";
 import UploadPhoto from "../uploadPhoto/UploadPhoto";
+import ResetPasswordForm from "./ResetPasswordForm";
 
 const useStyles = makeStyles((theme) => ({
   profileContainer: {
@@ -131,8 +136,13 @@ const PersonalInformation = () => {
     (state) => state.uploadPhotoStudent
   );
 
-  const { getStudentResetPassword, loading: resetPasswordLoading } =
+  const { getStudentResetPassword,error:getStudentResetPasswordError, loading: resetPasswordLoading } =
     useSelector((state) => state.getStudentResetPassword);
+
+  const {
+    success: postStudentPasswordSuccess,
+    error: postStudentPasswordError,
+  } = useSelector((state) => state.postStudentPassword);
 
   const {
     success: updateSinglePersonalInformationSuccess,
@@ -146,6 +156,38 @@ const PersonalInformation = () => {
     });
     dispatch({ type: GET_ALL_PERSONALINFORMATION_RESET });
   }
+
+  if (getStudentResetPasswordError) {
+    setNotify({
+      isOpen: true,
+      message: getStudentResetPasswordError,
+      type: "error",
+    });
+    dispatch({ type: GET_STUDENT_RESET_PASSWORD_RESET });
+    setResetOpenPopup(false);
+  }
+
+  if (postStudentPasswordError) {
+    setNotify({
+      isOpen: true,
+      message: postStudentPasswordError,
+      type: "error",
+    });
+    dispatch({ type: POST_STUDENT_PASSWORD_RESET });
+    setResetOpenPopup(false);
+  }
+
+  if (postStudentPasswordSuccess) {
+    setNotify({
+      isOpen: true,
+      message: "Successfully Changed Password",
+      type: "success",
+    });
+    dispatch(getAllStudentPersonalInformationAction());
+    dispatch({ type: POST_STUDENT_PASSWORD_RESET });
+    setResetOpenPopup(false);
+  }
+
   if (updateSinglePersonalInformationSuccess) {
     setNotify({
       isOpen: true,
@@ -180,8 +222,8 @@ const PersonalInformation = () => {
   //   setOpenPopup(true);
   // };
 
-  const resetPasswordHandler = () => {
-    // dispatch(getStudentResetPasswordAction());
+  const resetPasswordHandler = (id) => {
+    dispatch(getStudentResetPasswordAction(id));
     setResetOpenPopup(true);
   };
 
@@ -190,7 +232,7 @@ const PersonalInformation = () => {
   };
 
   useEffect(() => {
-    dispatch(getAllPersonalInformationAction());
+    dispatch(getAllStudentPersonalInformationAction());
   }, []);
   return (
     <CustomContainer>
@@ -223,7 +265,7 @@ const PersonalInformation = () => {
                   </div>
                   <h2>{headerContent.FullName}</h2>
                   <h4>{headerContent.Email}</h4>
-                  <h5 onClick={resetPasswordHandler} style={{ margin: "6px" }}>
+                  <h5 onClick={() =>resetPasswordHandler(getAllPersonalInformation.dbModel.IDHREmployee)} style={{ margin: "6px" }}>
                     Change Password
                   </h5>
                 </div>
@@ -287,7 +329,16 @@ const PersonalInformation = () => {
         setOpenPopup={setResetOpenPopup}
         title="Change Password"
       >
-        {resetPasswordLoading ? <LoadingComp /> : <>test</>}
+        {resetPasswordLoading ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <ResetPasswordForm
+              userId={getStudentResetPassword && getStudentResetPassword.IDUser}
+              setResetOpenPopup={setResetOpenPopup}
+            />
+          </>
+        )}
       </Popup>
       <Popup
         openPopup={editStudentPhotoPopup}

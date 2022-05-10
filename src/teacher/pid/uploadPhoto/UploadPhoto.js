@@ -77,7 +77,7 @@ const UploadPhoto = ({setEditPhotoPopup}) => {
 
   return (
     <CustomContainer>
-      upload Photo
+      Upload Photo
       <br />
       <UploadPhotoForm uploadPhoto={allUploadPhoto && allUploadPhoto} />
       <Notification notify={notify} setNotify={setNotify} />
