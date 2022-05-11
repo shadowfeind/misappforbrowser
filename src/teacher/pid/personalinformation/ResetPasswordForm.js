@@ -18,12 +18,13 @@ const ResetPasswordForm = (userId,setResetOpenPopup) => {
   const [confirmPassword,setConfirmPassword]=useState("")
   const [errors,setErrors]=useState({});
   const dispatch = useDispatch();
+  
   const validate = () => {
     let temp = { ...errors };
 
     temp.newPassword = !newPassword
       ? "This feild is required"
-      : newPassword && newPassword?.length <= 5
+      : newPassword?.length <= 5
       ? "Must be More than 5 Characters."
       : "";
 
@@ -62,16 +63,13 @@ const ResetPasswordForm = (userId,setResetOpenPopup) => {
           <InputControl
             name="NewPassword"
             label="New Password*"
-            onKeyDown={(e) =>
-              newPassword?.length > 160 && e.preventDefault()
-            }
             onFocus={(e) => {
               e.target.select();
             }}
             value={newPassword}
             type="Password"
             onChange={(e)=> setNewPassword(e.target.value)}
-            errors={errors.NewPassword}
+            errors={errors.newPassword}
           />
         </Grid>
         <Grid item xs={12}>
@@ -82,14 +80,9 @@ const ResetPasswordForm = (userId,setResetOpenPopup) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onKeyDown={(e) =>
-              confirmPassword?.length > 159 &&
-              e.key !== "Backspace" &&
-              e.preventDefault()
-            }
             onChange={(e)=> setConfirmPassword(e.target.value)}
             type="Password"
-            errors={errors.ConfirmPassword}
+            errors={errors.confirmPassword}
           />
         </Grid>
       </Grid>
