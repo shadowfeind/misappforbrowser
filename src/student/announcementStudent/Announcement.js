@@ -5,6 +5,7 @@ import {
   makeStyles,
   TableBody,
   Toolbar,
+  Grid,
 } from "@material-ui/core";
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
@@ -32,6 +33,7 @@ import {
   GET_ALL_ANNOUNCEMENT_STUDENT_RESET,
   GET_LIST_ANNOUNCEMENT_STUDENT_RESET,
 } from "./AnnouncementConstants";
+import AnnouncementListCollapse from "./AnnouncementListCollapse";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -177,6 +179,7 @@ const Announcement = () => {
             }}
             onChange={handleSearch}
           /> */}
+          <Grid item xs={12}>
           <div style={{ marginLeft: "12px" }}>
           <div style={{ height: "15px" }}></div>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -195,6 +198,7 @@ const Announcement = () => {
               />
             </MuiPickersUtilsProvider>
           </div>
+          </Grid>
           <div style={{ height: "15px" }}></div>
           <Button
             variant="contained"
@@ -211,16 +215,29 @@ const Announcement = () => {
           <LoadingComp />
         ) : (
           <>
-            <TableContainer className={classes.table}>
+            {/* <TableContainer className={classes.table}>
               <TblHead />
 
               <TableBody>
                 {tableDataAfterPagingAndSorting().map((item) => (
-                  <AnnouncementTableCollapse item={item} key={item.$id} />
+                  <AnnouncementListCollapse item={item} key={item.$id} />
                 ))}
               </TableBody>
             </TableContainer>
-            <TblPagination />
+            <TblPagination /> */}
+            {announcementList?.dbModelLst.map((item) => (
+                <AnnouncementListCollapse
+                  item={item}
+                  key={item.$id}
+                  // facultySubject={facultySubject && facultySubject}
+                  // setOpenPopup={setOpenPopup}
+                />
+              ))}
+              {announcementList?.dbModelLst.length < 1 && (
+                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                  No Announcement
+                </h4>
+              )}
           </>
         )}
       </CustomContainer>

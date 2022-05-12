@@ -24,6 +24,7 @@ import {
 import { ANNOUNCEMENT_TEACHER_FCM_RESET, GET_ALL_ANNOUNCEMENT_TEACHER_RESET, GET_LIST_ANNOUNCEMENT_TEACHER_RESET } from "./AnnouncementConstants";
 import { getAllTeacherAnnouncementAction, getListTeacherAnnouncementAction } from "./AnnouncementActions";
 import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
+import AnnouncementTeacherListCollapse from "./AnnouncementListCollapse";
 
   const useStyles = makeStyles((theme) => ({
     searchInput: {
@@ -194,7 +195,7 @@ import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
             onClick={listSearchHandler}
             style={{ marginLeft: "12px" }}
           >
-            Search By Date
+            Search
           </Button>
 
             </Toolbar>
@@ -204,7 +205,7 @@ import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
           <LoadingComp />
         ) : (
           <>
-        <TableContainer className={classes.table}>
+        {/* <TableContainer className={classes.table}>
           <TblHead />
 
           <TableBody>
@@ -216,7 +217,20 @@ import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
             ))}
           </TableBody>
         </TableContainer>
-        <TblPagination />
+        <TblPagination /> */}
+        {announcementList?.dbModelLst.map((item) => (
+                <AnnouncementTeacherListCollapse
+                  item={item}
+                  key={item.$id}
+                  // facultySubject={facultySubject && facultySubject}
+                  // setOpenPopup={setOpenPopup}
+                />
+              ))}
+              {announcementList?.dbModelLst.length < 1 && (
+                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                  No Announcement
+                </h4>
+              )}
         </>
         )}
       </CustomContainer>
