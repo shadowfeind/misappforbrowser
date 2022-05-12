@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     },
   }));
 
-  const AnnouncementTeacherListCollapse = ({ item, facultySubject, setOpenPopup }) => {
+  const AnnouncementTeacherListCollapse = ({ item }) => {
     const [open, setOpen] = useState(false);
     const history = useHistory();
     const dispatch = useDispatch();
