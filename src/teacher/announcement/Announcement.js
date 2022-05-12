@@ -157,7 +157,7 @@ import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
     <>
     <CustomContainer>
         <Toolbar>
-        <InputControl
+        {/* <InputControl
             className={classes.searchInput}
             label="Search Announcement"
             InputProps={{
@@ -168,8 +168,9 @@ import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
               ),
             }}
             onChange={handleSearch}
-          />
+          /> */}
           <div style={{ marginLeft: "12px" }}>
+          <div style={{ height: "15px" }}></div>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -186,7 +187,7 @@ import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
               />
             </MuiPickersUtilsProvider>
           </div>
-
+          <div style={{ height: "15px" }}></div>
           <Button
             variant="contained"
             color="primary"
@@ -197,6 +198,7 @@ import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
           </Button>
 
             </Toolbar>
+            <div style={{ height: "15px" }}></div>
         {announcementListLoading && <LoadingComp />}
         {loading ? (
           <LoadingComp />

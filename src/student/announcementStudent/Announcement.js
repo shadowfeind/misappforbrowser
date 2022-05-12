@@ -47,9 +47,7 @@ const useStyles = makeStyles((theme) => ({
 const tableHeader = [
   { id: "NewsHeading", label: "News Heading" },
   { id: "NewsDescription", label: "News Description" },
-  { id: "Created_On", label: "Created On" },
-  { id: "Updated_On", label: "Updated On" },
-  { id: "IsActive", label: "IsActive" },
+  { id: "Created_On", label: "Posted Date" },
 ];
 
 const Announcement = () => {
@@ -167,7 +165,7 @@ const Announcement = () => {
     <>
       <CustomContainer>
         <Toolbar>
-          <InputControl
+          {/* <InputControl
             className={classes.searchInput}
             label="Search Announcement"
             InputProps={{
@@ -178,8 +176,9 @@ const Announcement = () => {
               ),
             }}
             onChange={handleSearch}
-          />
+          /> */}
           <div style={{ marginLeft: "12px" }}>
+          <div style={{ height: "15px" }}></div>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
               <KeyboardDatePicker
                 disableToolbar
@@ -196,16 +195,17 @@ const Announcement = () => {
               />
             </MuiPickersUtilsProvider>
           </div>
-
+          <div style={{ height: "15px" }}></div>
           <Button
             variant="contained"
             color="primary"
             onClick={listSearchHandler}
             style={{ marginLeft: "12px" }}
           >
-            Search By Date
+            Search
           </Button>
         </Toolbar>
+        <div style={{ height: "15px" }}></div>
         {announcementListLoading && <LoadingComp />}
         {loading ? (
           <LoadingComp />

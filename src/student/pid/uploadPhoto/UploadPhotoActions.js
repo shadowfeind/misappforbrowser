@@ -1,4 +1,4 @@
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 
 import {
   GET_ALL_UPLOADPHOTO_STUDENT_FAIL,
