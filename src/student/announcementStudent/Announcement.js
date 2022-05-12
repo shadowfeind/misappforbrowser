@@ -12,6 +12,7 @@ import InputControl from "../../components/controls/InputControl";
 import { Search } from "@material-ui/icons";
 import AddIcon from "@material-ui/icons/Add";
 import Popup from "../../components/Popup";
+import SearchIcon from "@material-ui/icons/Search";
 import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
@@ -198,15 +199,16 @@ const Announcement = () => {
               />
             </MuiPickersUtilsProvider>
           </div>
-          </Grid>
           <div style={{ height: "15px" }}></div>
+          </Grid>
+          
           <Button
             variant="contained"
             color="primary"
             onClick={listSearchHandler}
             style={{ marginLeft: "12px" }}
           >
-            Search
+            <SearchIcon />
           </Button>
         </Toolbar>
         <div style={{ height: "15px" }}></div>

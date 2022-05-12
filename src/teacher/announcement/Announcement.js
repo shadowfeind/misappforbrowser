@@ -5,6 +5,7 @@ import {
   makeStyles,
   TableBody,
   Toolbar,
+  Grid,
 } from "@material-ui/core";
 import useCustomTable from "../../customHooks/useCustomTable";
 import InputControl from "../../components/controls/InputControl";
@@ -15,6 +16,7 @@ import LoadingComp from "../../components/LoadingComp";
 import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
+import SearchIcon from "@material-ui/icons/Search";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import {
     KeyboardDatePicker,
@@ -170,6 +172,7 @@ import AnnouncementTeacherListCollapse from "./AnnouncementListCollapse";
             }}
             onChange={handleSearch}
           /> */}
+          <Grid item xs={12}>
           <div style={{ marginLeft: "12px" }}>
           <div style={{ height: "15px" }}></div>
             <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -189,13 +192,15 @@ import AnnouncementTeacherListCollapse from "./AnnouncementListCollapse";
             </MuiPickersUtilsProvider>
           </div>
           <div style={{ height: "15px" }}></div>
+         </Grid>
+        
           <Button
             variant="contained"
             color="primary"
             onClick={listSearchHandler}
             style={{ marginLeft: "12px" }}
           >
-            Search
+           <SearchIcon />
           </Button>
 
             </Toolbar>
