@@ -46,12 +46,23 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
   };
 
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>
           ({item.FirsName}) {item.LeaveDecription?.slice(0, 15)}...
         </p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>
@@ -90,7 +101,8 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
           </p>
         </div>
       </Collapse>
-    </>
+    </div>
+    </div>
   );
 };
 

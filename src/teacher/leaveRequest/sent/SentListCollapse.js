@@ -53,10 +53,21 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
   };
 
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>{item.LeaveDecription?.slice(0, 25)}...</p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>
@@ -103,7 +114,8 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
           </p>
         </div>
       </Collapse>
-    </>
+    </div>
+    </div>
   );
 };
 

@@ -63,7 +63,13 @@ const StudentLeaveRequestListCollapse = ({
     <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>{item.LeaveDecription?.slice(0, 25)}...</p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>

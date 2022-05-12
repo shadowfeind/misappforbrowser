@@ -48,7 +48,13 @@ const AcademicGradingListCollapse = ({ item }) => {
           </span>
           <span style={{ paddingLeft: "12px" }}>{item.LetterGrade}</span>{" "}
         </p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>

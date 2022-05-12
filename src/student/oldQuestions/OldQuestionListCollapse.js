@@ -7,6 +7,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import ListForTable from "../../components/ListForTable";
 
+
 const useStyles = makeStyles((theme) => ({
   collapse: {
     padding: "16px",
@@ -30,7 +31,12 @@ const OldQuestionListCollapse = ({ item }) => {
     setOpen(!open);
   };
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>
           <span
@@ -46,7 +52,13 @@ const OldQuestionListCollapse = ({ item }) => {
           </span>
           <span style={{ paddingLeft: "12px" }}>{item.OldQuestionName}</span>{" "}
         </p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>
@@ -65,16 +77,17 @@ const OldQuestionListCollapse = ({ item }) => {
           <p>
             <Button
               variant="contained"
-              color="default"
+              color="primary"
               className={classes.button}
               //   onClick={() => downloadHandler(item.IDAssignment)}
-            >
+            >Download &nbsp;
               <CloudDownloadIcon style={{ fontSize: 12 }} />
             </Button>
           </p>
         </div>
       </Collapse>
-    </>
+    </div>
+    </div>
   );
 };
 

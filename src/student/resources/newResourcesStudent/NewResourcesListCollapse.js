@@ -50,7 +50,6 @@ const NewResourcesListCollapse = ({ item }) => {
           <div className={classes.listWrapper}>
             <div style={{ fontSize: "12px", color: "#666" }}>
               {item.Created_On.slice(0, 10)} <br />{" "}
-              {item.Updated_On.slice(0, 10)}
             </div>
             <div style={{ paddingLeft: "18px", fontSize: "14px" }}>
               {item.CourseName}
@@ -76,10 +75,10 @@ const NewResourcesListCollapse = ({ item }) => {
               <span>CourseDescription</span> : {item.CourseDescription}
             </p>
             <p>
-              <span>PostedBy</span> : {item.PostedBy}
+              <span>Upload Date</span> : {item.Created_On?.slice(0, 10)}
             </p>
             <p>
-              <span>EffectiveForm</span> :{item.EffectiveForm?.slice(0, 10)}
+              <span>Posted By</span> :{item.FirstName} {item.MiddleName} {item.LastName}
             </p>
             <p>
               <span>IsActive</span> : {item.isActive ? "Active" : "InActive"}
@@ -87,7 +86,7 @@ const NewResourcesListCollapse = ({ item }) => {
             <p>
               <Button
                 variant="contained"
-                color="default"
+                color="primary"
                 className={classes.button}
                 //   onClick={() => downloadHandler(item.IDAssignment)}
               >

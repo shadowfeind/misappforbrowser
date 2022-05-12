@@ -97,7 +97,13 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
             )}
           </span>
         </p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>
@@ -118,7 +124,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
           </p>
           <p>
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               className={classes.button}
               onClick={() => downloadHandler(item.IDAssignment)}
