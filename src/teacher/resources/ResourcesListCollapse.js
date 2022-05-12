@@ -36,10 +36,15 @@ const ResourcesListCollapse = ({ item }) => {
     dispatch(downloadResourceAction(id));
   };
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>
-          <span
+          {/* <span
             style={{
               padding: "8px 10px",
               borderRadius: "50%",
@@ -49,7 +54,7 @@ const ResourcesListCollapse = ({ item }) => {
             }}
           >
             {item.CourseName[0]}
-          </span>
+          </span> */}
           <span style={{ paddingLeft: "12px" }}>{item.CourseName}</span>{" "}
         </p>
         <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
@@ -95,7 +100,8 @@ const ResourcesListCollapse = ({ item }) => {
           </p>
         </div>
       </Collapse>
-    </>
+   </div>
+   </div>
   );
 };
 

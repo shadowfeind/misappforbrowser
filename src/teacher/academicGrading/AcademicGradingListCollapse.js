@@ -27,7 +27,12 @@ const AcademicGradingListCollapse = ({ item }) => {
     setOpen(!open);
   };
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>
           <span
@@ -58,7 +63,8 @@ const AcademicGradingListCollapse = ({ item }) => {
           </p>
         </div>
       </Collapse>
-    </>
+    </div>
+    </div>
   );
 };
 
