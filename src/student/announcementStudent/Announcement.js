@@ -139,26 +139,26 @@ const Announcement = () => {
     }
   }, [announcementList]);
 
-  const {
-    TableContainer,
-    TblHead,
-    TblPagination,
-    tableDataAfterPagingAndSorting,
-  } = useCustomTable(tableData, tableHeader, filterFn);
+  // const {
+  //   TableContainer,
+  //   TblHead,
+  //   TblPagination,
+  //   tableDataAfterPagingAndSorting,
+  // } = useCustomTable(tableData, tableHeader, filterFn);
 
-  const handleSearch = (e) => {
-    setFilterFn({
-      fn: (item) => {
-        if (e.target.value === "") {
-          return item;
-        } else {
-          return item.filter((x) =>
-            x.NewsHeading.toLowerCase().includes(e.target.value)
-          );
-        }
-      },
-    });
-  };
+  // const handleSearch = (e) => {
+  //   setFilterFn({
+  //     fn: (item) => {
+  //       if (e.target.value === "") {
+  //         return item;
+  //       } else {
+  //         return item.filter((x) =>
+  //           x.NewsHeading.toLowerCase().includes(e.target.value)
+  //         );
+  //       }
+  //     },
+  //   });
+  // };
 
   const listSearchHandler = () => {
     dispatch(getListStudentAnnouncementAction(date));
