@@ -55,7 +55,12 @@ const StudentLeaveRequestListCollapse = ({
   };
 
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>{item.LeaveDecription?.slice(0, 25)}...</p>
         <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
@@ -105,7 +110,8 @@ const StudentLeaveRequestListCollapse = ({
           </p>
         </div>
       </Collapse>
-    </>
+    </div>
+    </div>
   );
 };
 

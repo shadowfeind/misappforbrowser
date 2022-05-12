@@ -35,6 +35,7 @@ import {
   GET_LIST_ANNOUNCEMENT_STUDENT_RESET,
 } from "./AnnouncementConstants";
 import AnnouncementListCollapse from "./AnnouncementListCollapse";
+import MobileBody from "../../components/MobileBody";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -217,6 +218,7 @@ const Announcement = () => {
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
             {/* <TableContainer className={classes.table}>
               <TblHead />
 
@@ -240,6 +242,7 @@ const Announcement = () => {
                   No Announcement
                 </h4>
               )}
+              </MobileBody>
           </>
         )}
       </CustomContainer>

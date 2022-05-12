@@ -31,6 +31,7 @@ import {
 import NewResourcesStudentTableCollapse from "./NewResourcesStudentTableCollapse";
 import MobileTopSelectContainer from "../../../components/MobileTopSelectContainer";
 import NewResourcesListCollapse from "./NewResourcesListCollapse";
+import MobileBody from "../../../components/MobileBody";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -277,6 +278,7 @@ const NewResourcesStudent = () => {
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
             {newResourcesStudentList?.courseDeliveyPlanStudentLst.map(
               (item) => (
                 <NewResourcesListCollapse item={item} key={item.$id} />
@@ -288,6 +290,7 @@ const NewResourcesStudent = () => {
                 No Data
               </h4>
             )}
+            </MobileBody>
           </>
         )}
       </CustomContainer>

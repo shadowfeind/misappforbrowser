@@ -177,7 +177,7 @@ const TeacherLeaveRequestSent = () => {
           className={classes.button}
           onClick={createHandler}
         >
-          <AddBoxIcon style={{ fontSize: 12 }} />
+          <AddBoxIcon style={{ fontSize: 14 }} />
         </Button>
       </h4>
       {listLeaveRequest &&

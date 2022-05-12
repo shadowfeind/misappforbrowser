@@ -27,6 +27,7 @@ import { ANNOUNCEMENT_TEACHER_FCM_RESET, GET_ALL_ANNOUNCEMENT_TEACHER_RESET, GET
 import { getAllTeacherAnnouncementAction, getListTeacherAnnouncementAction } from "./AnnouncementActions";
 import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
 import AnnouncementTeacherListCollapse from "./AnnouncementListCollapse";
+import MobileBody from "../../components/MobileBody";
 
   const useStyles = makeStyles((theme) => ({
     searchInput: {
@@ -210,6 +211,7 @@ import AnnouncementTeacherListCollapse from "./AnnouncementListCollapse";
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
         {/* <TableContainer className={classes.table}>
           <TblHead />
 
@@ -236,6 +238,7 @@ import AnnouncementTeacherListCollapse from "./AnnouncementListCollapse";
                   No Announcement
                 </h4>
               )}
+              </MobileBody>
         </>
         )}
       </CustomContainer>

@@ -22,6 +22,7 @@ import {
 } from "./StudentLeaveRequestConstants";
 import StudentLeaveRequestForm from "./StudentLeaveRequestForm";
 import StudentLeaveRequestDelete from "./StudentLeaveRequestDelete";
+import MobileBody from "../../components/MobileBody";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -191,11 +192,12 @@ const StudentLeaveRequest = () => {
               className={classes.button}
               onClick={createHandler}
             >
-              <AddBoxIcon style={{ fontSize: 12 }} />
+              <AddBoxIcon style={{ fontSize: 14 }} />
             </Button>
           </div>
           {listLeaveRequestLoading && <LoadingComp />}
         </MobileTopSelectContainer>
+        <MobileBody>
         {listLeaveRequest &&
           listLeaveRequest.dbModelLst.map((item) => (
             <StudentLeaveRequestListCollapse
@@ -205,6 +207,7 @@ const StudentLeaveRequest = () => {
               setOpenPopupDelete={setOpenPopupDelete}
             />
           ))}
+          </MobileBody>
       </CustomContainer>
       <Popup
         openPopup={openPopup}

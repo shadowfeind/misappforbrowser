@@ -62,7 +62,13 @@ const AssignmentListCollapse = ({ item, facultySubject, setOpenPopup }) => {
   };
 
   return (
-    <>
+   
+    <div
+          style={{
+            padding: "6px 6px 0 6px",
+          }}
+        >
+          <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>
           {/* <span
@@ -150,7 +156,8 @@ const AssignmentListCollapse = ({ item, facultySubject, setOpenPopup }) => {
           </p>
         </div>
       </Collapse>
-    </>
+      </div>
+      </div>
   );
 };
 
