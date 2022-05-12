@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   DOWNLOAD_ASSIGNMENT_FAIL,
   DOWNLOAD_ASSIGNMENT_REQUEST,
@@ -40,9 +39,8 @@ export const getAllAssignmentTeacherAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ASSIGNMENT_TEACHER_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/TeacherAssignment/GetAllTeacherAssignment`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/TeacherAssignment/GetAllTeacherAssignment`
     );
 
     dispatch({
@@ -62,30 +60,25 @@ export const getAllOtherOptionsForSelectAction =
     try {
       dispatch({ type: GET_ALL_OTHER_OPTIONS_FOR_SELECT_REQUEST });
 
-      const year = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const year = await axiosInstance.get(
+        `/api/TeacherAssignment/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
       );
 
-      const program = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const program = await axiosInstance.get(
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
       );
 
-      const classId = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}
-        `,
-        tokenConfig()
+      const classId = await axiosInstance.get(
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}
+        `
       );
 
-      const section = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const section = await axiosInstance.get(
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
       );
 
-      const shift = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const shift = await axiosInstance.get(
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
       );
 
       const data = {
@@ -114,10 +107,9 @@ export const getListAssignmentTeacherAction =
     try {
       dispatch({ type: GET_LIST_TEACHER_ASSIGNMENT_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetListTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}
-        `,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/TeacherAssignment/GetListTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}
+        `
       );
 
       dispatch({
@@ -136,10 +128,9 @@ export const getEnglishDateAction = (year, month) => async (dispatch) => {
   try {
     dispatch({ type: GET_ENGLISH_DATE_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/TeacherAssignment/GetEngDate?year=${year}&month=${month}
-        `,
-        tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/TeacherAssignment/GetEngDate?year=${year}&month=${month}
+        `
     );
 
     dispatch({
@@ -160,9 +151,8 @@ export const getSingleCreateTeacherAssignmentAction =
     try {
       dispatch({ type: GET_SINGLE_CREATE_TEACHER_ASSIGNMENT_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetSingleToCreateTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/TeacherAssignment/GetSingleToCreateTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}`
       );
 
       dispatch({
@@ -173,9 +163,9 @@ export const getSingleCreateTeacherAssignmentAction =
       dispatch({
         type: GET_SINGLE_CREATE_TEACHER_ASSIGNMENT_FAIL,
         payload:
-        error.Message && error.response.data.Message
-        ? error.response.data.Message
-        : error.message,
+          error.Message && error.response.data.Message
+            ? error.response.data.Message
+            : error.message,
       });
     }
   };
@@ -190,10 +180,9 @@ export const postTeacherAssignmentAction =
 
       console.log(assignment);
 
-      const { data } = await axios.post(
-        `${API_URL}/api/TeacherAssignment/FileUpload`,
-        formData,
-        tokenConfig()
+      const { data } = await axiosInstance.post(
+        `/api/TeacherAssignment/FileUpload`,
+        formData
       );
 
       if (data) {
@@ -206,11 +195,7 @@ export const postTeacherAssignmentAction =
           dbModelLstForStudentSection: students,
         });
 
-        await axios.post(
-          `${API_URL}/api/TeacherAssignment/Post`,
-          jsonData,
-          tokenConfig()
-        );
+        await axiosInstance.post(`/api/TeacherAssignment/Post`, jsonData);
       }
 
       dispatch({
@@ -230,9 +215,8 @@ export const getTeacherAssignmentContentAction =
     try {
       dispatch({ type: GET_TEACHER_ASSIGNMENT_CONTENT_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetAssignmentContent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/TeacherAssignment/GetAssignmentContent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}`
       );
 
       dispatch({
@@ -243,9 +227,9 @@ export const getTeacherAssignmentContentAction =
       dispatch({
         type: GET_TEACHER_ASSIGNMENT_CONTENT_FAIL,
         payload:
-        error.Message && error.response.data.Message
-        ? error.response.data.Message
-        : error.message,
+          error.Message && error.response.data.Message
+            ? error.response.data.Message
+            : error.message,
       });
     }
   };
@@ -255,9 +239,8 @@ export const getSingleToEditTeacherAssignmentAction =
     try {
       dispatch({ type: GET_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/TeacherAssignment/GetSingleToEditTeacherAssignment/${id}`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/TeacherAssignment/GetSingleToEditTeacherAssignment/${id}`
       );
 
       dispatch({
@@ -268,14 +251,14 @@ export const getSingleToEditTeacherAssignmentAction =
       dispatch({
         type: GET_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_FAIL,
         payload:
-        error.Message && error.response.data.Message
-        ? error.response.data.Message
-        : error.message,
+          error.Message && error.response.data.Message
+            ? error.response.data.Message
+            : error.message,
       });
     }
   };
 
-  export const putSingleToEditTeacherAssignmentAction =
+export const putSingleToEditTeacherAssignmentAction =
   (image, singleAssignment) => async (dispatch) => {
     try {
       dispatch({ type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_REQUEST });
@@ -284,8 +267,8 @@ export const getSingleToEditTeacherAssignmentAction =
         let formData = new FormData();
         formData.append("ImageUploaded", image);
 
-        const { data: imageData } = await axios.post(
-          `${API_URL}/api/TeacherAssignment/FileUpload`,
+        const { data: imageData } = await axiosInstance.post(
+          `/api/TeacherAssignment/FileUpload`,
           formData,
           tokenConfig
         );
@@ -304,8 +287,8 @@ export const getSingleToEditTeacherAssignmentAction =
           console.log(jsonData);
           debugger;
 
-          const { data } = await axios.put(
-            `${API_URL}/api/TeacherAssignment/PutTeacherAssignment`,
+          const { data } = await axiosInstance.put(
+            `/api/TeacherAssignment/PutTeacherAssignment`,
             jsonData,
             tokenConfig
           );
@@ -314,8 +297,8 @@ export const getSingleToEditTeacherAssignmentAction =
         const jsonData = JSON.stringify({
           dbTeacherAssignmentModel: singleAssignment,
         });
-        await axios.put(
-          `${API_URL}/api/TeacherAssignment/PutTeacherAssignment`,
+        await axiosInstance.put(
+          `/api/TeacherAssignment/PutTeacherAssignment`,
           jsonData,
           tokenConfig
         );
@@ -338,7 +321,7 @@ export const downloadAssignmentAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_ASSIGNMENT_REQUEST });
 
-    const test = `${API_URL}/api/TeacherAssignment/DownloadTEacherAssignmentDoc/${id}`;
+    const test = `/api/TeacherAssignment/DownloadTEacherAssignmentDoc/${id}`;
 
     window.open(test, "_blank");
     dispatch({
@@ -356,7 +339,7 @@ export const downloadSubmittedAssignmentAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_SUBMITTED_ASSIGNMENT_REQUEST });
 
-    const test = `${API_URL}/api/TeacherAssignment/DownloadSubmittedDoc/${id}`;
+    const test = `/api/TeacherAssignment/DownloadSubmittedDoc/${id}`;
 
     window.open(test, "_blank");
     dispatch({

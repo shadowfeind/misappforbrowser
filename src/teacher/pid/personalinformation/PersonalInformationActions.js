@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_PERSONALINFORMATION_FAIL,
   GET_ALL_PERSONALINFORMATION_REQUEST,
@@ -22,9 +21,8 @@ export const getAllPersonalInformationAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_PERSONALINFORMATION_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/PID_PersonalInformation/GetAllPIDPersonalInformation?searchKey=1`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/PID_PersonalInformation/GetAllPIDPersonalInformation?searchKey=1`
     );
 
     dispatch({ type: GET_ALL_PERSONALINFORMATION_SUCCESS, payload: data });
@@ -40,9 +38,8 @@ export const getSinglePersonalInformationAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`
     );
 
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_SUCCESS, payload: data });
@@ -67,10 +64,9 @@ export const updateSinglePersonalInformationAction =
       //   },
       // };
 
-      const { data } = await axios.put(
-        `${API_URL}/api/PID_PersonalInformation/Put`,
-        jsonData,
-        tokenConfig()
+      const { data } = await axiosInstance.put(
+        `/api/PID_PersonalInformation/Put`,
+        jsonData
       );
 
       dispatch({
@@ -89,9 +85,8 @@ export const getTeacherResetPasswordAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_TEACHER_RESET_PASSWORD_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/AccountRemote/GetChangePassword/${id}`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/AccountRemote/GetChangePassword/${id}`
     );
 
     dispatch({ type: GET_TEACHER_RESET_PASSWORD_SUCCESS, payload: data });
@@ -103,35 +98,35 @@ export const getTeacherResetPasswordAction = (id) => async (dispatch) => {
   }
 };
 
-export const postTeacherPasswordAction = (IDUser,NewPassword,ConfirmPassword) => async (dispatch) => {
-  try {
-    dispatch({ type: POST_TEACHER_PASSWORD_REQUEST });
+export const postTeacherPasswordAction =
+  (IDUser, NewPassword, ConfirmPassword) => async (dispatch) => {
+    try {
+      dispatch({ type: POST_TEACHER_PASSWORD_REQUEST });
 
-    const jsonData = JSON.stringify({ IDUser: IDUser.userId,NewPassword });
+      const jsonData = JSON.stringify({ IDUser: IDUser.userId, NewPassword });
 
-    // const config = {
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // };
-    // console.log("NewPassword",NewPassword);
-    // console.log("IDUser",IDUser);
-    console.log(jsonData);
+      // const config = {
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      // };
+      // console.log("NewPassword",NewPassword);
+      // console.log("IDUser",IDUser);
+      console.log(jsonData);
 
-    const { data } = await axios.post(
-      `${API_URL}/api/AccountRemote/Post`,
-      jsonData,
-      tokenConfig()
-    );
+      const { data } = await axiosInstance.post(
+        `/api/AccountRemote/Post`,
+        jsonData
+      );
 
-    dispatch({
-      type: POST_TEACHER_PASSWORD_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    dispatch({
-      type: POST_TEACHER_PASSWORD_FAIL,
-      payload: error.message ? error.message : error.Message,
-    });
-  }
-};
+      dispatch({
+        type: POST_TEACHER_PASSWORD_SUCCESS,
+        payload: data,
+      });
+    } catch (error) {
+      dispatch({
+        type: POST_TEACHER_PASSWORD_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };

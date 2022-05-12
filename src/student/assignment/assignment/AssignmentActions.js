@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   DOWNLOAD_ASSIGNMENT_STUDENT_FAIL,
   DOWNLOAD_ASSIGNMENT_STUDENT_REQUEST,
@@ -25,10 +24,9 @@ export const getAllAssignmentStudentAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_ASSIGNMENT_STUDENT_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/StudentSubmission/GetAllStudentSubmission
-            `,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/StudentSubmission/GetAllStudentSubmission
+            `
     );
 
     dispatch({
@@ -48,9 +46,8 @@ export const getAssignmentListStudentAction =
     try {
       dispatch({ type: GET_ASSIGNMENT_LIST_STUDENT_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/StudentSubmission/GetListStudentSubmission?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&idAcademicFacultySubjectLink=${facultySubject}`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/StudentSubmission/GetListStudentSubmission?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&idAcademicFacultySubjectLink=${facultySubject}`
       );
 
       dispatch({
@@ -69,9 +66,8 @@ export const getSingleAssignmentStudentAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_ASSIGNMENT_STUDENT_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/StudentSubmission/GetSignleToEditStudentSubmission/${id}`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/StudentSubmission/GetSignleToEditStudentSubmission/${id}`
     );
 
     dispatch({
@@ -94,10 +90,9 @@ export const putSingleAssignmentStudentAction =
       let formData = new FormData();
       formData.append("ImageUploaded", image);
 
-      const { data } = await axios.post(
-        `${API_URL}/api/StudentSubmission/FileUpload`,
-        formData,
-        tokenConfig()
+      const { data } = await axiosInstance.post(
+        `/api/StudentSubmission/FileUpload`,
+        formData
       );
 
       if (data) {
@@ -111,10 +106,9 @@ export const putSingleAssignmentStudentAction =
 
         console.log(jsonData);
 
-        await axios.put(
-          `${API_URL}/api/StudentSubmission/PutStudentSubmission`,
-          jsonData,
-          tokenConfig()
+        await axiosInstance.put(
+          `/api/StudentSubmission/PutStudentSubmission`,
+          jsonData
         );
       }
 
@@ -134,7 +128,7 @@ export const downloadAssignmentStudentAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_ASSIGNMENT_STUDENT_REQUEST });
 
-    const test = `${API_URL}/api/StudentSubmission/DownloadDoc/${id}`;
+    const test = `/api/StudentSubmission/DownloadDoc/${id}`;
 
     window.open(test, "_blank");
     dispatch({
@@ -153,7 +147,7 @@ export const downloadSubmittedAssignmentStudentAction =
     try {
       dispatch({ type: DOWNLOAD_SUBMITTED_ASSIGNMENT_STUDENT_REQUEST });
 
-      const test = `${API_URL}/api/StudentSubmission/DownloadSubmittedDoc/${id}`;
+      const test = `/api/StudentSubmission/DownloadSubmittedDoc/${id}`;
 
       window.open(test, "_blank");
       dispatch({

@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   DOWNLOAD_NEW_SOURCES_STUDENT_FAIL,
   DOWNLOAD_NEW_SOURCES_STUDENT_REQUEST,
@@ -16,10 +15,9 @@ export const getAllNewResourcesStudentAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_NEW_SOURCES_STUDENT_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/CourseDeliveryPlanStudent/GetAllCourseDeliveryPlan
-          `,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/CourseDeliveryPlanStudent/GetAllCourseDeliveryPlan
+          `
     );
 
     dispatch({
@@ -40,9 +38,8 @@ export const getNewResourcesStudentListAction =
     try {
       dispatch({ type: GET_NEW_SOURCES_STUDENT_LIST_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanStudent/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${facultySubject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/CourseDeliveryPlanStudent/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${facultySubject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`
       );
 
       dispatch({
@@ -61,7 +58,7 @@ export const downloadNewResourcesAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_NEW_SOURCES_STUDENT_REQUEST });
 
-    const test = `${API_URL}/api/CourseDeliveryPlanStudent/DownloadDoc/${id}`;
+    const test = `/api/CourseDeliveryPlanStudent/DownloadDoc/${id}`;
 
     window.open(test, "_blank");
     dispatch({

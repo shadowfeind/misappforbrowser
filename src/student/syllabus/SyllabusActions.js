@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_SYLLABUS_STUDENT_FAIL,
   GET_ALL_SYLLABUS_STUDENT_REQUEST,
@@ -10,9 +9,8 @@ export const getAllSyllabusStudentAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_SYLLABUS_STUDENT_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/SyllabusStudent/GetAllSyllabus`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/SyllabusStudent/GetAllSyllabus`
     );
 
     dispatch({

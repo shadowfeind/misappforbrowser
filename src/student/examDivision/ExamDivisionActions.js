@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL,tokenConfig } from "../../constants";
+
+import { API_URL, axiosInstance, } from "../../constants";
 
 import {
   GET_ALL_EXAM_DIVISION_REQUEST,
@@ -26,8 +26,8 @@ import {
 export const getAllExamDivisionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EXAM_DIVISION_REQUEST });
-    const { data } = await axios.get(
-      `${API_URL}/api/AcademicExamDivision/GetAllExamDivision`,tokenConfig
+    const { data } = await axiosInstance.get(
+      `/api/AcademicExamDivision/GetAllExamDivision`,
     );
 
     dispatch({ type: GET_ALL_EXAM_DIVISION_SUCCESS, payload: data });
@@ -46,8 +46,8 @@ export const getSingleExamDivisionAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_EXAM_DIVISION_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/GetToCreateAcademicExamDivision/6/singleGetToCreate`,tokenConfig
+    const { data } = await axiosInstance.get(
+      `/api/GetToCreateAcademicExamDivision/6/singleGetToCreate`,
     );
 
     dispatch({ type: GET_SINGLE_EXAM_DIVISION_SUCCESS, payload: data });
@@ -74,10 +74,10 @@ export const createExamDivisionAction = (examDivision) => async (dispatch) => {
     //   },
     // };
 
-    const { data } = await axios.post(
-      `${API_URL}/api/AcademicExamDivision/PostAcademicExamDivision`,
+    const { data } = await axiosInstance.post(
+      `/api/AcademicExamDivision/PostAcademicExamDivision`,
       jsonData,
-      tokenConfig
+      
     );
 
     dispatch({ type: CREATE_EXAM_DIVISION_SUCCESS, payload: data });
@@ -97,8 +97,8 @@ export const getSingleExamDivisionEditAction =
     try {
       dispatch({ type: GET_SINGLE_EXAM_DIVISION_EDIT_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/GetToEditSingleAcademicExamDivision/${IDAcademicExamDivision}/${idFacultyProgramLink}/singleEdit`,tokenConfig
+      const { data } = await axiosInstance.get(
+        `/api/GetToEditSingleAcademicExamDivision/${IDAcademicExamDivision}/${idFacultyProgramLink}/singleEdit`,
       );
 
       dispatch({ type: GET_SINGLE_EXAM_DIVISION_EDIT_SUCCESS, payload: data });
@@ -126,10 +126,10 @@ export const updateSingleExamDivisionAction =
       //   },
       // };
 
-      const { data } = await axios.put(
-        ` ${API_URL}/api/AcademicExamDivision/PutAcademicExamDivision`,
+      const { data } = await axiosInstance.put(
+        ` /api/AcademicExamDivision/PutAcademicExamDivision`,
         jsonData,
-        tokenConfig
+        
       );
 
       dispatch({ type: UPDATE_SINGLE_EXAM_DIVISION_SUCCESS, payload: data });

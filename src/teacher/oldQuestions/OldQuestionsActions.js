@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   DOWNLOAD_OLD_QUESTIONS_FAIL,
   DOWNLOAD_OLD_QUESTIONS_REQUEST,
@@ -19,9 +18,8 @@ export const getAllOldQuestionsTeacherAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_OLD_QUESTIONS_TEACHER_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/OldQuestionTeacher/GetAllOldQuestion`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/OldQuestionTeacher/GetAllOldQuestion`
     );
 
     dispatch({
@@ -37,36 +35,35 @@ export const getAllOldQuestionsTeacherAction = () => async (dispatch) => {
 };
 
 export const getSubjectOldQuestionsAction = (classId) => async (dispatch) => {
-    try {
-      dispatch({ type: GET_SUBJECT_OF_OLD_QUESTIONS_REQUEST });
-  
-      const { data } = await axios.get(
-        `${API_URL}/api/OldQuestionTeacher/GetSubjectByIDLevel?level=${classId}`,
-        tokenConfig()
-      );
-  
-      dispatch({
-        type: GET_SUBJECT_OF_OLD_QUESTIONS_SUCCESS,
-        payload: data,
-        query: { classId },
-      });
-    } catch (error) {
-      dispatch({
-        type: GET_SUBJECT_OF_OLD_QUESTIONS_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+  try {
+    dispatch({ type: GET_SUBJECT_OF_OLD_QUESTIONS_REQUEST });
 
-export const getListOldQuestionsTeacherAction = (classId, subject) => async (dispatch) => {
+    const { data } = await axiosInstance.get(
+      `/api/OldQuestionTeacher/GetSubjectByIDLevel?level=${classId}`
+    );
+
+    dispatch({
+      type: GET_SUBJECT_OF_OLD_QUESTIONS_SUCCESS,
+      payload: data,
+      query: { classId },
+    });
+  } catch (error) {
+    dispatch({
+      type: GET_SUBJECT_OF_OLD_QUESTIONS_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const getListOldQuestionsTeacherAction =
+  (classId, subject) => async (dispatch) => {
     try {
       dispatch({ type: GET_LIST_OLD_QUESTIONS_TEACHER_REQUEST });
-  
-      const { data } = await axios.get(
-        `${API_URL}/api/OldQuestionTeacher/GetListOldQuestion?level=${classId}&idAcademicSubject=${subject}`,
-        tokenConfig()
+
+      const { data } = await axiosInstance.get(
+        `/api/OldQuestionTeacher/GetListOldQuestion?level=${classId}&idAcademicSubject=${subject}`
       );
-  
+
       dispatch({
         type: GET_LIST_OLD_QUESTIONS_TEACHER_SUCCESS,
         payload: data,
@@ -78,21 +75,21 @@ export const getListOldQuestionsTeacherAction = (classId, subject) => async (dis
       });
     }
   };
-  
-  export const downloadOldQuestionsAction = (id) => async (dispatch) => {
-    try {
-      dispatch({ type: DOWNLOAD_OLD_QUESTIONS_REQUEST });
-  
-      const test = `${API_URL}/api/OldQuestionTeacher/DownloadOldQuestion/${id}`;
-  
-      window.open(test, "_blank");
-      dispatch({
-        type: DOWNLOAD_OLD_QUESTIONS_SUCCESS,
-      });
-    } catch (error) {
-      dispatch({
-        type: DOWNLOAD_OLD_QUESTIONS_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+
+export const downloadOldQuestionsAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DOWNLOAD_OLD_QUESTIONS_REQUEST });
+
+    const test = `/api/OldQuestionTeacher/DownloadOldQuestion/${id}`;
+
+    window.open(test, "_blank");
+    dispatch({
+      type: DOWNLOAD_OLD_QUESTIONS_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: DOWNLOAD_OLD_QUESTIONS_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
