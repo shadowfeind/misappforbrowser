@@ -9,17 +9,27 @@ import ListForTable from "../../components/ListForTable";
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
-    padding: "16px",
+    padding: "16px 16px 16px 24px",
     borderBottom: "1px solid #d3d3d3",
     "& span": {
       fontWeight: "bolder",
     },
+    "& p": {
+      margin: "0",
+      paddingBottom: "4px",
+      fontSize: "12px",
+    },
   },
   button: {
     marginRight: "10px",
-    padding: "5px",
+    padding: "5px 16px",
     minWidth: "10px",
-    fontSize: "12px",
+    fontSize: "10px",
+    marginBottom: "10px",
+  },
+  listWrapper: {
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
@@ -31,13 +41,32 @@ const OldQuestionListCollapse = ({ item }) => {
   };
   return (
     <div
-    style={{
-      padding: "6px 6px 0 6px",
-    }}
-  >
-    <div style={{ backgroundColor: "#fff" }}>
-      <ListForTable onClick={handleClick}>
-        <p>
+      style={{
+        padding: "6px 6px 0 6px",
+      }}
+    >
+      <div style={{ backgroundColor: "#fff" }}>
+        <ListForTable onClick={handleClick}>
+          <div className={classes.listWrapper}>
+            <div style={{ fontSize: "12px", color: "#666" }}>
+              {item.Created_On.slice(0, 10)}
+            </div>
+            <div
+              style={{
+                paddingLeft: "18px",
+                fontSize: "14px",
+                // fontWeight: "bolder",
+              }}
+            >
+              {item.OldQuestionName?.slice(0, 30)}...
+              <div
+                style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
+              >
+                <div>{item.OldQuestionDescription?.slice(0, 30)}...</div>
+              </div>
+            </div>
+          </div>
+          {/* <p>
           <span
             style={{
               padding: "8px 10px",
@@ -50,42 +79,44 @@ const OldQuestionListCollapse = ({ item }) => {
             {item.OldQuestionName[0]}
           </span>
           <span style={{ paddingLeft: "12px" }}>{item.OldQuestionName}</span>{" "}
-        </p>
-        <div>
+        </p> */}
+          <div>
             {open ? (
               <ExpandLess style={{ color: "#d1d1d1" }} />
             ) : (
               <ExpandMore style={{ color: "#d1d1d1" }} />
             )}
           </div>
-      </ListForTable>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <div className={classes.collapse}>
-          <p>
-            <span>Description</span> : {item.OldQuestionDescription}
-          </p>
-          <p>
-            <span>Created On</span> : {item.Created_On?.slice(0, 10)}
-          </p>
-          <p>
-            <span>Active Status</span> :{item.IsActive ? "active" : "notactive"}
-          </p>
-          <p>
-            <span>Name</span> : {item.FirstName} {item.LastName}
-          </p>
-          <p>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              //   onClick={() => downloadHandler(item.IDAssignment)}
-            >Download &nbsp;
-              <CloudDownloadIcon style={{ fontSize: 12 }} />
-            </Button>
-          </p>
-        </div>
-      </Collapse>
-    </div>
+        </ListForTable>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <div className={classes.collapse}>
+            <p>
+              <span>Description</span> : {item.OldQuestionDescription}
+            </p>
+            <p>
+              <span>Created On</span> : {item.Created_On?.slice(0, 10)}
+            </p>
+            <p>
+              <span>Active Status</span> :
+              {item.IsActive ? "active" : "notactive"}
+            </p>
+            <p>
+              <span>Name</span> : {item.FirstName} {item.LastName}
+            </p>
+            <p>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                //   onClick={() => downloadHandler(item.IDAssignment)}
+              >
+                Download &nbsp;
+                <CloudDownloadIcon style={{ fontSize: 12 }} />
+              </Button>
+            </p>
+          </div>
+        </Collapse>
+      </div>
     </div>
   );
 };

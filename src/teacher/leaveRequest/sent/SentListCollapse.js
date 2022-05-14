@@ -92,7 +92,7 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
               color="primary"
               className={classes.button}
               onClick={() => updateCollegeHandler(item.IDLeaveRequest)}
-            >
+            >Edit &nbsp;
               <EditIcon style={{ fontSize: 12 }} />
             </Button>
             <Button
@@ -100,15 +100,15 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
               color="secondary"
               className={classes.button}
               onClick={() => deleteLeaveHandler(item.IDLeaveRequest)}
-            >
+            >Delete &nbsp;
               <DeleteIcon style={{ fontSize: 12 }} />
             </Button>
             <Button
               variant="contained"
-              color="default"
+              color="primary"
               className={classes.button}
               onClick={() => downloadHandler(item.IDLeaveRequest)}
-            >
+            >Download &nbsp;
               <CloudDownloadIcon style={{ fontSize: 12 }} />
             </Button>
           </p>

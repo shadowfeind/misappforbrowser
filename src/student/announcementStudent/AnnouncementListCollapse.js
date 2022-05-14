@@ -62,7 +62,12 @@ const useStyles = makeStyles((theme) => ({
                     // fontWeight: "bolder",
                   }}
                 >
-                  {item.NewsHeading?.slice(0,10)}...
+                  {item.NewsHeading?.slice(0,30)}...
+                  <div
+                style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
+              >
+                <div>{item.NewsDescription?.slice(0, 30)}...</div>
+              </div>
                 </div>
               </div>
               <div>
