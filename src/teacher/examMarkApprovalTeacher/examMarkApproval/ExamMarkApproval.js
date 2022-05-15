@@ -314,7 +314,7 @@ const ExamMarkApproval = () => {
       <CustomContainer>
         <MobileTopSelectContainer>
           <h3 style={{ textAlign: "center", marginTop: "0" }}>
-            Exam Mark Approval
+            Marks Entry/Update  
           </h3>
           <Grid container style={{ fontSize: "12px" }}>
             <Grid item xs={12}>

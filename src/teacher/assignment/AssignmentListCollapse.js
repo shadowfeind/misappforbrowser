@@ -134,7 +134,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
             </Button>
             {item.DocumentSubmitted !== null && (
               <Button
-                variant="outlined"
+                variant="contained"
                 color="primary"
                 className={classes.button}
                 onClick={() => downloadSubmittedHandler(item.IDAssignment)}
@@ -144,7 +144,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
               </Button>
             )}
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               className={classes.button}
               onClick={() => updateHandler(item.IDAssignment)}
