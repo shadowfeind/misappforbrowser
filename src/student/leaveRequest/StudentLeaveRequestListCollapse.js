@@ -55,10 +55,21 @@ const StudentLeaveRequestListCollapse = ({
   };
 
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>{item.LeaveDecription?.slice(0, 25)}...</p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>
@@ -83,7 +94,7 @@ const StudentLeaveRequestListCollapse = ({
               color="primary"
               className={classes.button}
               onClick={() => updateCollegeHandler(item.IDLeaveRequest)}
-            >
+            >Edit &nbsp;
               <EditIcon style={{ fontSize: 12 }} />
             </Button>
             <Button
@@ -91,21 +102,22 @@ const StudentLeaveRequestListCollapse = ({
               color="secondary"
               className={classes.button}
               onClick={() => deleteLeaveHandler(item.IDLeaveRequest)}
-            >
+            >Delete &nbsp;
               <DeleteIcon style={{ fontSize: 12 }} />
             </Button>
             <Button
               variant="contained"
-              color="default"
+              color="primary"
               className={classes.button}
               onClick={() => downloadHandler(item.IDLeaveRequest)}
-            >
+            >Download &nbsp;
               <CloudDownloadIcon style={{ fontSize: 12 }} />
             </Button>
           </p>
         </div>
       </Collapse>
-    </>
+    </div>
+    </div>
   );
 };
 

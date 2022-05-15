@@ -5,6 +5,7 @@ import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import ReportProblemIcon from "@material-ui/icons/ReportProblem";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
+import AnnouncementRoundedIcon from '@material-ui/icons/AnnouncementRounded';
 import DescriptionIcon from "@material-ui/icons/Description";
 import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -166,6 +167,19 @@ const NavigationSideMenu = () => {
           Old Questions
         </Typography>
       </NavLink>
+
+      <NavLink
+        to={"/student-announcement"}
+        activeStyle={isActive}
+        className={classes.textBox}
+      >
+        <Typography variant="h6">
+          {" "}
+          <AnnouncementRoundedIcon fontSize="medium" />
+          Announcement
+        </Typography>
+      </NavLink>
+
       <NavLink
         to={"/student-attendance"}
         activeStyle={isActive}

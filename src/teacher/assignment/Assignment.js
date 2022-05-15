@@ -33,6 +33,7 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import MobileBody from "../../components/MobileBody";
 import AssignmentForm from "./AssignmentForm";
 import AssignmentTableCollapseAll from "./AssignmentTableCollapseAll";
 import AssignmentEditForm from "./AssignmentEditForm";
@@ -541,6 +542,7 @@ const Assignment = () => {
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
             {getListTeacherAssignment?.dbTeacherAssignmentLstBySection.map(
               (item) => (
                 <AssignmentListCollapse
@@ -556,6 +558,7 @@ const Assignment = () => {
                 No Assignment
               </h4>
             )}
+            </MobileBody>
           </>
         )}
       </CustomContainer>

@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_TOTAL_STUDENT_ATTENDANCE_FAIL,
   GET_ALL_TOTAL_STUDENT_ATTENDANCE_REQUEST,
@@ -13,9 +12,8 @@ export const getAllTotalStudentAttendanceAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_TOTAL_STUDENT_ATTENDANCE_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/TotalStudentAttendance/GetAllTotalStudentAttendance`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/TotalStudentAttendance/GetAllTotalStudentAttendance`
     );
 
     dispatch({
@@ -36,9 +34,8 @@ export const getListTotalStudentAttendanceAction =
     try {
       dispatch({ type: GET_LIST_TOTAL_STUDENT_ATTENDANCE_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/TotalStudentAttendance/GetListTotalStudentAttendance?startDate=${startDate}&endDate=${endDate}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idSubject=${subject}&section=${section}&idShift=${shift}&searchKey=1`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/TotalStudentAttendance/GetListTotalStudentAttendance?startDate=${startDate}&endDate=${endDate}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idSubject=${subject}&section=${section}&idShift=${shift}&searchKey=1`
       );
 
       dispatch({

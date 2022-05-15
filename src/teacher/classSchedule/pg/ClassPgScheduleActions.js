@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_PG_CLASS_SCHEDULE_FAIL,
   GET_ALL_PG_CLASS_SCHEDULE_REQUEST,
@@ -19,9 +18,8 @@ export const getAllPgClassScheuleAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_PG_CLASS_SCHEDULE_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/ClassSchedulePG/GetAllClassSchedulePG`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/ClassSchedulePG/GetAllClassSchedulePG`
     );
 
     dispatch({
@@ -40,9 +38,8 @@ export const getListClassScheuleAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_CLASS_SCHEDULE_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/ClassSchedulePG/GetListClassSchedulePG/${id}?searchKey=1`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/ClassSchedulePG/GetListClassSchedulePG/${id}?searchKey=1`
     );
 
     dispatch({

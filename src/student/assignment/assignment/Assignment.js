@@ -38,6 +38,7 @@ import AssignmentEditForm from "./AssignmentEditForm";
 import AssignmentListCollapse from "./AssignmentListCollapse";
 import MobileTopSelectContainer from "../../../components/MobileTopSelectContainer";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import MobileBody from "../../../components/MobileBody";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -334,6 +335,7 @@ const Assignment = () => {
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
             <div style={{ marginBottom: "30px" }}>
               {assignmentList?.dbstuentSubmissionLst.map((item) => (
                 <AssignmentListCollapse
@@ -349,6 +351,7 @@ const Assignment = () => {
                 No Assignment
               </h4>
             )}
+            </MobileBody>
           </>
         )}
       </CustomContainer>

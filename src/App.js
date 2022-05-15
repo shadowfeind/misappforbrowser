@@ -51,6 +51,9 @@ const ClassScheduleStudent = lazy(() =>
 
 // const ExamMarkEntry = lazy(() =>
 //   import("./student/examMarkEntry/ExamMarkEntry")
+const AnnouncementStudent = lazy(() =>
+  import("./student/announcementStudent/Announcement")
+);
 
 const AssignmentFrontStudent = lazy(() =>
   import("./student/assignment/AssignmentFront")
@@ -58,6 +61,7 @@ const AssignmentFrontStudent = lazy(() =>
 const AttendanceStudent = lazy(() => import("./student/attendance/Attendance"));
 
 //Teacher App Starts:
+const Announcement = lazy(() => import("./teacher/announcement/Announcement"));
 const StudentMonthlyPresentSheetUpdateForm = lazy(() =>
   import(
     "./teacher/attendance/studentMonthlyPresentSheet/StudentMonthlyPresentSheetUpdateForm"
@@ -137,7 +141,7 @@ const App = () => {
         history.push("/teacher-dashboard");
       }
     } else {
-      window.location.href = "https://vidyacube.com/";
+      window.location.href = "https://mis.vidyacube.com/";
     }
   }, []);
 
@@ -178,6 +182,10 @@ const App = () => {
               path={"/student-old-questions"}
               component={OldQuestionsStudent}
             />
+             <Route
+              path={"/student-announcement"}
+              component={AnnouncementStudent}
+            />
             <Route path={"/calendar"} component={Holiday} />
             <Route path={"/student-attendance"} component={AttendanceStudent} />
             {/* <Route path={"/login/:id?"} component={Login} /> */}
@@ -186,6 +194,8 @@ const App = () => {
               path={"/student-academic-grading"}
               component={AcademicGradingStudent}
             />
+
+           
             <Route
               exact
               path={"/student-subject-view/:id"}
@@ -213,6 +223,12 @@ const App = () => {
             <Route path={"/class-schedule"} component={ClassSchedule} />
             <Route path={"/old-questions"} component={OldQuestions} />
             <Route path={"/attendance"} exact component={Attendance} />
+            <Route
+              exact
+              path={"/announcement"}
+              component={Announcement}
+            />
+
             <Route
               path={"/attendance/table-details"}
               component={StudentMonthlyPresentSheetMobileTable}

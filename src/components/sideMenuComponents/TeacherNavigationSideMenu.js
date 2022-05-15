@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import { makeStyles, Typography } from "@material-ui/core";
 import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
+import AnnouncementRoundedIcon from '@material-ui/icons/AnnouncementRounded';
 import VideocamIcon from "@material-ui/icons/Videocam";
 import ReportProblemIcon from "@material-ui/icons/ReportProblem";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
@@ -193,6 +194,19 @@ const TeacherNavigationSideMenu = () => {
           Old Questions
         </Typography>
       </NavLink>
+
+      <NavLink
+        to={"/announcement"}
+        activeStyle={isActive}
+        className={classes.textBox}
+      >
+        <Typography variant="h6">
+          {" "}
+          <AnnouncementRoundedIcon fontSize="small" />
+          Announcement
+        </Typography>
+      </NavLink>
+
       <NavLink
         to={"/video-conference"}
         activeStyle={isActive}

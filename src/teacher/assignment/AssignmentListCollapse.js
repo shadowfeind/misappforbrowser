@@ -61,7 +61,12 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
   };
 
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>
           {/* <span
@@ -92,7 +97,13 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
             )}
           </span>
         </p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>
@@ -113,7 +124,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
           </p>
           <p>
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               className={classes.button}
               onClick={() => downloadHandler(item.IDAssignment)}
@@ -123,7 +134,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
             </Button>
             {item.DocumentSubmitted !== null && (
               <Button
-                variant="outlined"
+                variant="contained"
                 color="primary"
                 className={classes.button}
                 onClick={() => downloadSubmittedHandler(item.IDAssignment)}
@@ -133,7 +144,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
               </Button>
             )}
             <Button
-              variant="outlined"
+              variant="contained"
               color="primary"
               className={classes.button}
               onClick={() => updateHandler(item.IDAssignment)}
@@ -144,7 +155,8 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
           </p>
         </div>
       </Collapse>
-    </>
+    </div>
+    </div>
   );
 };
 

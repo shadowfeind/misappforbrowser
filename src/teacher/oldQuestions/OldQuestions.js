@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import LoadingComp from "../../components/LoadingComp";
 import ConfirmDialog from "../../components/ConfirmDialog";
+import MobileBody from "../../components/MobileBody";
 import SelectControl from "../../components/controls/SelectControl";
 import {
   DOWNLOAD_OLD_QUESTIONS_RESET,
@@ -174,6 +175,7 @@ const OldQuestions = () => {
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
         {listOldQuestionsTeacher &&
           listOldQuestionsTeacher.dbModelTeacherLst.map((s) => (
             <OldQuestionListCollapse item={s} key={s.$id} />
@@ -181,6 +183,7 @@ const OldQuestions = () => {
         {listOldQuestionsTeacher?.dbModelTeacherLst.length < 1 && (
           <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
         )}
+        </MobileBody>
         </>
         )}
       </CustomContainer>

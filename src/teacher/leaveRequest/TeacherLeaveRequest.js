@@ -38,8 +38,10 @@ const TeacherLeaveRequest = () => {
           />
         ))}
       </div>
+
       {currentPage === "inbox" && <TeacherLeaveRequestInbox />}
       {currentPage === "sent" && <TeacherLeaveRequestSent />}
+
       <Notification notify={notify} setNotify={setNotify} />
     </>
   );
