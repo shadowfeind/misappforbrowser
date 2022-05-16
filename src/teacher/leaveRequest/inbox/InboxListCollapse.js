@@ -14,17 +14,27 @@ import {
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
-    padding: "16px",
+    padding: "16px 16px 16px 24px",
     borderBottom: "1px solid #d3d3d3",
     "& span": {
       fontWeight: "bolder",
     },
+    "& p": {
+      margin: "0",
+      paddingBottom: "4px",
+      fontSize: "12px",
+    },
   },
   button: {
     marginRight: "10px",
-    padding: "5px",
+    padding: "5px 16px",
     minWidth: "10px",
-    fontSize: "12px",
+    fontSize: "10px",
+    marginBottom: "10px",
+  },
+  listWrapper: {
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
@@ -46,51 +56,91 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
   };
 
   return (
-    <>
-      <ListForTable onClick={handleClick}>
-        <p>
-          ({item.FirsName}) {item.LeaveDecription?.slice(0, 15)}...
-        </p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
-      </ListForTable>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <div className={classes.collapse}>
-          <p>
-            <span>Receiver</span> : {item.FirsName}
-            {item.MiddleName}
-            {item.LastName}
-          </p>
-          <p>
-            <span>Date</span> : {item.FromDate?.slice(0, 10)} /{" "}
-            {item.ToDate?.slice(0, 10)}
-          </p>
-          <p>
-            <span>Status</span> : {item.Status}
-          </p>
-          <p>
-            <span>Description</span> : {item.LeaveDecription}
-          </p>
-          <p>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={() => updateCollegeHandler(item.IDLeaveRequest)}
+    <div
+      style={{
+        padding: "6px 6px 0 6px",
+      }}
+    >
+      <div style={{ backgroundColor: "#fff" }}>
+        <ListForTable onClick={handleClick}>
+          <div className={classes.listWrapper}>
+            <div style={{ fontSize: "12px", color: "#666" }}>
+              {item.FromDate.slice(0, 10)} <br /> {item.ToDate.slice(0, 10)}
+            </div>
+            <div
+              style={{
+                paddingLeft: "18px",
+                fontSize: "14px",
+                // fontWeight: "bolder",
+              }}
             >
-              <EditIcon style={{ fontSize: 12 }} />
-            </Button>
-            <Button
-              variant="contained"
-              color="default"
-              className={classes.button}
-              onClick={() => downloadHandler(item.IDLeaveRequest)}
-            >
-              <CloudDownloadIcon style={{ fontSize: 12 }} />
-            </Button>
-          </p>
-        </div>
-      </Collapse>
-    </>
+              {item.LeaveDecription?.slice(0, 25)}...
+              <div
+                style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
+              >
+                <div
+                  style={
+                    item.Status === "PENDING"
+                      ? { color: "blue" }
+                      : item.Status === "APPROVED"
+                      ? { color: "green" }
+                      : { color: "red" }
+                  }
+                >
+                  {item.Status}
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
+        </ListForTable>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <div className={classes.collapse}>
+            <p>
+              <span>Receiver</span> : {item.FirsName}
+              {item.MiddleName}
+              {item.LastName}
+            </p>
+            <p>
+              <span>Date</span> : {item.FromDate?.slice(0, 10)} /{" "}
+              {item.ToDate?.slice(0, 10)}
+            </p>
+            <p>
+              <span>Status</span> : {item.Status}
+            </p>
+            <p>
+              <span>Description</span> : {item.LeaveDecription}
+            </p>
+            <p>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={() => updateCollegeHandler(item.IDLeaveRequest)}
+              >
+                Edit &nbsp;
+                <EditIcon style={{ fontSize: 12 }} />
+              </Button>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={() => downloadHandler(item.IDLeaveRequest)}
+              >
+                Download &nbsp;
+                <CloudDownloadIcon style={{ fontSize: 12 }} />
+              </Button>
+            </p>
+          </div>
+        </Collapse>
+      </div>
+    </div>
   );
 };
 

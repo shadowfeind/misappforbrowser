@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_OTHER_OPTIONS_FOR_STUDENT_FAIL,
   GET_ALL_OTHER_OPTIONS_FOR_STUDENT_REQUEST,
@@ -19,9 +18,8 @@ export const getAllStudentAttendanceAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_STUDENT_ATTENDANCE_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/StudentPresentSheetStudent/GetAllStudentPresentSheet`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/StudentPresentSheetStudent/GetAllStudentPresentSheet`,tokenConfig()
     );
 
     dispatch({
@@ -52,9 +50,8 @@ export const getListStudentAttendanceAction =
     try {
       dispatch({ type: GET_LIST_STUDENT_ATTENDANCE_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/StudentPresentSheetStudent/GetListStudentPresentSheet?currentDate=${currentDate}&npYear=${npYear}&npMonth=${npMonth}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicFacultySubjectLink=${subject}&section=${section}&idShift=${shift}&searchKey=1`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/StudentPresentSheetStudent/GetListStudentPresentSheet?currentDate=${currentDate}&npYear=${npYear}&npMonth=${npMonth}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicFacultySubjectLink=${subject}&section=${section}&idShift=${shift}&searchKey=1`,tokenConfig()
       );
 
       dispatch({
@@ -73,9 +70,8 @@ export const getEngDateStudentAction = (year, month) => async (dispatch) => {
   try {
     dispatch({ type: GET_ENGLISH_DATE_STUDENT_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/StudentPresentSheetStudent/GetEngDate?year=${year}&month=${month}`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/StudentPresentSheetStudent/GetEngDate?year=${year}&month=${month}`,tokenConfig()
     );
 
     dispatch({
@@ -95,29 +91,24 @@ export const getAllOtherOptionsForStudentAction =
     try {
       dispatch({ type: GET_ALL_OTHER_OPTIONS_FOR_STUDENT_REQUEST });
 
-      const year = await axios.get(
-        `${API_URL}/api/StudentPresentSheetStudent/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const year = await axiosInstance.get(
+        `/api/StudentPresentSheetStudent/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
-      const program = await axios.get(
-        `${API_URL}/api/StudentPresentSheetStudent/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const program = await axiosInstance.get(
+        `/api/StudentPresentSheetStudent/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
-      const classId = await axios.get(
-        `${API_URL}/api/StudentPresentSheetStudent/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const classId = await axiosInstance.get(
+        `/api/StudentPresentSheetStudent/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
-      const section = await axios.get(
-        `${API_URL}/api/StudentPresentSheetStudent/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const section = await axiosInstance.get(
+        `/api/StudentPresentSheetStudent/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
-      const shift = await axios.get(
-        `${API_URL}/api/StudentPresentSheetStudent/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const shift = await axiosInstance.get(
+        `/api/StudentPresentSheetStudent/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const data = {

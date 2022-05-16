@@ -36,6 +36,7 @@ import {
 } from "./ResourcesActions";
 import ResourcesTableCollapse from "./ResourcesTableCollapse";
 import ResourcesForm from "./ResourcesForm";
+import MobileBody from "../../components/MobileBody";
 import MobileTopSelectContainer from "../../components/MobileTopSelectContainer";
 import AddBoxIcon from "@material-ui/icons/AddBox";
 import SearchIcon from "@material-ui/icons/Search";
@@ -464,6 +465,7 @@ const Resources = () => {
             <LoadingComp />
           ) : (
             <>
+            <MobileBody>
               {allResources?.dbModelTeacherLst.map((item) => (
                 <ResourcesListCollapse item={item} key={item.$id} />
               ))}
@@ -472,6 +474,7 @@ const Resources = () => {
                   No Resources
                 </h4>
               )}
+              </MobileBody>
             </>
           )}
         </div>

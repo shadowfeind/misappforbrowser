@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ALL_PERSONALINFORMATION_FAIL,
   GET_ALL_PERSONALINFORMATION_REQUEST,
@@ -21,31 +20,30 @@ import {
   UPDATE_SINGLE_PERSONALINFORMATION_SUCCESS,
 } from "./PersonalInformationConstants";
 
-export const getAllStudentPersonalInformationAction = () => async (dispatch) => {
-  try {
-    dispatch({ type: GET_ALL_PERSONALINFORMATION_REQUEST });
+export const getAllStudentPersonalInformationAction =
+  () => async (dispatch) => {
+    try {
+      dispatch({ type: GET_ALL_PERSONALINFORMATION_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/PID_PersonalInformation/GetAllPIDPersonalInformation?searchKey=1`,
-      tokenConfig()
-    );
+      const { data } = await axiosInstance.get(
+        `/api/PID_PersonalInformation/GetAllPIDPersonalInformation?searchKey=1`,tokenConfig()
+      );
 
-    dispatch({ type: GET_ALL_PERSONALINFORMATION_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({
-      type: GET_ALL_PERSONALINFORMATION_FAIL,
-      payload: error.message ? error.message : error.Message,
-    });
-  }
-};
+      dispatch({ type: GET_ALL_PERSONALINFORMATION_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({
+        type: GET_ALL_PERSONALINFORMATION_FAIL,
+        payload: error.message ? error.message : error.Message,
+      });
+    }
+  };
 
 export const getSinglePersonalInformationAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`,tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_SUCCESS, payload: data });
@@ -61,9 +59,8 @@ export const getListPersonalInformationAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_LIST_PERSONALINFORMATION_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/PID_PersonalInformation/GetListPersonallInformation?searchKey=1`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/PID_PersonalInformation/GetListPersonallInformation?searchKey=1`,tokenConfig()
     );
 
     dispatch({ type: GET_LIST_PERSONALINFORMATION_SUCCESS, payload: data });
@@ -88,10 +85,9 @@ export const updateSinglePersonalInformationAction =
       //   },
       // };
 
-      const { data } = await axios.put(
-        `${API_URL}/api/PID_PersonalInformation/Put`,
-        jsonData,
-        tokenConfig()
+      const { data } = await axiosInstance.put(
+        `/api/PID_PersonalInformation/Put`,
+        jsonData,tokenConfig()
       );
       console.log(jsonData);
 
@@ -107,31 +103,30 @@ export const updateSinglePersonalInformationAction =
     }
   };
 
+export const getStudentResetPasswordAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: GET_STUDENT_RESET_PASSWORD_REQUEST });
 
-  export const getStudentResetPasswordAction = (id) => async (dispatch) => {
-    try {
-      dispatch({ type: GET_STUDENT_RESET_PASSWORD_REQUEST });
-  
-      const { data } = await axios.get(
-        `${API_URL}/api/AccountRemote/GetChangePassword/${id}`,
-        tokenConfig()
-      );
-  
-      dispatch({ type: GET_STUDENT_RESET_PASSWORD_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: GET_STUDENT_RESET_PASSWORD_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+    const { data } = await axiosInstance.get(
+      `/api/AccountRemote/GetChangePassword/${id}`,tokenConfig()
+    );
 
-  export const postStudentPasswordAction = (IDUser,NewPassword,ConfirmPassword) => async (dispatch) => {
+    dispatch({ type: GET_STUDENT_RESET_PASSWORD_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: GET_STUDENT_RESET_PASSWORD_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};
+
+export const postStudentPasswordAction =
+  (IDUser, NewPassword, ConfirmPassword) => async (dispatch) => {
     try {
       dispatch({ type: POST_STUDENT_PASSWORD_REQUEST });
-  
-      const jsonData = JSON.stringify({ IDUser: IDUser.userId,NewPassword });
-  
+
+      const jsonData = JSON.stringify({ IDUser: IDUser.userId, NewPassword });
+
       // const config = {
       //   headers: {
       //     "Content-Type": "application/json",
@@ -140,13 +135,12 @@ export const updateSinglePersonalInformationAction =
       // console.log("NewPassword",NewPassword);
       // console.log("IDUser",IDUser);
       console.log(jsonData);
-  
-      const { data } = await axios.post(
-        `${API_URL}/api/AccountRemote/Post`,
-        jsonData,
-        tokenConfig()
+
+      const { data } = await axiosInstance.post(
+        `/api/AccountRemote/Post`,
+        jsonData,tokenConfig()
       );
-  
+
       dispatch({
         type: POST_STUDENT_PASSWORD_SUCCESS,
         payload: data,
@@ -158,4 +152,3 @@ export const updateSinglePersonalInformationAction =
       });
     }
   };
-  

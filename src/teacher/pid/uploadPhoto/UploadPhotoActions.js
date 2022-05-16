@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 
 import {
   GET_ALL_UPLOADPHOTO_FAIL,
@@ -14,9 +14,9 @@ export const getAllUploadPhotoAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_UPLOADPHOTO_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/PID_PhotoUpload/GetSingleToEditPhoto`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/PID_PhotoUpload/GetSingleToEditPhoto`,tokenConfig()
+      
     );
 
     dispatch({
@@ -38,10 +38,10 @@ export const putUploadPhotoAction = (image, dbData) => async (dispatch) => {
     let formData = new FormData();
     formData.append("ImageUploaded", image);
 
-    const { data } = await axios.post(
-      `${API_URL}/api/PID_PhotoUpload/FileUpload`,
-      formData,
-      tokenConfig()
+    const { data } = await axiosInstance.post(
+      `/api/PID_PhotoUpload/FileUpload`,
+      formData,tokenConfig()
+      
     );
 
     if (data) {
@@ -53,10 +53,10 @@ export const putUploadPhotoAction = (image, dbData) => async (dispatch) => {
         hrEmployeeModel: newData,
       });
       console.log(jsonData);
-      await axios.put(
-        `${API_URL}/api/PID_PhotoUpload/PutPhoto`,
-        jsonData,
-        tokenConfig()
+      await axiosInstance.put(
+        `/api/PID_PhotoUpload/PutPhoto`,
+        jsonData,tokenConfig()
+        
       );
     }
 

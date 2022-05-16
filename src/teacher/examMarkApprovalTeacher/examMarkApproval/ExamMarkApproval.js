@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import LoadingComp from "../../../components/LoadingComp";
 import ConfirmDialog from "../../../components/ConfirmDialog";
+import MobileBody from "../../../components/MobileBody";
 import SelectControl from "../../../components/controls/SelectControl";
 import {
   getActiveSubjectAction,
@@ -184,32 +185,15 @@ const ExamMarkApproval = () => {
         setDdlSchedule(
           examMarkApprovalInitialDatas.searchFilterModel.ddlSubjectForTeacher
         );
-        setAcademicYearDdl(
-          examMarkApprovalInitialDatas.searchFilterModel.ddlAcademicYear
-        );
-        setProgramDdl(
-          examMarkApprovalInitialDatas.searchFilterModel.ddlFacultyProgramLink
-        );
-        setDdlClass(
-          examMarkApprovalInitialDatas.searchFilterModel.ddlLevelPrimitive
-        );
-        setDdlSection(
-          examMarkApprovalInitialDatas.searchFilterModel.ddlSection
-        );
-        setDdlShift(
-          examMarkApprovalInitialDatas.searchFilterModel.ddlAcademicShift
-        );
-        // setDdlEvent(
-        //   examMarkApprovalInitialDatas.searchFilterModel.ddlAcademicYearPrimitive
-        // );
       });
     }
   }, [examMarkApprovalInitialDatas, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_RESET });
     dispatch(getInitialExamMarkApprovalDataAction());
-  },[])
+  }, []);
+
 
   const subjectHandler = (value) => {
     setSchedule(value);
@@ -220,40 +204,40 @@ const ExamMarkApproval = () => {
       )
     );
   };
-
   useEffect(() => {
     if (allOtherOptions) {
       unstable_batchedUpdates(() => {
+        setAcademicYearDdl(allOtherOptions.year && allOtherOptions.year);
         setAcaYear(
-          allOtherOptions.year.length > 0 ? allOtherOptions.year[0].Key : ""
+          allOtherOptions.year.length > 0 ? allOtherOptions.year[0]?.Key : ""
         );
+        setProgramDdl(allOtherOptions.program && allOtherOptions.program);
         setProgramValue(
           allOtherOptions.program.length > 0
-            ? allOtherOptions.program[0].Key
+            ? allOtherOptions.program[0]?.Key
             : ""
         );
+        setDdlClass(allOtherOptions.classId && allOtherOptions.classId);
         setClassId(
           allOtherOptions.classId.length > 0
-            ? allOtherOptions.classId[0].Key
+            ? allOtherOptions.classId[0]?.Key
             : ""
         );
+        setDdlSection(allOtherOptions.section && allOtherOptions.section);
         setSection(
           allOtherOptions.section.length > 0
-            ? allOtherOptions.section[0].Key
+            ? allOtherOptions.section[0]?.Key
             : ""
         );
+        setDdlShift(allOtherOptions.shift && allOtherOptions.shift);
         setShift(
-          allOtherOptions.shift.length > 0 ? allOtherOptions.shift[0].Key : ""
+          allOtherOptions.shift.length > 0 ? allOtherOptions.shift[0]?.Key : ""
+        );
+        setDdlEvent(allOtherOptions.event && allOtherOptions.event);
+        setEvent(
+          allOtherOptions.event.length > 0 ? allOtherOptions.event[0]?.Key : ""
         );
       });
-
-      dispatch(
-        getActiveSubjectAction(
-          allOtherOptions.year[0].Key,
-          allOtherOptions.program[0].Key,
-          allOtherOptions.classId[0].Key
-        )
-      );
     }
   }, [allOtherOptions, dispatch]);
   useEffect(() => {
@@ -261,6 +245,7 @@ const ExamMarkApproval = () => {
       setDdlEvent([...activeSubject]);
     }
   }, [activeSubject]);
+
 
   const validate = () => {
     let temp = {};
@@ -314,7 +299,7 @@ const ExamMarkApproval = () => {
       <CustomContainer>
         <MobileTopSelectContainer>
           <h3 style={{ textAlign: "center", marginTop: "0" }}>
-            Exam Mark Approval
+            Marks Entry/Update  
           </h3>
           <Grid container style={{ fontSize: "12px" }}>
             <Grid item xs={12}>
@@ -421,6 +406,7 @@ const ExamMarkApproval = () => {
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
         {searchData &&
           searchData?.dbModelLsts?.map((item) => (
             <ExamMarkApprovalListCollapse item={item} key={item.$id} />
@@ -428,6 +414,7 @@ const ExamMarkApproval = () => {
         {searchData?.dbModelLsts?.length < 1 && (
           <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
         )}
+        </MobileBody>
         </>
         )}
       </CustomContainer>

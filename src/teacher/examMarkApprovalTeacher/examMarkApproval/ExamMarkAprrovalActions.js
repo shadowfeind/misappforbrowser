@@ -1,5 +1,5 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../../constants";
+
+import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ACTIVE_SUBJECT_FAIL,
   GET_ACTIVE_SUBJECT_REQUEST,
@@ -31,8 +31,8 @@ export const getInitialExamMarkApprovalDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_EXAM_MARK_APPROVAL_INITIAL_DATA_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/GetAllApproveAcademicStudentExamDataTeacher?searchKey=1
+    const { data } = await axiosInstance.get(
+      `/api/ApproveAcademicStudentExamDataTeacher/GetAllApproveAcademicStudentExamDataTeacher?searchKey=1
         `,
       tokenConfig()
     );
@@ -54,8 +54,8 @@ export const getExamMarkApprovalScheduleHeaderAction =
     try {
       dispatch({ type: GET_EXAM_MARK_APPROVAL_SCHEULE_HEADER_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/GetActiveExamScheduleListForExamMarkEntry?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idAcademicYearCalendar=${event}&roleID=1`,
+      const { data } = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/GetActiveExamScheduleListForExamMarkEntry?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idAcademicYearCalendar=${event}&roleID=1`,
         tokenConfig()
       );
 
@@ -77,8 +77,8 @@ export const getExamMarkApprovalScheduleHeaderAction =
     try {
       dispatch({ type: GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/GetListApproveAcademicStudentExamDataTeacher?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicFacultySubjectLink=${schedule}&searchKey=1`,
+      const { data } = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/GetListApproveAcademicStudentExamDataTeacher?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicFacultySubjectLink=${schedule}&searchKey=1`,
         tokenConfig()
       );
 
@@ -100,8 +100,8 @@ export const getExamMarkApprovalScheduleHeaderAction =
     try {
       dispatch({ type: GET_BULK_EXAM_MARK_APPROVAL_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/GetBulkApproveAcademicStudentExamDataTeacher?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicFacultySubjectLink=${schedule}&searchKey=1`,
+      const { data } = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/GetBulkApproveAcademicStudentExamDataTeacher?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicYearCalendar=${event}&idAcademicFacultySubjectLink=${schedule}&searchKey=1`,
         tokenConfig()
       );
 
@@ -133,8 +133,8 @@ export const getExamMarkApprovalScheduleHeaderAction =
       //   },
       // };
 
-      await axios.post(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/PostApproveAcademicStudentExamData`,
+      await axiosInstance.post(
+        `/api/ApproveAcademicStudentExamDataTeacher/PostApproveAcademicStudentExamData`,
         jsonData,
         tokenConfig()
       );
@@ -153,28 +153,33 @@ export const getExamMarkApprovalScheduleHeaderAction =
     try {
       dispatch({ type: GET_ALL_OTHER_OPTIONS_FOR_SELECT_TEACHER_REQUEST });
 
-      const year = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/ActionForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+      const year = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/ActionForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
         tokenConfig()
       );
 
-      const program = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/ActionForForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+      const program = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/ActionForForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
         tokenConfig()
       );
 
-      const classId = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/ActionForForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+      const classId = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/ActionForForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
         tokenConfig()
       );
 
-      const section = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/ActionForForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+      const section = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/ActionForForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
         tokenConfig()
       );
 
-      const shift = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/ActionForForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+      const shift = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/ActionForForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+        tokenConfig()
+      );
+
+      const event = await axiosInstance.get(
+        `/api/ApproveAcademicStudentExamDataTeacher/GetActiveAcademicYearCalendar?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
         tokenConfig()
       );
 
@@ -184,6 +189,7 @@ export const getExamMarkApprovalScheduleHeaderAction =
         classId: classId.data,
         section: section.data,
         shift: shift.data,
+        event: event.data,
       };
 
       dispatch({
@@ -198,25 +204,25 @@ export const getExamMarkApprovalScheduleHeaderAction =
     }
   };
 
-  export const getActiveSubjectAction =
-  (year, program, classId) => async (dispatch) => {
-    try {
-      dispatch({ type: GET_ACTIVE_SUBJECT_REQUEST });
+  // export const getActiveSubjectAction =
+  // (subject, id) => async (dispatch) => {
+  //   try {
+  //     dispatch({ type: GET_ACTIVE_SUBJECT_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/ApproveAcademicStudentExamDataTeacher/GetActiveAcademicYearCalendar?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
-        tokenConfig()
-      );
+  //     const { data } = await axiosInstance.get(
+  //       `/api/ApproveAcademicStudentExamDataTeacher/GetActiveAcademicYearCalendar?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+  //       tokenConfig()
+  //     );
 
-      dispatch({
-        type: GET_ACTIVE_SUBJECT_SUCCESS,
-        payload: data,
-      });
-    } catch (error) {
-      dispatch({
-        type: GET_ACTIVE_SUBJECT_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+  //     dispatch({
+  //       type: GET_ACTIVE_SUBJECT_SUCCESS,
+  //       payload: data,
+  //     });
+  //   } catch (error) {
+  //     dispatch({
+  //       type: GET_ACTIVE_SUBJECT_FAIL,
+  //       payload: error.message ? error.message : error.Message,
+  //     });
+  //   }
+  // };
 

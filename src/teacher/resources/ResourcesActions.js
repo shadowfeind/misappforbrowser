@@ -1,5 +1,4 @@
-import axios from "axios";
-import { API_URL, tokenConfig } from "../../constants";
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   DOWNLOAD_RESOURCES_FAIL,
   DOWNLOAD_RESOURCES_REQUEST,
@@ -28,9 +27,8 @@ export const getAllInitialResourcesDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_RESOURCES_INITIAL_DATA_REQUEST });
 
-    const { data } = await axios.get(
-      `${API_URL}/api/CourseDeliveryPlanTeacher/GetAllCourseDeliveryPlan`,
-      tokenConfig()
+    const { data } = await axiosInstance.get(
+      `/api/CourseDeliveryPlanTeacher/GetAllCourseDeliveryPlan`,tokenConfig()
     );
 
     dispatch({
@@ -50,9 +48,8 @@ export const getAllInitialDataFromSubjectAction =
     try {
       dispatch({ type: GET_ALL_INITIAL_DATA_FROM_SUBJECT_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/CourseDeliveryPlanTeacher/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       dispatch({
@@ -72,29 +69,24 @@ export const getAllOtherOptionsForResourcesSelectAction =
     try {
       dispatch({ type: GET_ALL_OTHER_OPTIONS_FOR_RESOURCES_SELECT_REQUEST });
 
-      const year = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const year = await axiosInstance.get(
+        `/api/CourseDeliveryPlanTeacher/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
-      const program = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const program = await axiosInstance.get(
+        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
-      const classId = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const classId = await axiosInstance.get(
+        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
-      const section = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const section = await axiosInstance.get(
+        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
-      const shift = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-        tokenConfig()
+      const shift = await axiosInstance.get(
+        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const data = {
@@ -122,9 +114,8 @@ export const getAllResourcesListAction =
     try {
       dispatch({ type: GET_ALL_RESOURCES_LIST_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${subject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/CourseDeliveryPlanTeacher/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${subject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,tokenConfig()
       );
 
       dispatch({
@@ -144,9 +135,8 @@ export const getCreateResourceAction =
     try {
       dispatch({ type: GET_CREATE_RESOURCES_REQUEST });
 
-      const { data } = await axios.get(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/GetSingleCreateCourseDeliveryPlan?idAcademicFacultySubjectLink=${subject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,
-        tokenConfig()
+      const { data } = await axiosInstance.get(
+        `/api/CourseDeliveryPlanTeacher/GetSingleCreateCourseDeliveryPlan?idAcademicFacultySubjectLink=${subject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,tokenConfig()
       );
 
       dispatch({
@@ -168,8 +158,8 @@ export const postResourceAction =
 
       let formData = new FormData();
       formData.append("ImageUploaded", image);
-      const { data } = await axios.post(
-        `${API_URL}/api/CourseDeliveryPlanTeacher/FileUpload`,
+      const { data } = await axiosInstance.post(
+        `/api/CourseDeliveryPlanTeacher/FileUpload`,
         formData,
         tokenConfig()
       );
@@ -201,10 +191,9 @@ export const postResourceAction =
 
         console.log(jsonData);
 
-        await axios.post(
-          `${API_URL}/api/CourseDeliveryPlanTeacher/Post`,
-          jsonData,
-          tokenConfig()
+        await axiosInstance.post(
+          `/api/CourseDeliveryPlanTeacher/Post`,
+          jsonData,tokenConfig()
         );
       }
 
@@ -220,21 +209,20 @@ export const postResourceAction =
     }
   };
 
-  export const downloadResourceAction = (id) => async (dispatch) => {
-    try {
-      dispatch({ type: DOWNLOAD_RESOURCES_REQUEST });
-  
-      const test = `${API_URL}/api/CourseDeliveryPlanTeacher/DownloadDoc/${id}`;
-  
-      window.open(test, "_blank");
-      dispatch({
-        type: DOWNLOAD_RESOURCES_SUCCESS,
-        
-      });
-    } catch (error) {
-      dispatch({
-        type: DOWNLOAD_RESOURCES_FAIL,
-        payload: error.message ? error.message : error.Message,
-      });
-    }
-  };
+export const downloadResourceAction = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DOWNLOAD_RESOURCES_REQUEST });
+
+    const test = `/api/CourseDeliveryPlanTeacher/DownloadDoc/${id}`;
+
+    window.open(test, "_blank");
+    dispatch({
+      type: DOWNLOAD_RESOURCES_SUCCESS,
+    });
+  } catch (error) {
+    dispatch({
+      type: DOWNLOAD_RESOURCES_FAIL,
+      payload: error.message ? error.message : error.Message,
+    });
+  }
+};

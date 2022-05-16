@@ -5,6 +5,7 @@ import CustomContainer from "../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../components/Notification";
 import LoadingComp from "../../components/LoadingComp";
+import MobileBody from "../../components/MobileBody";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import SelectControl from "../../components/controls/SelectControl";
 import {
@@ -192,6 +193,7 @@ const OldQuestions = () => {
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
             <div style={{ marginBottom: "30px" }}>
               {listOldQuestionsStudent &&
                 listOldQuestionsStudent.dbModelStudentLst.map((s) => (
@@ -203,6 +205,7 @@ const OldQuestions = () => {
                 No Data
               </h4>
             )}
+            </MobileBody>
           </>
         )}
       </CustomContainer>

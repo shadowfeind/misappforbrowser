@@ -17,17 +17,27 @@ import LockIcon from "@material-ui/icons/Lock";
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
-    padding: "16px",
+    padding: "16px 16px 16px 24px",
     borderBottom: "1px solid #d3d3d3",
     "& span": {
       fontWeight: "bolder",
     },
+    "& p": {
+      margin: "0",
+      paddingBottom: "4px",
+      fontSize: "12px",
+    },
   },
   button: {
     marginRight: "10px",
-    padding: "5px",
+    padding: "5px 16px",
     minWidth: "10px",
-    fontSize: "12px",
+    fontSize: "10px",
+    marginBottom: "10px",
+  },
+  listWrapper: {
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
@@ -62,95 +72,105 @@ const AssignmentListCollapse = ({ item, facultySubject, setOpenPopup }) => {
   };
 
   return (
-    <>
-      <ListForTable onClick={handleClick}>
-        <p>
-          {/* <span
-            style={{
-              padding: "8px 10px",
-              borderRadius: "50%",
-              fontSize: "12px",
-              color: "#fff",
-              backgroundColor: "#253053",
-            }}
-          >
-            {item.AssignmentName[0]}
-          </span> */}
-          <span style={{ paddingLeft: "12px" }}>
-            {item.AssignmentName}<br/>
-              <span style={{ fontSize: "12px", paddingLeft: "12px" }}>
-                {item.AssignmentDate.slice(0, 10)} / {item.DueDate.slice(0, 10)}
-              </span>
-          </span>{" "}
-          <span
-            style={{ fontSize: "10px", color: "#444", paddingLeft: "10px" }}
-          >
-            {item.SubmittedDate ? (
-              <span style={{ color: "green" }}>Submitted</span>
-            ) : (
-              <span style={{ color: "red" }}>Pending</span>
-            )}
-          </span>
-        </p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
-      </ListForTable>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <div className={classes.collapse}>
-          <p>
-            <span>AssignmentDate</span> : {item.AssignmentDate.slice(0, 10)}
-          </p>
-          <p>
-            <span>DueDate</span> : {item.DueDate.slice(0, 10)}
-          </p>
-          <p>
-            <span>TotalMark</span> :{item.TotalMark}
-          </p>
-          <p>
-            <span>ObtainedMarks</span> : {item.ObtainedMarks}
-          </p>
-          <p>
-            <Button
-              variant="outlined"
-              color="primary"
-              className={classes.button}
-              onClick={() => downloadHandler(item.IDAssignment)}
+    <div
+      style={{
+        padding: "6px 6px 0 6px",
+      }}
+    >
+      <div style={{ backgroundColor: "#fff" }}>
+        <ListForTable onClick={handleClick}>
+          <div className={classes.listWrapper}>
+            <div style={{ fontSize: "12px", color: "#666" }}>
+              {item.AssignmentDate.slice(0, 10)} <br />{" "}
+              {item.DueDate.slice(0, 10)}
+            </div>
+            <div
+              style={{
+                paddingLeft: "18px",
+                fontSize: "14px",
+                // fontWeight: "bolder",
+              }}
             >
-            Teacher &nbsp;
-              <CloudDownloadIcon style={{ fontSize: 12 }} />
-            </Button>
-            {item.DocumentSubmitted !== null && (
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.button}
-                onClick={() => downloadSubmittedHandler(item.IDAssignment)}
+              {item.AssignmentName}
+              <div
+                style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
               >
-              Student &nbsp;
-                <CloudDownloadIcon style={{ fontSize: 12 }} />
-              </Button>
+                {item.SubmittedDate ? (
+                  <div style={{ color: "green" }}>Submitted</div>
+                ) : (
+                  <div style={{ color: "red" }}>Pending</div>
+                )}
+              </div>
+            </div>
+          </div>
+          <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
             )}
-            {dateInPast(item.DueDate, Date.now() + 1) ? (
+          </div>
+        </ListForTable>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <div className={classes.collapse}>
+            <p>
+              <span>AssignmentDate</span> : {item.AssignmentDate.slice(0, 10)}
+            </p>
+            <p>
+              <span>DueDate</span> : {item.DueDate.slice(0, 10)}
+            </p>
+            <p>
+              <span>TotalMark</span> :{item.TotalMark}
+            </p>
+            <p>
+              <span>ObtainedMarks</span> : {item.ObtainedMarks}
+            </p>
+            <p>
               <Button
                 variant="contained"
                 color="primary"
                 className={classes.button}
+                onClick={() => downloadHandler(item.IDAssignment)}
               >
-                <LockIcon style={{ fontSize: 12 }} />
+                Teacher &nbsp;
+                <CloudDownloadIcon style={{ fontSize: 12 }} />
               </Button>
-            ) : (
-              <Button
-                variant="outlined"
-                color="primary"
-                className={classes.button}
-                onClick={() => updateHandler(item.IDAssignment)}
-              >
-                <EditIcon style={{ fontSize: 12 }} />&nbsp; Edit
-              </Button>
-            )}
-          </p>
-        </div>
-      </Collapse>
-    </>
+              {item.DocumentSubmitted !== null && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => downloadSubmittedHandler(item.IDAssignment)}
+                >
+                  Student &nbsp;
+                  <CloudDownloadIcon style={{ fontSize: 12 }} />
+                </Button>
+              )}
+              {dateInPast(item.DueDate, Date.now() + 1) ? (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className={classes.button}
+                >
+                  Expired &nbsp;
+                  <LockIcon style={{ fontSize: 12 }} />
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => updateHandler(item.IDAssignment)}
+                >
+                  <EditIcon style={{ fontSize: 12 }} />
+                  &nbsp; Upload Assignment
+                </Button>
+              )}
+            </p>
+          </div>
+        </Collapse>
+      </div>
+    </div>
   );
 };
 

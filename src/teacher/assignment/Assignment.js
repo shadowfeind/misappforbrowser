@@ -41,6 +41,9 @@ import AddBoxIcon from "@material-ui/icons/AddBox";
 import SearchIcon from "@material-ui/icons/Search";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 import AssignmentListCollapse from "./AssignmentListCollapse";
+import MobileBody from "../../components/MobileBody";
+import ImageEditor from "tui-image-editor";
+import FileSave from "file-saver";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -413,8 +416,53 @@ const Assignment = () => {
     }
   }, [allOtherOptions]);
 
+  // const Instance = new ImageEditor(
+  //   document.getElementById("tui-image-editor"),
+  //   {
+  //     includeUI: {
+  //       loadImage: {
+  //         path: "https://mis.vidyacube.com/Upload/Thumb/2082/83/30d5f4d6-c398-49b9-8cb1-3d62a84175a6.jpg",
+  //         name: "SampleImage",
+  //       },
+  //       // locale: locale_ru_RU,
+  //       // theme: blackTheme, // or whiteTheme
+  //       initMenu: "filter",
+  //       menuBarPosition: "bottom",
+  //     },
+  //     cssMaxWidth: 700,
+  //     cssMaxHeight: 500,
+  //     selectionStyle: {
+  //       cornerSize: 20,
+  //       rotatingPointOffset: 70,
+  //     },
+  //   }
+  // );
+
   return (
     <>
+      {/* <ImageEditor
+        includeUI={{
+          loadImage: {
+            path: "https://mis.vidyacube.com/Upload/Thumb/2082/83/30d5f4d6-c398-49b9-8cb1-3d62a84175a6.jpg",
+            name: "SampleImage",
+          },
+          // theme: myTheme,
+          menu: ["shape", "filter"],
+          initMenu: "filter",
+          uiSize: {
+            width: "1000px",
+            height: "700px",
+          },
+          menuBarPosition: "bottom",
+        }}
+        cssMaxHeight={500}
+        cssMaxWidth={700}
+        selectionStyle={{
+          cornerSize: 20,
+          rotatingPointOffset: 70,
+        }}
+        usageStatistics={true}
+      /> */}
       <CustomContainer>
         <MobileTopSelectContainer>
           <h3 style={{ textAlign: "center", marginTop: "0" }}>Assignments</h3>
@@ -530,7 +578,8 @@ const Assignment = () => {
                 type="submit"
                 className={classes.button}
                 onClick={allHandler}
-              >All&nbsp;
+              >
+                All&nbsp;
                 <ZoomInIcon />
               </Button>
               <div style={{ height: "10px" }}></div>
@@ -540,7 +589,7 @@ const Assignment = () => {
         {loading ? (
           <LoadingComp />
         ) : (
-          <>
+          <MobileBody>
             {getListTeacherAssignment?.dbTeacherAssignmentLstBySection.map(
               (item) => (
                 <AssignmentListCollapse
@@ -556,7 +605,7 @@ const Assignment = () => {
                 No Assignment
               </h4>
             )}
-          </>
+          </MobileBody>
         )}
       </CustomContainer>
       <Popup
@@ -615,8 +664,7 @@ const Assignment = () => {
                 singleTeacherAssignment.dbTeacherAssignmentModel
               }
               assignmentImage={
-                singleTeacherAssignment &&
-                singleTeacherAssignment.FullPath
+                singleTeacherAssignment && singleTeacherAssignment.FullPath
               }
               setOpenPop3={setOpenPopup3}
             />
@@ -633,3 +681,60 @@ const Assignment = () => {
 };
 
 export default Assignment;
+
+// import React, { useState, useEffect, useRef } from "react";
+// import TuiImageEditor from "tui-image-editor";
+
+// import "tui-image-editor/dist/tui-image-editor.css";
+// import "tui-color-picker/dist/tui-color-picker.css";
+
+// class ImageEditor extends React.Component {
+//   rootEl = React.createRef();
+//   imageEditorInst = null;
+
+//   componentDidMount() {
+//     this.imageEditorInst = new TuiImageEditor(this.rootEl.current, {
+//       ...this.props,
+//     });
+//   }
+
+//   componentWillUnmount() {
+//     // this.unbindEventHandlers();
+//     this.imageEditorInst.destroy();
+//     this.imageEditorInst = null;
+//   }
+
+//   render() {
+//     return <div ref={this.rootEl} />;
+//   }
+// }
+
+// export default function Assignment() {
+//   const props = {
+//     includeUI: {
+//       loadImage: {
+//         path: "http://103.90.86.151:55/Upload/Thumb/2082/83/30d5f4d6-c398-49b9-8cb1-3d62a84175a6.jpg",
+//         name: "SampleImage",
+//       },
+//       menu: ["shape", "filter", "text"],
+//       initMenu: "filter",
+//       uiSize: {
+//         width: "1000px",
+//         height: "700px",
+//       },
+//       menuBarPosition: "bottom",
+//     },
+//     cssMaxWidth: 700,
+//     cssMaxHeight: 500,
+//     selectionStyle: {
+//       cornerSize: 20,
+//       rotatingPointOffset: 70,
+//     },
+//   };
+
+//   return (
+//     <div>
+//       <ImageEditor {...props} />
+//     </div>
+//   );
+// }
