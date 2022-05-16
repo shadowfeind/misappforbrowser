@@ -20,6 +20,7 @@ import {
   getSingleCreateLeaveRequestAction,
 } from "../TeacherLeaveRequestActions";
 import TeacherLeaveRequestDelete from "../TeacherLeaveRequestDelete";
+import MobileBody from "../../../components/MobileBody";
 
 const useStyles = makeStyles((theme) => ({
   button: {
@@ -180,16 +181,17 @@ const TeacherLeaveRequestSent = () => {
           <AddBoxIcon style={{ fontSize: 14 }} />
         </Button>
       </h4>
-      {listLeaveRequest &&
-        listLeaveRequest?.dbModelLst?.map((item) => (
-          <SentListCollapse
-            key={item.$id}
-            item={item}
-            setOpenPopUp={setRequestPopUp}
-            setOpenDeletePopup={setOpenDeletePopup}
-          />
-        ))}
-
+      <MobileBody>
+        {listLeaveRequest &&
+          listLeaveRequest?.dbModelLst?.map((item) => (
+            <SentListCollapse
+              key={item.$id}
+              item={item}
+              setOpenPopUp={setRequestPopUp}
+              setOpenDeletePopup={setOpenDeletePopup}
+            />
+          ))}
+      </MobileBody>
       <Popup
         openPopup={requestPopUp}
         setOpenPopup={setRequestPopUp}

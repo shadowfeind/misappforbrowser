@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import LoadingComp from "../../../components/LoadingComp";
 import Notification from "../../../components/Notification";
 import ConfirmDialog from "../../../components/ConfirmDialog";
+import MobileBody from "../../../components/MobileBody";
 import SelectControl from "../../../components/controls/SelectControl";
 import {
   GET_ALL_OTHER_OPTIONS_FOR_STUDENT_RESET,
@@ -246,6 +247,7 @@ const StudentMonthlyPresentSheet = () => {
           <LoadingComp />
         ) : (
           <>
+          <MobileBody>
         {getListStudentAttendance && (
           <StudentMonthlyPresentSheetListCollapse
             attendance={getListStudentAttendance}
@@ -254,6 +256,7 @@ const StudentMonthlyPresentSheet = () => {
         {getListStudentAttendance?.dbModelLst.length < 1 && (
           <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
         )}
+        </MobileBody>
         </>
         )}
       </CustomContainer>

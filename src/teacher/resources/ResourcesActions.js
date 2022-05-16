@@ -28,7 +28,7 @@ export const getAllInitialResourcesDataAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_RESOURCES_INITIAL_DATA_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/CourseDeliveryPlanTeacher/GetAllCourseDeliveryPlan`
+      `/api/CourseDeliveryPlanTeacher/GetAllCourseDeliveryPlan`,tokenConfig()
     );
 
     dispatch({
@@ -49,7 +49,7 @@ export const getAllInitialDataFromSubjectAction =
       dispatch({ type: GET_ALL_INITIAL_DATA_FROM_SUBJECT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/CourseDeliveryPlanTeacher/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/CourseDeliveryPlanTeacher/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       dispatch({
@@ -70,23 +70,23 @@ export const getAllOtherOptionsForResourcesSelectAction =
       dispatch({ type: GET_ALL_OTHER_OPTIONS_FOR_RESOURCES_SELECT_REQUEST });
 
       const year = await axiosInstance.get(
-        `/api/CourseDeliveryPlanTeacher/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/CourseDeliveryPlanTeacher/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const program = await axiosInstance.get(
-        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const classId = await axiosInstance.get(
-        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const section = await axiosInstance.get(
-        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const shift = await axiosInstance.get(
-        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/CourseDeliveryPlanTeacher/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const data = {
@@ -115,7 +115,7 @@ export const getAllResourcesListAction =
       dispatch({ type: GET_ALL_RESOURCES_LIST_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/CourseDeliveryPlanTeacher/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${subject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`
+        `/api/CourseDeliveryPlanTeacher/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${subject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,tokenConfig()
       );
 
       dispatch({
@@ -136,7 +136,7 @@ export const getCreateResourceAction =
       dispatch({ type: GET_CREATE_RESOURCES_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/CourseDeliveryPlanTeacher/GetSingleCreateCourseDeliveryPlan?idAcademicFacultySubjectLink=${subject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`
+        `/api/CourseDeliveryPlanTeacher/GetSingleCreateCourseDeliveryPlan?idAcademicFacultySubjectLink=${subject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,tokenConfig()
       );
 
       dispatch({
@@ -160,7 +160,8 @@ export const postResourceAction =
       formData.append("ImageUploaded", image);
       const { data } = await axiosInstance.post(
         `/api/CourseDeliveryPlanTeacher/FileUpload`,
-        formData
+        formData,
+        tokenConfig()
       );
 
       const {
@@ -192,7 +193,7 @@ export const postResourceAction =
 
         await axiosInstance.post(
           `/api/CourseDeliveryPlanTeacher/Post`,
-          jsonData
+          jsonData,tokenConfig()
         );
       }
 

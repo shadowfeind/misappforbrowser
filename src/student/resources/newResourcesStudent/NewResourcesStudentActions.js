@@ -17,7 +17,7 @@ export const getAllNewResourcesStudentAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/CourseDeliveryPlanStudent/GetAllCourseDeliveryPlan
-          `
+          `,tokenConfig()
     );
 
     dispatch({
@@ -39,7 +39,7 @@ export const getNewResourcesStudentListAction =
       dispatch({ type: GET_NEW_SOURCES_STUDENT_LIST_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/CourseDeliveryPlanStudent/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${facultySubject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`
+        `/api/CourseDeliveryPlanStudent/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${facultySubject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,tokenConfig()
       );
 
       dispatch({

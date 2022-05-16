@@ -19,7 +19,7 @@ export const getAllOldQuestionsStudentAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_OLD_QUESTIONS_STUDENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/OldQuestionStudent/GetAllOldQuestion`
+      `/api/OldQuestionStudent/GetAllOldQuestion`,tokenConfig()
     );
 
     dispatch({
@@ -40,7 +40,7 @@ export const getSubjectOptionsForOldQuestionsStudentAction =
       dispatch({ type: GET_SUBJECT_OPTIONS_OLD_QUESTIONS_STUDENT_REQUEST });
 
       const subject = await axiosInstance.get(
-        `/api/OldQuestionStudent/GetSubjectByIDLevel?level=${classId}`
+        `/api/OldQuestionStudent/GetSubjectByIDLevel?level=${classId}`,tokenConfig()
       );
       const data = {
         subject: subject.data,
@@ -63,7 +63,7 @@ export const getListOldQuestionsStudentAction =
       dispatch({ type: GET_LIST_OLD_QUESTIONS_STUDENT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/OldQuestionStudent/GetListOldQuestion?level=${classId}&idAcademicSubject=${subject}`
+        `/api/OldQuestionStudent/GetListOldQuestion?level=${classId}&idAcademicSubject=${subject}`,tokenConfig()
       );
 
       dispatch({

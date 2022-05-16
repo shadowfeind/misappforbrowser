@@ -40,7 +40,7 @@ export const getAllAssignmentTeacherAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ASSIGNMENT_TEACHER_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/TeacherAssignment/GetAllTeacherAssignment`
+      `/api/TeacherAssignment/GetAllTeacherAssignment`,tokenConfig()
     );
 
     dispatch({
@@ -61,24 +61,24 @@ export const getAllOtherOptionsForSelectAction =
       dispatch({ type: GET_ALL_OTHER_OPTIONS_FOR_SELECT_REQUEST });
 
       const year = await axiosInstance.get(
-        `/api/TeacherAssignment/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/TeacherAssignment/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const program = await axiosInstance.get(
-        `/api/TeacherAssignment/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const classId = await axiosInstance.get(
         `/api/TeacherAssignment/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}
-        `
+        `,tokenConfig()
       );
 
       const section = await axiosInstance.get(
-        `/api/TeacherAssignment/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const shift = await axiosInstance.get(
-        `/api/TeacherAssignment/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,tokenConfig()
       );
 
       const data = {
@@ -109,7 +109,7 @@ export const getListAssignmentTeacherAction =
 
       const { data } = await axiosInstance.get(
         `/api/TeacherAssignment/GetListTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}
-        `
+        `,tokenConfig()
       );
 
       dispatch({
@@ -130,7 +130,7 @@ export const getEnglishDateAction = (year, month) => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/TeacherAssignment/GetEngDate?year=${year}&month=${month}
-        `
+        `,tokenConfig()
     );
 
     dispatch({
@@ -152,7 +152,7 @@ export const getSingleCreateTeacherAssignmentAction =
       dispatch({ type: GET_SINGLE_CREATE_TEACHER_ASSIGNMENT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/TeacherAssignment/GetSingleToCreateTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}`
+        `/api/TeacherAssignment/GetSingleToCreateTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}`,tokenConfig()
       );
 
       dispatch({
@@ -182,7 +182,7 @@ export const postTeacherAssignmentAction =
 
       const { data } = await axiosInstance.post(
         `/api/TeacherAssignment/FileUpload`,
-        formData
+        formData,tokenConfig()
       );
 
       if (data) {
@@ -195,7 +195,7 @@ export const postTeacherAssignmentAction =
           dbModelLstForStudentSection: students,
         });
 
-        await axiosInstance.post(`/api/TeacherAssignment/Post`, jsonData);
+        await axiosInstance.post(`/api/TeacherAssignment/Post`, jsonData,tokenConfig());
       }
 
       dispatch({
@@ -216,7 +216,7 @@ export const getTeacherAssignmentContentAction =
       dispatch({ type: GET_TEACHER_ASSIGNMENT_CONTENT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/TeacherAssignment/GetAssignmentContent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}`
+        `/api/TeacherAssignment/GetAssignmentContent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}`,tokenConfig()
       );
 
       dispatch({
@@ -240,7 +240,7 @@ export const getSingleToEditTeacherAssignmentAction =
       dispatch({ type: GET_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/TeacherAssignment/GetSingleToEditTeacherAssignment/${id}`
+        `/api/TeacherAssignment/GetSingleToEditTeacherAssignment/${id}`,tokenConfig()
       );
 
       dispatch({
@@ -270,7 +270,7 @@ export const putSingleToEditTeacherAssignmentAction =
         const { data: imageData } = await axiosInstance.post(
           `/api/TeacherAssignment/FileUpload`,
           formData,
-          tokenConfig
+          tokenConfig()
         );
         //renaming data as it was undefined when consoled
 
@@ -290,7 +290,7 @@ export const putSingleToEditTeacherAssignmentAction =
           const { data } = await axiosInstance.put(
             `/api/TeacherAssignment/PutTeacherAssignment`,
             jsonData,
-            tokenConfig
+            tokenConfig()
           );
         }
       } else {
@@ -300,7 +300,7 @@ export const putSingleToEditTeacherAssignmentAction =
         await axiosInstance.put(
           `/api/TeacherAssignment/PutTeacherAssignment`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
       }
       dispatch({
