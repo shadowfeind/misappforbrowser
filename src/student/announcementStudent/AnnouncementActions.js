@@ -1,4 +1,4 @@
-import { axiosInstance } from "../../constants";
+import { axiosInstance ,tokenConfig} from "../../constants";
 import {
   ANNOUNCEMENT_STUDENT_FCM_FAIL,
   ANNOUNCEMENT_STUDENT_FCM_REQUEST,
@@ -16,7 +16,7 @@ export const getAllStudentAnnouncementAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ANNOUNCEMENT_STUDENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/Announcement/GetAllAnnouncement`
+      `/api/Announcement/GetAllAnnouncement`,tokenConfig()
     );
 
     dispatch({ type: GET_ALL_ANNOUNCEMENT_STUDENT_SUCCESS, payload: data });
@@ -33,7 +33,7 @@ export const getListStudentAnnouncementAction = (date) => async (dispatch) => {
     dispatch({ type: GET_LIST_ANNOUNCEMENT_STUDENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/Announcement/GetListAnnouncement?createdDate=${date}`
+      `/api/Announcement/GetListAnnouncement?createdDate=${date}`,tokenConfig()
     );
 
     dispatch({ type: GET_LIST_ANNOUNCEMENT_STUDENT_SUCCESS, payload: data });
@@ -50,7 +50,7 @@ export const getFCMForStudentAnnouncementAction = () => async (dispatch) => {
     dispatch({ type: ANNOUNCEMENT_STUDENT_FCM_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/Announcement/GetSingleCreateAnnouncement`
+      `/api/Announcement/GetSingleCreateAnnouncement`,tokenConfig()
     );
 
     dispatch({ type: ANNOUNCEMENT_STUDENT_FCM_SUCCESS, payload: data });

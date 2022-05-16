@@ -1,3 +1,4 @@
+import axios from "axios";
 import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
 import {
   DELETE_LEAVE_REQUESTS_FAIL,
@@ -38,7 +39,7 @@ export const getAllLeaveRequestAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetAllLeaveRequest
-        `
+        `,tokenConfig()
     );
 
     dispatch({ type: GET_ALL_LEAVE_REQUESTS_SUCCESS, payload: data });
@@ -56,7 +57,7 @@ export const getListLeaveRequestAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetListLeaveRequest
-        `
+        `,tokenConfig()
     );
 
     dispatch({ type: GET_LIST_LEAVE_REQUESTS_SUCCESS, payload: data });
@@ -74,7 +75,7 @@ export const getSingleCreateLeaveRequestAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToCreateLeaveRequest
-        `
+        `,tokenConfig()
     );
 
     dispatch({
@@ -95,7 +96,7 @@ export const getSingleEditLeaveRequestAction = (id) => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToEditLeaveRequest/${id}
-        `
+        `,tokenConfig()
     );
 
     dispatch({
@@ -116,7 +117,7 @@ export const postLeaveRequestAction =
       dispatch({ type: POST_LEAVE_REQUESTS_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`
+        `/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`,tokenConfig()
       );
       if (data) {
         const fcmBody = {
@@ -129,7 +130,7 @@ export const postLeaveRequestAction =
         };
         const fbody = JSON.stringify(fcmBody);
 
-        await axiosInstance.post(
+        await axios.post(
           "https://fcm.googleapis.com/fcm/send",
           fbody,
           tokenHeader
@@ -142,7 +143,7 @@ export const postLeaveRequestAction =
 
         const { data } = await axiosInstance.post(
           `/api/LeaveRequest/FileUpload`,
-          formData
+          formData,tokenConfig()
         );
         if (data) {
           const newData = { ...leaveRequestPost, DocumentName: data };
@@ -150,7 +151,7 @@ export const postLeaveRequestAction =
 
           await axiosInstance.post(
             `/api/LeaveRequest/PostLeaveRequest`,
-            jsonData
+            jsonData,tokenConfig()
           );
         }
       } else {
@@ -159,7 +160,7 @@ export const postLeaveRequestAction =
 
         await axiosInstance.post(
           `/api/LeaveRequest/PostLeaveRequest`,
-          jsonData
+          jsonData,tokenConfig()
         );
       }
 
@@ -183,7 +184,7 @@ export const putLeaveRequestAction =
 
         const { data } = await axiosInstance.post(
           `/api/LeaveRequest/FileUpload`,
-          formData
+          formData,tokenConfig()
         );
         if (data) {
           const newData = { ...leaveRequest, DocumentName: data };
@@ -191,14 +192,14 @@ export const putLeaveRequestAction =
 
           await axiosInstance.put(
             `/api/LeaveRequest/PutLeaveRequest`,
-            jsonData
+            jsonData,tokenConfig()
           );
         }
       } else {
         const newData = { ...leaveRequest };
         const jsonData = JSON.stringify({ dbModel: newData });
 
-        await axiosInstance.put(`/api/LeaveRequest/PutLeaveRequest`, jsonData);
+        await axiosInstance.put(`/api/LeaveRequest/PutLeaveRequest`, jsonData,tokenConfig());
       }
       dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS });
     } catch (error) {
@@ -215,7 +216,7 @@ export const putLeaveRequestApproveAction =
       dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`
+        `/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`,tokenConfig()
       );
       if (data) {
         const fcmBody = {
@@ -228,7 +229,7 @@ export const putLeaveRequestApproveAction =
         };
         const fbody = JSON.stringify(fcmBody);
 
-        await axiosInstance.post(
+        await axios.post(
           "https://fcm.googleapis.com/fcm/send",
           fbody,
           tokenHeader
@@ -238,7 +239,7 @@ export const putLeaveRequestApproveAction =
       const newData = { ...leaveRequest };
       const jsonData = JSON.stringify({ dbModel: newData });
 
-      await axiosInstance.put(`/api/LeaveRequest/PutLeaveRequest`, jsonData);
+      await axiosInstance.put(`/api/LeaveRequest/PutLeaveRequest`, jsonData,tokenConfig());
 
       dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS });
     } catch (error) {
@@ -255,7 +256,7 @@ export const getSingleDeleteLeaveRequestAction = (id) => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToDeleteLeaveRequest/${id}
-          `
+          `,tokenConfig()
     );
 
     dispatch({
@@ -284,7 +285,8 @@ export const deleteLeaveRequestAction = (leaveRequest) => async (dispatch) => {
 
     const { data } = await axiosInstance.post(
       `/api/LeaveRequest/DeleteLeaveRequest`,
-      jsonData
+      jsonData,
+      tokenConfig()
     );
 
     dispatch({ type: DELETE_LEAVE_REQUESTS_SUCCESS, payload: data });
@@ -302,7 +304,7 @@ export const getSingleEditSentLeaveRequestAction = (id) => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToEditSentLeaveRequest/${id}
-          `
+          `,tokenConfig()
     );
 
     dispatch({

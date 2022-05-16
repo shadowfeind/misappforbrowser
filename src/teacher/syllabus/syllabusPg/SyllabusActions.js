@@ -13,7 +13,7 @@ export const getAllSyllabusAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_SYLLABUS_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/SyllabusTeacher/GetAllSyllabus`
+      `/api/SyllabusTeacher/GetAllSyllabus`,tokenConfig()
     );
 
     dispatch({
@@ -33,7 +33,7 @@ export const getListSyllabusAction = (id) => async (dispatch) => {
     dispatch({ type: GET_LIST_SYLLABUS_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/SyllabusTeacher/GetListSyllabus/${id}?searchKey=1`
+      `/api/SyllabusTeacher/GetListSyllabus/${id}?searchKey=1`,tokenConfig()
     );
 
     dispatch({

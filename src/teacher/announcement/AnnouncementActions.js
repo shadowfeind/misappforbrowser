@@ -18,7 +18,7 @@ export const getAllTeacherAnnouncementAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/Announcement/GetAllAnnouncement
-        `,
+        `,tokenConfig()
       
     );
 
@@ -36,7 +36,7 @@ export const getListTeacherAnnouncementAction = (date) => async (dispatch) => {
     dispatch({ type: GET_LIST_ANNOUNCEMENT_TEACHER_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/Announcement/GetListAnnouncement?createdDate=${date}`,
+      `/api/Announcement/GetListAnnouncement?createdDate=${date}`,tokenConfig()
       
     );
 
@@ -54,7 +54,7 @@ export const getFCMForTeacherAnnouncementAction = () => async (dispatch) => {
     dispatch({ type: ANNOUNCEMENT_TEACHER_FCM_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/Announcement/GetSingleCreateAnnouncement`,
+      `/api/Announcement/GetSingleCreateAnnouncement`,tokenConfig()
       
     );
 

@@ -26,7 +26,7 @@ export const getAllStudentPersonalInformationAction =
       dispatch({ type: GET_ALL_PERSONALINFORMATION_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/PID_PersonalInformation/GetAllPIDPersonalInformation?searchKey=1`
+        `/api/PID_PersonalInformation/GetAllPIDPersonalInformation?searchKey=1`,tokenConfig()
       );
 
       dispatch({ type: GET_ALL_PERSONALINFORMATION_SUCCESS, payload: data });
@@ -43,7 +43,7 @@ export const getSinglePersonalInformationAction = () => async (dispatch) => {
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`
+      `/api/PID_PersonalInformation/GetSingleEdit?searchKey=1`,tokenConfig()
     );
 
     dispatch({ type: GET_SINGLE_PERSONALINFORMATION_SUCCESS, payload: data });
@@ -60,7 +60,7 @@ export const getListPersonalInformationAction = () => async (dispatch) => {
     dispatch({ type: GET_LIST_PERSONALINFORMATION_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/PID_PersonalInformation/GetListPersonallInformation?searchKey=1`
+      `/api/PID_PersonalInformation/GetListPersonallInformation?searchKey=1`,tokenConfig()
     );
 
     dispatch({ type: GET_LIST_PERSONALINFORMATION_SUCCESS, payload: data });
@@ -87,7 +87,7 @@ export const updateSinglePersonalInformationAction =
 
       const { data } = await axiosInstance.put(
         `/api/PID_PersonalInformation/Put`,
-        jsonData
+        jsonData,tokenConfig()
       );
       console.log(jsonData);
 
@@ -108,7 +108,7 @@ export const getStudentResetPasswordAction = (id) => async (dispatch) => {
     dispatch({ type: GET_STUDENT_RESET_PASSWORD_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/AccountRemote/GetChangePassword/${id}`
+      `/api/AccountRemote/GetChangePassword/${id}`,tokenConfig()
     );
 
     dispatch({ type: GET_STUDENT_RESET_PASSWORD_SUCCESS, payload: data });
@@ -138,7 +138,7 @@ export const postStudentPasswordAction =
 
       const { data } = await axiosInstance.post(
         `/api/AccountRemote/Post`,
-        jsonData
+        jsonData,tokenConfig()
       );
 
       dispatch({

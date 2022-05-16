@@ -40,7 +40,8 @@ export const getAllAssignmentTeacherAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ASSIGNMENT_TEACHER_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/TeacherAssignment/GetAllTeacherAssignment`
+      `/api/TeacherAssignment/GetAllTeacherAssignment`,
+      tokenConfig()
     );
 
     dispatch({
@@ -61,24 +62,29 @@ export const getAllOtherOptionsForSelectAction =
       dispatch({ type: GET_ALL_OTHER_OPTIONS_FOR_SELECT_REQUEST });
 
       const year = await axiosInstance.get(
-        `/api/TeacherAssignment/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/TeacherAssignment/GetAttendanceForAcademicYear?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+        tokenConfig()
       );
 
       const program = await axiosInstance.get(
-        `/api/TeacherAssignment/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForFacultyProgram?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+        tokenConfig()
       );
 
       const classId = await axiosInstance.get(
         `/api/TeacherAssignment/GetCurseDeliveryPlanForLevel?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}
-        `
+        `,
+        tokenConfig()
       );
 
       const section = await axiosInstance.get(
-        `/api/TeacherAssignment/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForSection?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+        tokenConfig()
       );
 
       const shift = await axiosInstance.get(
-        `/api/TeacherAssignment/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`
+        `/api/TeacherAssignment/GetCurseDeliveryPlanForShift?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+        tokenConfig()
       );
 
       const data = {
@@ -109,7 +115,8 @@ export const getListAssignmentTeacherAction =
 
       const { data } = await axiosInstance.get(
         `/api/TeacherAssignment/GetListTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}
-        `
+        `,
+        tokenConfig()
       );
 
       dispatch({
@@ -130,7 +137,8 @@ export const getEnglishDateAction = (year, month) => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/TeacherAssignment/GetEngDate?year=${year}&month=${month}
-        `
+        `,
+      tokenConfig()
     );
 
     dispatch({
@@ -152,7 +160,8 @@ export const getSingleCreateTeacherAssignmentAction =
       dispatch({ type: GET_SINGLE_CREATE_TEACHER_ASSIGNMENT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/TeacherAssignment/GetSingleToCreateTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}`
+        `/api/TeacherAssignment/GetSingleToCreateTeacherAssignment?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}&assignmentDate=${currentDate}`,
+        tokenConfig()
       );
 
       dispatch({
@@ -163,8 +172,8 @@ export const getSingleCreateTeacherAssignmentAction =
       dispatch({
         type: GET_SINGLE_CREATE_TEACHER_ASSIGNMENT_FAIL,
         payload:
-          error.Message && error.response.data.Message
-            ? error.response.data.Message
+          error.message && error.response.data.message
+            ? error.response.data.message
             : error.message,
       });
     }
@@ -182,7 +191,8 @@ export const postTeacherAssignmentAction =
 
       const { data } = await axiosInstance.post(
         `/api/TeacherAssignment/FileUpload`,
-        formData
+        formData,
+        tokenConfig()
       );
 
       if (data) {
@@ -195,7 +205,11 @@ export const postTeacherAssignmentAction =
           dbModelLstForStudentSection: students,
         });
 
-        await axiosInstance.post(`/api/TeacherAssignment/Post`, jsonData);
+        await axiosInstance.post(
+          `/api/TeacherAssignment/Post`,
+          jsonData,
+          tokenConfig()
+        );
       }
 
       dispatch({
@@ -216,7 +230,8 @@ export const getTeacherAssignmentContentAction =
       dispatch({ type: GET_TEACHER_ASSIGNMENT_CONTENT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/TeacherAssignment/GetAssignmentContent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}`
+        `/api/TeacherAssignment/GetAssignmentContent?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}&idAcademicFacultySubjectLink=${subject}`,
+        tokenConfig()
       );
 
       dispatch({
@@ -227,8 +242,8 @@ export const getTeacherAssignmentContentAction =
       dispatch({
         type: GET_TEACHER_ASSIGNMENT_CONTENT_FAIL,
         payload:
-          error.Message && error.response.data.Message
-            ? error.response.data.Message
+          error.message && error.response.data.message
+            ? error.response.data.message
             : error.message,
       });
     }
@@ -240,7 +255,8 @@ export const getSingleToEditTeacherAssignmentAction =
       dispatch({ type: GET_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/TeacherAssignment/GetSingleToEditTeacherAssignment/${id}`
+        `/api/TeacherAssignment/GetSingleToEditTeacherAssignment/${id}`,
+        tokenConfig()
       );
 
       dispatch({
@@ -251,8 +267,8 @@ export const getSingleToEditTeacherAssignmentAction =
       dispatch({
         type: GET_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_FAIL,
         payload:
-          error.Message && error.response.data.Message
-            ? error.response.data.Message
+          error.message && error.response.data.message
+            ? error.response.data.message
             : error.message,
       });
     }
@@ -266,52 +282,142 @@ export const putSingleToEditTeacherAssignmentAction =
       if (image) {
         let formData = new FormData();
         formData.append("ImageUploaded", image);
-
-        const { data: imageData } = await axiosInstance.post(
+        // debugger;
+        const { data: newImage } = await axiosInstance.post(
           `/api/TeacherAssignment/FileUpload`,
           formData,
-          tokenConfig
+          tokenConfig()
         );
-        //renaming data as it was undefined when consoled
-
-        if (imageData !== undefined) {
-          debugger;
+        // debugger;
+        if (newImage) {
+          // debugger;
+          // const newDate = singleAssignment?.AssignmentDate?.toISOString().slice(
+          //   0,
+          //   10
+          // );
+          // debugger;
+          const newData = {
+            ...singleAssignment,
+            DocumentName: newImage,
+            // AssignmentDate: newDate,
+          };
+          // debugger;
           const jsonData = JSON.stringify({
-            dbTeacherAssignmentModel: {
-              ...singleAssignment,
-              DocumentName: imageData,
-            },
+            dbTeacherAssignmentModel: newData,
           });
-          console.log(data);
-          debugger;
+          // debugger;
           console.log(jsonData);
-          debugger;
 
           const { data } = await axiosInstance.put(
             `/api/TeacherAssignment/PutTeacherAssignment`,
             jsonData,
-            tokenConfig
+            tokenConfig()
           );
+
+          dispatch({
+            type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_SUCCESS,
+            payload: data,
+          });
         }
       } else {
+        // debugger;
+
+        // debugger;
+        // const newDate = singleAssignment?.AssignmentDate?.toISOString().slice(
+        //   0,
+        //   10
+        // );
+        // debugger;
+        const newData = {
+          ...singleAssignment,
+          // AssignmentDate: newDate,
+        };
+        // debugger;
         const jsonData = JSON.stringify({
-          dbTeacherAssignmentModel: singleAssignment,
+          dbTeacherAssignmentModel: newData,
         });
-        await axiosInstance.put(
+        // debugger;
+        console.log(jsonData);
+
+        const { data } = await axiosInstance.put(
           `/api/TeacherAssignment/PutTeacherAssignment`,
           jsonData,
-          tokenConfig
+          tokenConfig()
         );
+
+        dispatch({
+          type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_SUCCESS,
+          payload: data,
+        });
       }
-      dispatch({
-        type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_SUCCESS,
-      });
     } catch (error) {
       dispatch({
         type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_FAIL,
         payload:
-          error.Message && error.response.data.Message
-            ? error.response.data.Message
+          error.message && error.response.data.message
+            ? error.response.data.message
+            : error.message,
+      });
+    }
+  };
+
+export const putSingleToEditTeacherAssignmentStudentAction =
+  (image, singleAssignment) => async (dispatch) => {
+    try {
+      dispatch({ type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_REQUEST });
+      function dataURLtoFile(dataurl, filename) {
+        let arr = dataurl.split(","),
+          mime = arr[0].match(/:(.*?);/)[1],
+          bstr = atob(arr[1]),
+          n = bstr.length,
+          u8arr = new Uint8Array(n);
+
+        while (n--) {
+          u8arr[n] = bstr.charCodeAt(n);
+        }
+
+        return new File([u8arr], filename, { type: mime });
+      }
+
+      let file = dataURLtoFile(image.imageBase64, image.fullName);
+      let formData = new FormData();
+      formData.append("ImageUploaded", file);
+
+      const { data: newImage } = await axiosInstance.post(
+        `/api/TeacherAssignment/FileUpload`,
+        formData,
+        tokenConfig()
+      );
+
+      if (newImage) {
+        const newData = {
+          ...singleAssignment,
+          DocumentSubmitted: newImage,
+        };
+
+        const jsonData = JSON.stringify({
+          dbTeacherAssignmentModel: newData,
+        });
+
+        console.log(jsonData);
+
+        const { data } = await axiosInstance.put(
+          `/api/TeacherAssignment/PutTeacherAssignment`,
+          jsonData,
+          tokenConfig()
+        );
+
+        dispatch({
+          type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_SUCCESS,
+          payload: data,
+        });
+      }
+    } catch (error) {
+      dispatch({
+        type: PUT_SINGLE_TO_EDIT_TEACHER_ASSIGNMENT_FAIL,
+        payload:
+          error.message && error.response.data.message
+            ? error.response.data.message
             : error.message,
       });
     }
@@ -322,6 +428,8 @@ export const downloadAssignmentAction = (id) => async (dispatch) => {
     dispatch({ type: DOWNLOAD_ASSIGNMENT_REQUEST });
 
     const test = `/api/TeacherAssignment/DownloadTEacherAssignmentDoc/${id}`;
+
+    console.log(test);
 
     window.open(test, "_blank");
     dispatch({
@@ -339,9 +447,14 @@ export const downloadSubmittedAssignmentAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_SUBMITTED_ASSIGNMENT_REQUEST });
 
-    const test = `/api/TeacherAssignment/DownloadSubmittedDoc/${id}`;
+    // const test = `/api/TeacherAssignment/DownloadSubmittedDoc/${id}`;
+    // console.log(test);
+    // window.open(test, "_blank");
+    // const { data } = await axiosInstance.get(
+    //   `http://103.90.86.151:100/Upload/TeacherAssignment/38ea0eaf-9eb5-4b0b-93f8-d78ca27a897cimage.jpeg`
+    // );
+    // console.log(data);
 
-    window.open(test, "_blank");
     dispatch({
       type: DOWNLOAD_SUBMITTED_ASSIGNMENT_SUCCESS,
     });

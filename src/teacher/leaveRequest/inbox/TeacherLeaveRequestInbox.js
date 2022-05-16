@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
 import {
@@ -10,6 +10,7 @@ import InboxListCollapse from "./InboxListCollapse";
 import Popup from "../../../components/Popup";
 import { getListLeaveRequestAction } from "../TeacherLeaveRequestActions";
 import TeacherLeaveRequestApproveForm from "../TeacherLeaveRequestApproveForm";
+import MobileBody from "../../../components/MobileBody";
 
 const TeacherLeaveRequestInbox = () => {
   const [approvalPopUp, setApprovalPopUp] = useState(false);
@@ -72,14 +73,16 @@ const TeacherLeaveRequestInbox = () => {
       <h4 style={{ textAlign: "center", margin: "5px" }}>
         Leave Approve(Inbox)
       </h4>
-      {listLeaveRequest &&
-        listLeaveRequest?.dbModelReceiverLst?.map((item) => (
-          <InboxListCollapse
-            key={item.$id}
-            item={item}
-            setOpenPopUp={setApprovalPopUp}
-          />
-        ))}
+      <MobileBody>
+        {listLeaveRequest &&
+          listLeaveRequest?.dbModelReceiverLst?.map((item) => (
+            <InboxListCollapse
+              key={item.$id}
+              item={item}
+              setOpenPopUp={setApprovalPopUp}
+            />
+          ))}
+      </MobileBody>
       <Popup
         openPopup={approvalPopUp}
         setOpenPopup={setApprovalPopUp}
