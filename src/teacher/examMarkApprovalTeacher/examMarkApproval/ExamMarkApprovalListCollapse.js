@@ -7,17 +7,27 @@ import ListForTable from "../../../components/ListForTable";
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
-    padding: "16px",
+    padding: "16px 16px 16px 24px",
     borderBottom: "1px solid #d3d3d3",
     "& span": {
       fontWeight: "bolder",
     },
+    "& p": {
+      margin: "0",
+      paddingBottom: "4px",
+      fontSize: "12px",
+    },
   },
   button: {
     marginRight: "10px",
-    padding: "5px",
+    padding: "5px 16px",
     minWidth: "10px",
-    fontSize: "12px",
+    fontSize: "10px",
+    marginBottom: "10px",
+  },
+  listWrapper: {
+    display: "flex",
+    alignItems: "center",
   },
 }));
 
@@ -28,7 +38,12 @@ const ExamMarkApprovalListCollapse = ({ item }) => {
     setOpen(!open);
   };
   return (
-    <>
+    <div
+    style={{
+      padding: "6px 6px 0 6px",
+    }}
+  >
+    <div style={{ backgroundColor: "#fff" }}>
       <ListForTable onClick={handleClick}>
         <p>
           <span
@@ -44,7 +59,13 @@ const ExamMarkApprovalListCollapse = ({ item }) => {
           </span>
           <span style={{ paddingLeft: "12px" }}>{item.FullName}</span>{" "}
         </p>
-        <div>{open ? <ExpandLess /> : <ExpandMore />}</div>
+        <div>
+            {open ? (
+              <ExpandLess style={{ color: "#d1d1d1" }} />
+            ) : (
+              <ExpandMore style={{ color: "#d1d1d1" }} />
+            )}
+          </div>
       </ListForTable>
       <Collapse in={open} timeout="auto" unmountOnExit>
         <div className={classes.collapse}>
@@ -65,7 +86,8 @@ const ExamMarkApprovalListCollapse = ({ item }) => {
           </p>
         </div>
       </Collapse>
-    </>
+    </div>
+    </div>
   );
 };
 
