@@ -427,7 +427,7 @@ export const downloadAssignmentAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_ASSIGNMENT_REQUEST });
 
-    const test = `/api/TeacherAssignment/DownloadTEacherAssignmentDoc/${id}`;
+    const test = `${API_URL}/api/TeacherAssignment/DownloadTEacherAssignmentDoc/${id}`;
 
     console.log(test);
 

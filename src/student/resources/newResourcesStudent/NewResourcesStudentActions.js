@@ -17,7 +17,8 @@ export const getAllNewResourcesStudentAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/CourseDeliveryPlanStudent/GetAllCourseDeliveryPlan
-          `,tokenConfig()
+          `,
+      tokenConfig()
     );
 
     dispatch({
@@ -39,7 +40,8 @@ export const getNewResourcesStudentListAction =
       dispatch({ type: GET_NEW_SOURCES_STUDENT_LIST_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/CourseDeliveryPlanStudent/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${facultySubject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,tokenConfig()
+        `/api/CourseDeliveryPlanStudent/GetListCourseDeliveryPlan?idAcademicFacultySubjectLink=${facultySubject}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&section=${section}&idShift=${shift}`,
+        tokenConfig()
       );
 
       dispatch({
@@ -58,7 +60,7 @@ export const downloadNewResourcesAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_NEW_SOURCES_STUDENT_REQUEST });
 
-    const test = `/api/CourseDeliveryPlanStudent/DownloadDoc/${id}`;
+    const test = `${API_URL}/api/CourseDeliveryPlanStudent/DownloadDoc/${id}`;
 
     window.open(test, "_blank");
     dispatch({

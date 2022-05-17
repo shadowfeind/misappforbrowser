@@ -1,5 +1,10 @@
 import axios from "axios";
-import { API_URL, axiosInstance, tokenConfig, tokenHeader } from "../../constants";
+import {
+  API_URL,
+  axiosInstance,
+  tokenConfig,
+  tokenHeader,
+} from "../../constants";
 import {
   DELETE_LEAVE_REQUESTS_FAIL,
   DELETE_LEAVE_REQUESTS_REQUEST,
@@ -39,7 +44,8 @@ export const getAllLeaveRequestAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetAllLeaveRequest
-        `,tokenConfig()
+        `,
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_LEAVE_REQUESTS_SUCCESS, payload: data });
@@ -57,7 +63,8 @@ export const getListLeaveRequestAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetListLeaveRequest
-        `,tokenConfig()
+        `,
+      tokenConfig()
     );
 
     dispatch({ type: GET_LIST_LEAVE_REQUESTS_SUCCESS, payload: data });
@@ -75,7 +82,8 @@ export const getSingleCreateLeaveRequestAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToCreateLeaveRequest
-        `,tokenConfig()
+        `,
+      tokenConfig()
     );
 
     dispatch({
@@ -96,7 +104,8 @@ export const getSingleEditLeaveRequestAction = (id) => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToEditLeaveRequest/${id}
-        `,tokenConfig()
+        `,
+      tokenConfig()
     );
 
     dispatch({
@@ -117,7 +126,8 @@ export const postLeaveRequestAction =
       dispatch({ type: POST_LEAVE_REQUESTS_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`,tokenConfig()
+        `/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`,
+        tokenConfig()
       );
       if (data) {
         const fcmBody = {
@@ -143,7 +153,8 @@ export const postLeaveRequestAction =
 
         const { data } = await axiosInstance.post(
           `/api/LeaveRequest/FileUpload`,
-          formData,tokenConfig()
+          formData,
+          tokenConfig()
         );
         if (data) {
           const newData = { ...leaveRequestPost, DocumentName: data };
@@ -151,7 +162,8 @@ export const postLeaveRequestAction =
 
           await axiosInstance.post(
             `/api/LeaveRequest/PostLeaveRequest`,
-            jsonData,tokenConfig()
+            jsonData,
+            tokenConfig()
           );
         }
       } else {
@@ -160,7 +172,8 @@ export const postLeaveRequestAction =
 
         await axiosInstance.post(
           `/api/LeaveRequest/PostLeaveRequest`,
-          jsonData,tokenConfig()
+          jsonData,
+          tokenConfig()
         );
       }
 
@@ -184,7 +197,8 @@ export const putLeaveRequestAction =
 
         const { data } = await axiosInstance.post(
           `/api/LeaveRequest/FileUpload`,
-          formData,tokenConfig()
+          formData,
+          tokenConfig()
         );
         if (data) {
           const newData = { ...leaveRequest, DocumentName: data };
@@ -192,14 +206,19 @@ export const putLeaveRequestAction =
 
           await axiosInstance.put(
             `/api/LeaveRequest/PutLeaveRequest`,
-            jsonData,tokenConfig()
+            jsonData,
+            tokenConfig()
           );
         }
       } else {
         const newData = { ...leaveRequest };
         const jsonData = JSON.stringify({ dbModel: newData });
 
-        await axiosInstance.put(`/api/LeaveRequest/PutLeaveRequest`, jsonData,tokenConfig());
+        await axiosInstance.put(
+          `/api/LeaveRequest/PutLeaveRequest`,
+          jsonData,
+          tokenConfig()
+        );
       }
       dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS });
     } catch (error) {
@@ -216,7 +235,8 @@ export const putLeaveRequestApproveAction =
       dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`,tokenConfig()
+        `/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`,
+        tokenConfig()
       );
       if (data) {
         const fcmBody = {
@@ -239,7 +259,11 @@ export const putLeaveRequestApproveAction =
       const newData = { ...leaveRequest };
       const jsonData = JSON.stringify({ dbModel: newData });
 
-      await axiosInstance.put(`/api/LeaveRequest/PutLeaveRequest`, jsonData,tokenConfig());
+      await axiosInstance.put(
+        `/api/LeaveRequest/PutLeaveRequest`,
+        jsonData,
+        tokenConfig()
+      );
 
       dispatch({ type: PUT_LEAVE_REQUESTS_SUCCESS });
     } catch (error) {
@@ -256,7 +280,8 @@ export const getSingleDeleteLeaveRequestAction = (id) => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToDeleteLeaveRequest/${id}
-          `,tokenConfig()
+          `,
+      tokenConfig()
     );
 
     dispatch({
@@ -304,7 +329,8 @@ export const getSingleEditSentLeaveRequestAction = (id) => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/LeaveRequest/GetSingleToEditSentLeaveRequest/${id}
-          `,tokenConfig()
+          `,
+      tokenConfig()
     );
 
     dispatch({
@@ -323,7 +349,7 @@ export const downloadLeaveRequestAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_DOC_LEAVE_REQUESTS_REQUEST });
 
-    const File = `/api/LeaveRequest/DownloadDoc/${id}`;
+    const File = `${API_URL}/api/LeaveRequest/DownloadDoc/${id}`;
 
     window.open(File, "_blank");
 

@@ -19,7 +19,8 @@ export const getAllOldQuestionsTeacherAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_OLD_QUESTIONS_TEACHER_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/OldQuestionTeacher/GetAllOldQuestion`,tokenConfig()
+      `/api/OldQuestionTeacher/GetAllOldQuestion`,
+      tokenConfig()
     );
 
     dispatch({
@@ -39,7 +40,8 @@ export const getSubjectOldQuestionsAction = (classId) => async (dispatch) => {
     dispatch({ type: GET_SUBJECT_OF_OLD_QUESTIONS_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/OldQuestionTeacher/GetSubjectByIDLevel?level=${classId}`,tokenConfig()
+      `/api/OldQuestionTeacher/GetSubjectByIDLevel?level=${classId}`,
+      tokenConfig()
     );
 
     dispatch({
@@ -61,7 +63,8 @@ export const getListOldQuestionsTeacherAction =
       dispatch({ type: GET_LIST_OLD_QUESTIONS_TEACHER_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/OldQuestionTeacher/GetListOldQuestion?level=${classId}&idAcademicSubject=${subject}`,tokenConfig()
+        `/api/OldQuestionTeacher/GetListOldQuestion?level=${classId}&idAcademicSubject=${subject}`,
+        tokenConfig()
       );
 
       dispatch({
@@ -80,7 +83,7 @@ export const downloadOldQuestionsAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_OLD_QUESTIONS_REQUEST });
 
-    const test = `/api/OldQuestionTeacher/DownloadOldQuestion/${id}`;
+    const test = `${API_URL}/api/OldQuestionTeacher/DownloadOldQuestion/${id}`;
 
     window.open(test, "_blank");
     dispatch({

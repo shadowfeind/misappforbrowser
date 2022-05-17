@@ -68,5 +68,5 @@ export const logout = () => (dispatch) => {
   localStorage.removeItem("blueberryToken");
   dispatch({ type: USER_LOGOUT });
   dispatch({ type: GET_HEADER_CONTENT_RESET });
-  window.location.href = "https://vidyacube.com/";
+  window.location.href = "https://mis.vidyacube.com/";
 };

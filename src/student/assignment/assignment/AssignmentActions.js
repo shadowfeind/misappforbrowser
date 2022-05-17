@@ -26,7 +26,8 @@ export const getAllAssignmentStudentAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/StudentSubmission/GetAllStudentSubmission
-            `,tokenConfig()
+            `,
+      tokenConfig()
     );
 
     dispatch({
@@ -47,7 +48,8 @@ export const getAssignmentListStudentAction =
       dispatch({ type: GET_ASSIGNMENT_LIST_STUDENT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/StudentSubmission/GetListStudentSubmission?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&idAcademicFacultySubjectLink=${facultySubject}`,tokenConfig()
+        `/api/StudentSubmission/GetListStudentSubmission?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idShift=${shift}&idAcademicFacultySubjectLink=${facultySubject}`,
+        tokenConfig()
       );
 
       dispatch({
@@ -67,7 +69,8 @@ export const getSingleAssignmentStudentAction = (id) => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ASSIGNMENT_STUDENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/StudentSubmission/GetSignleToEditStudentSubmission/${id}`,tokenConfig()
+      `/api/StudentSubmission/GetSignleToEditStudentSubmission/${id}`,
+      tokenConfig()
     );
 
     dispatch({
@@ -92,7 +95,8 @@ export const putSingleAssignmentStudentAction =
 
       const { data } = await axiosInstance.post(
         `/api/StudentSubmission/FileUpload`,
-        formData,tokenConfig()
+        formData,
+        tokenConfig()
       );
 
       if (data) {
@@ -108,7 +112,8 @@ export const putSingleAssignmentStudentAction =
 
         await axiosInstance.put(
           `/api/StudentSubmission/PutStudentSubmission`,
-          jsonData,tokenConfig()
+          jsonData,
+          tokenConfig()
         );
       }
 
@@ -128,7 +133,7 @@ export const downloadAssignmentStudentAction = (id) => async (dispatch) => {
   try {
     dispatch({ type: DOWNLOAD_ASSIGNMENT_STUDENT_REQUEST });
 
-    const test = `/api/StudentSubmission/DownloadDoc/${id}`;
+    const test = `${API_URL}/api/StudentSubmission/DownloadDoc/${id}`;
 
     window.open(test, "_blank");
     dispatch({
@@ -147,7 +152,7 @@ export const downloadSubmittedAssignmentStudentAction =
     try {
       dispatch({ type: DOWNLOAD_SUBMITTED_ASSIGNMENT_STUDENT_REQUEST });
 
-      const test = `/api/StudentSubmission/DownloadSubmittedDoc/${id}`;
+      const test = `${API_URL}/api/StudentSubmission/DownloadSubmittedDoc/${id}`;
 
       window.open(test, "_blank");
       dispatch({

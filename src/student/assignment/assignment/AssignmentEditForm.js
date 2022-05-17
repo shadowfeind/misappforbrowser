@@ -89,9 +89,11 @@ const AssignmentEditForm = () => {
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
-  const { singleAssignment,loading, error: singleAssignmentError } = useSelector(
-    (state) => state.getSingleAssignmentStudent
-  );
+  const {
+    singleAssignment,
+    loading,
+    error: singleAssignmentError,
+  } = useSelector((state) => state.getSingleAssignmentStudent);
   const {
     success: putSingleAssignmentSuccess,
     error: putSingleAssignmentError,
@@ -174,107 +176,107 @@ const AssignmentEditForm = () => {
   return (
     <>
       <div className={classes.editContainer} style={{ marginBottom: "70px" }}>
-      {loading ? (
+        {loading ? (
           <LoadingComp />
         ) : (
           <>
-        <div className={classes.editTopHeader}>
-          <div onClick={goBack}>
-            <KeyboardBackspaceIcon /> &nbsp;&nbsp;Go Back
-          </div>{" "}
-          <span>Assignment Edit</span>
-        </div>
-        <div>
-          <p>
-            <strong>Assignment Name: </strong>
-            {values.AssignmentName}
-          </p>
-          <p>
-            <strong>FullName: </strong>
-            {values.CreatedBy}
-          </p>
-          <p>
-            <strong>Assignment Date: </strong>
-            {values.AssignmentDate?.slice(0, 10)}
-          </p>
-          <p>
-            <strong>Due Date: </strong>
-            {values.DueDate?.slice(0, 10)}
-          </p>
-          <p>
-            <strong>Mobile Number: </strong>
-            {values.TeacherMobileNumber}
-          </p>
+            <div className={classes.editTopHeader}>
+              <div onClick={goBack}>
+                <KeyboardBackspaceIcon /> &nbsp;&nbsp;Go Back
+              </div>{" "}
+              <span>Assignment Edit</span>
+            </div>
+            <div>
+              <p>
+                <strong>Assignment Name: </strong>
+                {values.AssignmentName?.slice(0, 20)}
+              </p>
+              <p>
+                <strong>FullName: </strong>
+                {values.CreatedBy}
+              </p>
+              <p>
+                <strong>Assignment Date: </strong>
+                {values.AssignmentDate?.slice(0, 10)}
+              </p>
+              <p>
+                <strong>Due Date: </strong>
+                {values.DueDate?.slice(0, 10)}
+              </p>
+              <p>
+                <strong>Mobile Number: </strong>
+                {values.TeacherMobileNumber}
+              </p>
 
-          <p>
-            <strong>Assignment Summary: </strong>
-            {values.AssignmentSummary}
-          </p>
-          <p>
-            <strong>Full Marks: </strong>
-            {values.TotalMark}
-          </p>
-          <p>
-            <strong>MarksObtained: </strong>
-            {values.MarksObtained}
-          </p>
-          <p>
-            <strong>Teacher's Comment: </strong>
-            {values.TeacherComment}
-          </p>
-          <p>
-            <strong>Student's Comment: </strong>
-            {values.StudentComment}
-          </p>
-        </div>
-        <InputControl
-          name="StudentComment"
-          label="StudentComment"
-          value={values.StudentComment}
-          onChange={handleInputChange}
-          style={{ width: "100%", marginBottom: "10px" }}
-        />
-        <InputControl
-          name="ImageUploaded"
-          // label="Select File"
-          // value={image}
-          onChange={(e) => handleImage(e)}
-          type="file"
-          style={{ width: "100%", marginBottom: "10px" }}
-          errors={errors.image}
-        />
-        <h5>OR</h5>
-        <button
-          style={{
-            backgroundColor: "#253053",
-            color: "#fff",
-            padding: "6px 14px",
-            display: "block",
-          }}
-          onClick={() => takePicture()}
-        >
-          Take a photo
-        </button>
-        {imgSrc && <img src={imgSrc} height={150} width={150} />}
-        <div
-          style={{
-            display: "block",
-            borderTop: "1px solid #d3d3d3",
-            marginBottom: "-18px",
-            marginTop: "12px",
-          }}
-        >
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            style={{ margin: "10px 0 0 10px" }}
-            onClick={handleSubmit}
-          >
-            SUBMIT
-          </Button>
-        </div>
-        </>
+              <p>
+                <strong>Assignment Summary: </strong>
+                {values.AssignmentSummary}
+              </p>
+              <p>
+                <strong>Full Marks: </strong>
+                {values.TotalMark}
+              </p>
+              <p>
+                <strong>MarksObtained: </strong>
+                {values.MarksObtained}
+              </p>
+              <p>
+                <strong>Teacher's Comment: </strong>
+                {values.TeacherComment}
+              </p>
+              <p>
+                <strong>Student's Comment: </strong>
+                {values.StudentComment}
+              </p>
+            </div>
+            <InputControl
+              name="StudentComment"
+              label="StudentComment"
+              value={values.StudentComment}
+              onChange={handleInputChange}
+              style={{ width: "100%", marginBottom: "10px" }}
+            />
+            {/* <InputControl
+              name="ImageUploaded"
+              // label="Select File"
+              // value={image}
+              onChange={(e) => handleImage(e)}
+              type="file"
+              style={{ width: "100%", marginBottom: "10px" }}
+              errors={errors.image}
+            />
+            <h5>OR</h5> */}
+            <button
+              style={{
+                backgroundColor: "#253053",
+                color: "#fff",
+                padding: "6px 14px",
+                display: "block",
+              }}
+              onClick={() => takePicture()}
+            >
+              Take a photo
+            </button>
+            {imgSrc && <img src={imgSrc} height={150} width={150} />}
+            <div
+              style={{
+                display: "block",
+                borderTop: "1px solid #d3d3d3",
+                marginBottom: "-18px",
+                marginTop: "12px",
+              }}
+            >
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                style={{ margin: "10px 0 0 10px" }}
+                onClick={handleSubmit}
+              >
+                SUBMIT
+              </Button>
+            </div>
+          </>
         )}
       </div>
       <Notification notify={notify} setNotify={setNotify} />

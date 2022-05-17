@@ -81,7 +81,7 @@ const Holiday = () => {
           selectable
           // onSelectSlot={handlePress}
           onSelectEvent={handleCalendarSelect}
-          style={{ height: "60vh" }}
+          style={{ height: "40vh" }}
         />
       </div>
 

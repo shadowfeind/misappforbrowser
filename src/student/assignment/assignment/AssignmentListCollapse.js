@@ -91,7 +91,7 @@ const AssignmentListCollapse = ({ item, facultySubject, setOpenPopup }) => {
                 // fontWeight: "bolder",
               }}
             >
-              {item.AssignmentName}
+              {item.AssignmentName?.slice(0, 20)}
               <div
                 style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
               >

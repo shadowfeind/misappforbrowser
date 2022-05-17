@@ -65,14 +65,14 @@ export const DashboardCard = ({ subject }) => {
           {subject.Value}
         </Typography>
 
-        <Typography
+        {/* <Typography
           variant="body2"
           color="textSecondary"
           component="h6"
           style={{ fontSize: "14px" }}
         >
           Suresh M. Sanu
-        </Typography>
+        </Typography> */}
       </CardContent>
       <CardActions className={classes.cardAction}>
         <Link to={`/assignment/${subject.Key}`}>
