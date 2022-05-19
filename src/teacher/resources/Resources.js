@@ -369,7 +369,7 @@ const Resources = () => {
     <>
       <CustomContainer>
         <MobileTopSelectContainer>
-          <h3 style={{ textAlign: "center", marginTop: "0" }}>Resources</h3>
+          <h3 style={{ textAlign: "center", marginTop: "0" }}>E-Material</h3>
           <Grid container style={{ fontSize: "12px" }}>
             <Grid item xs={12}>
               <SelectControl
@@ -465,15 +465,15 @@ const Resources = () => {
             <LoadingComp />
           ) : (
             <>
-            <MobileBody>
-              {allResources?.dbModelTeacherLst.map((item) => (
-                <ResourcesListCollapse item={item} key={item.$id} />
-              ))}
-              {allResources?.dbModelTeacherLst?.length < 1 && (
-                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
-                  No Resources
-                </h4>
-              )}
+              <MobileBody>
+                {allResources?.dbModelTeacherLst.map((item) => (
+                  <ResourcesListCollapse item={item} key={item.$id} />
+                ))}
+                {allResources?.dbModelTeacherLst?.length < 1 && (
+                  <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                    No E Materials
+                  </h4>
+                )}
               </MobileBody>
             </>
           )}
@@ -482,7 +482,7 @@ const Resources = () => {
       <Popup
         openPopup={openPopup}
         setOpenPopup={setOpenPopup}
-        title="Resources Form"
+        title="E-Material Form"
       >
         {loadingCreate ? (
           <LoadingComp />

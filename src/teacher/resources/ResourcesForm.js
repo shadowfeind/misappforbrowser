@@ -5,6 +5,7 @@ import CheckBoxControl from "../../components/controls/CheckBoxControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import { useDispatch } from "react-redux";
 import { postResourceAction } from "./ResourcesActions";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 const initialFormValues = {
   Id: 0,
@@ -53,6 +54,28 @@ const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
 
+  const takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Prompt,
+      // source: CameraSource.Camera,
+    });
+
+    console.log("image", image);
+    const imageUrl = image?.path || image?.webPath;
+    setImgSrc(Capacitor.convertFileSrc(imageUrl));
+    console.log("imageurl", imageUrl);
+
+    const result = await fetch(Capacitor.convertFileSrc(imageUrl));
+    console.log("my result", result);
+    const blob = await result.blob();
+    const file = new File([blob], "image.jpeg", { type: blob.type });
+    console.log("my file", file);
+    setImage(file);
+  };
+
   const handleImage = (event) => {
     let imageFile = event.target.files[0];
     const reader = new FileReader();
@@ -70,7 +93,7 @@ const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
     }
   };
   return (
-    <Form onSubmit={handleSubmit}>
+    <>
       <InputControl
         name="CourseName"
         label="Resource Name"
@@ -96,8 +119,22 @@ const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
         type="file"
         errors={errors.image}
       />
-      {imgSrc && (
-      <img src={imgSrc} height={200} width={200} />)}
+      <button
+        style={{
+          backgroundColor: "#253053",
+          color: "#fff",
+          padding: "6px 14px",
+          display: "block",
+          marginLeft: "5px",
+        }}
+        onClick={() => takePicture()}
+      >
+        Take a photo
+      
+      <div style={{ height: "5px" }}></div>
+
+      {imgSrc && <img src={imgSrc} height={200} width={200} />}
+      </button>
       <div style={{ height: "5px" }}></div>
       <CheckBoxControl
         label="isActive"
@@ -126,13 +163,13 @@ const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
         <Button
           variant="contained"
           color="primary"
-          type="submit"
+          onClick={handleSubmit}
           style={{ margin: "10px 0 0 10px" }}
         >
           SUBMIT
         </Button>
       </div>
-    </Form>
+    </>
   );
 };
 

@@ -75,6 +75,7 @@ const Assignment = () => {
   const [subject, setSubject] = useState("");
   const [errors, setErrors] = useState({});
   const [date, setDate] = useState();
+  const [dateToSend, setDateToSend] = useState();
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -207,7 +208,7 @@ const Assignment = () => {
         subject,
         section,
         shift,
-        date
+        dateToSend
       )
     );
   }
@@ -289,6 +290,9 @@ const Assignment = () => {
         setDate(
           allAssignmentTeacherData.searchFilterModel.StartDate.slice(0, 10)
         );
+        setDateToSend(
+          allAssignmentTeacherData.searchFilterModel.StartDate.slice(0, 10)
+        );
       });
       if (subjectIdFromDashboard) {
         setSubject(subjectIdFromDashboard);
@@ -329,7 +333,7 @@ const Assignment = () => {
           subject,
           section,
           shift,
-          date
+          dateToSend
         )
       );
     }
@@ -345,7 +349,7 @@ const Assignment = () => {
           section,
           shift,
           subject,
-          date
+          dateToSend
         )
       );
       setOpenPopup(true);
@@ -372,7 +376,7 @@ const Assignment = () => {
     setSubject(value);
     dispatch(
       getAllOtherOptionsForSelectAction(
-        allAssignmentTeacherData?.modelDb.IDHREmployee,
+        allAssignmentTeacherData.modelDb.IDHREmployee,
         value
       )
     );
@@ -410,7 +414,7 @@ const Assignment = () => {
             ? allOtherOptions.section[0].Key
             : "",
           allOtherOptions.shift.length > 0 ? allOtherOptions.shift[0].Key : "",
-          date
+          dateToSend
         )
       );
     }
@@ -541,16 +545,24 @@ const Assignment = () => {
                   disableToolbar
                   variant="inline"
                   inputVariant="outlined"
-                  format="dd-MM-yyyy"
+                  format="MM-dd-yyyy"
                   name="CurrentYear"
                   label="Current Year"
                   value={date}
                   onChange={(e) => {
                     const newDate = new Date(e);
-                    setDate(newDate.toLocaleDateString());
+                    setDateToSend(newDate.toLocaleDateString()?.slice(0, 10));
+                    setDate(e);
                   }}
                 />
               </MuiPickersUtilsProvider>
+              {/* <DatePickerControl
+                name="CurrentYear"
+                label="Current Year"
+                value={date}
+                onChange={() => setDate(e.target.value)}
+                errors={errors.ToDate}
+              /> */}
             </Grid>
             <div style={{ height: "10px", width: "10px" }}></div>
             <Grid item xs={12}>

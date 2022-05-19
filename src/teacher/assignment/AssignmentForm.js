@@ -17,6 +17,7 @@ import InputControl from "../../components/controls/InputControl";
 import { useForm, Form } from "../../customHooks/useForm";
 import DatePickerControl from "../../components/controls/DatePickerControl";
 import { postTeacherAssignmentAction } from "./AssignmentActions";
+import { Camera, CameraResultType, CameraSource } from "@capacitor/camera";
 
 const initialFormValues = {
   IDAssignment: 0,
@@ -80,7 +81,7 @@ const useStyles = makeStyles({
   },
 });
 
-const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
+const AssignmentForm = ({ students, setOpenPopup, formDatas }) => {
   const [checked, setChecked] = useState(false);
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
@@ -170,6 +171,28 @@ const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
     setImage(event.target.files[0]);
   };
 
+  const takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+      source: CameraSource.Prompt,
+      // source: CameraSource.Camera,
+    });
+
+    console.log("image", image);
+    const imageUrl = image?.path || image?.webPath;
+    setImgSrc(Capacitor.convertFileSrc(imageUrl));
+    console.log("imageurl", imageUrl);
+
+    const result = await fetch(Capacitor.convertFileSrc(imageUrl));
+    console.log("my result", result);
+    const blob = await result.blob();
+    const file = new File([blob], "image.jpeg", { type: blob.type });
+    console.log("my file", file);
+    setImage(file);
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(selectedStudents);
@@ -179,9 +202,9 @@ const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
   };
   return (
     <>
-      <TableContainer component={Paper}>
+      <TableContainer style={{ maxHeight: "260px" }} component={Paper}>
         <Table className={classes.table} aria-label="customized table">
-          <TableHead>
+          <TableHead style={{ backgroundColor: "#253053", color: "#fff" }}>
             <TableRow>
               <StyledTableCell style={{ textAlign: "left" }}>
                 <Checkbox
@@ -189,9 +212,10 @@ const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
                   onChange={(e) => handleAllChecked(e.target.checked)}
                 />
               </StyledTableCell>
-              <StyledTableCell>Roll No. </StyledTableCell>
-
-              <StyledTableCell>Full Name</StyledTableCell>
+              <StyledTableCell style={{ color: "#fff" }}>
+                Student Name{" "}
+                <span style={{ color: "666", fontSize: "10px" }}>(RollNo)</span>
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -216,11 +240,14 @@ const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
                         onChange={(e) => handleChecked(e.target.checked, s)}
                       />
                     </StyledTableCell>
-                    <StyledTableCell component="th" scope="row">
+                    {/* <StyledTableCell component="th" scope="row">
                       {s.RollNo}
-                    </StyledTableCell>
+                    </StyledTableCell> */}
                     <StyledTableCell component="th" scope="row">
-                      {s.FullName}
+                      {s.FullName}{" "}
+                      <span style={{ color: "666", fontSize: "10px" }}>
+                        ({s.RollNo})
+                      </span>
                     </StyledTableCell>
                   </StyledTableRow>
                 ))}
@@ -236,20 +263,14 @@ const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
           onChange={handleInputChange}
           errors={errors.AssignmentName}
         />
-        <InputControl
-          name="TotalMark"
-          label="Full Marks*"
-          type="number"
-          value={values.TotalMark}
-          onChange={handleInputChange}
-          errors={errors.TotalMark}
-        />
+
         <DatePickerControl
           name="AssignmentDate"
           label="FromDate"
           value={values.AssignmentDate}
           onChange={handleInputChange}
           errors={errors.AssignmentDate}
+          style={{ width: "80%" }}
         />
         <DatePickerControl
           name="DueDate"
@@ -257,6 +278,14 @@ const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
           value={values.DueDate}
           onChange={handleInputChange}
           errors={errors.DueDate}
+        />
+        <InputControl
+          name="TotalMark"
+          label="Full Marks*"
+          type="number"
+          value={values.TotalMark}
+          onChange={handleInputChange}
+          errors={errors.TotalMark}
         />
         <InputControl
           name="AssignmentSummary"
@@ -274,18 +303,31 @@ const AssignmentForm = ({ students,setOpenPopup, formDatas }) => {
           type="file"
           errors={errors.image}
         />
+        <div style={{ height: "5px" }}></div>
+        <button
+          style={{
+            backgroundColor: "#253053",
+            color: "#fff",
+            padding: "6px 14px",
+            display: "block",
+            marginLeft: "5px",
+          }}
+          onClick={() => takePicture()}
+        >
+          Take a photo
+       
+        <div style={{ height: "5px" }}></div>
+
         {imgSrc && (
           <img
             src={
-              imgSrc
-                ? imgSrc
-                : formDatas && `${API_URL}${formDatas.FullPath}`
+              imgSrc ? imgSrc : formDatas && `${API_URL}${formDatas.FullPath}`
             }
             height={200}
             width={200}
           />
         )}
-
+        </button>
         <div
           style={{
             display: "flex",
