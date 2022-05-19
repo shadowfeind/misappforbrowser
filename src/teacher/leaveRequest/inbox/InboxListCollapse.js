@@ -127,6 +127,7 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
                 Edit &nbsp;
                 <EditIcon style={{ fontSize: 12 }} />
               </Button>
+              {item.DocumentName !== null && (
               <Button
                 variant="contained"
                 color="primary"
@@ -136,6 +137,7 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
                 Download &nbsp;
                 <CloudDownloadIcon style={{ fontSize: 12 }} />
               </Button>
+              )}
             </p>
           </div>
         </Collapse>

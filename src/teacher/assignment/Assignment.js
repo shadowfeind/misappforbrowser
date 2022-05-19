@@ -372,7 +372,7 @@ const Assignment = () => {
     setSubject(value);
     dispatch(
       getAllOtherOptionsForSelectAction(
-        allAssignmentTeacherData.modelDb.IDHREmployee,
+        allAssignmentTeacherData?.modelDb.IDHREmployee,
         value
       )
     );

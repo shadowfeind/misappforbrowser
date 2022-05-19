@@ -125,6 +125,7 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
               <span>Description</span> : {item.LeaveDecription}
             </p>
             <p>
+            {item.Status !== "APPROVED" && (
               <Button
                 variant="contained"
                 color="primary"
@@ -134,6 +135,7 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
                 Edit &nbsp;
                 <EditIcon style={{ fontSize: 12 }} />
               </Button>
+            )}{" "}
               <Button
                 variant="contained"
                 color="secondary"
@@ -143,6 +145,7 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
                 Delete &nbsp;
                 <DeleteIcon style={{ fontSize: 12 }} />
               </Button>
+              {item.DocumentName !== null && (
               <Button
                 variant="contained"
                 color="primary"
@@ -152,6 +155,7 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
                 Download &nbsp;
                 <CloudDownloadIcon style={{ fontSize: 12 }} />
               </Button>
+              )}
             </p>
           </div>
         </Collapse>

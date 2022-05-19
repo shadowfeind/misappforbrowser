@@ -433,6 +433,7 @@ const ExamMarkApproval = () => {
           }
           search={bulkData && bulkData.searchFilterModel}
           bulkData={bulkData && bulkData.dbModelLsts}
+          setOpenPopup={setOpenPopup}
         />
         </>
         )}

@@ -188,6 +188,7 @@ const ExamMarkApprovalBulk = ({
                 </StyledTableRow>
               ))}
           </TableBody>
+          </Table>
           <div
             style={{
               display: "flex",
@@ -221,7 +222,7 @@ const ExamMarkApprovalBulk = ({
               SUBMIT
             </Button>
           </div>
-        </Table>
+        
       </TableContainer>
     </>
   );
