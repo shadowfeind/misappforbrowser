@@ -135,7 +135,7 @@ const SentListCollapse = ({ item, setOpenPopUp, setOpenDeletePopup }) => {
                 Edit &nbsp;
                 <EditIcon style={{ fontSize: 12 }} />
               </Button>
-            )}{" "}
+            )}
               <Button
                 variant="contained"
                 color="secondary"
