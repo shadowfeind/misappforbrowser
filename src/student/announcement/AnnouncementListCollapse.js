@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { Collapse, makeStyles } from "@material-ui/core";
+import { Button, Collapse, makeStyles } from "@material-ui/core";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
-
-import ListForTable from "../../../components/ListForTable";
+import { useDispatch } from "react-redux";
+import ListForTable from "../../components/ListForTable";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
@@ -31,12 +32,16 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ExamMarkApprovalListCollapse = ({ item }) => {
+const AnnouncementListCollapse = ({ item }) => {
   const [open, setOpen] = useState(false);
+  const history = useHistory();
+  const dispatch = useDispatch();
   const classes = useStyles();
+
   const handleClick = () => {
     setOpen(!open);
   };
+
   return (
     <div
       style={{
@@ -45,20 +50,25 @@ const ExamMarkApprovalListCollapse = ({ item }) => {
     >
       <div style={{ backgroundColor: "#fff" }}>
         <ListForTable onClick={handleClick}>
-          <p>
-            <span
+          <div className={classes.listWrapper}>
+            <div style={{ fontSize: "12px", color: "#666" }}>
+              {item.Created_On.slice(0, 10)}
+            </div>
+            <div
               style={{
-                padding: "8px 10px",
-                borderRadius: "50%",
-                fontSize: "12px",
-                color: "#fff",
-                backgroundColor: "#253053",
+                paddingLeft: "18px",
+                fontSize: "14px",
+                // fontWeight: "bolder",
               }}
             >
-              {item.RollNo}
-            </span>
-            <span style={{ paddingLeft: "12px" }}>{item.FullName}</span>{" "}
-          </p>
+              {item.NewsHeading?.slice(0, 30)}...
+              <div
+                style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
+              >
+                <div>{item.NewsDescription?.slice(0, 30)}...</div>
+              </div>
+            </div>
+          </div>
           <div>
             {open ? (
               <ExpandLess style={{ color: "#d1d1d1" }} />
@@ -70,19 +80,13 @@ const ExamMarkApprovalListCollapse = ({ item }) => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <div className={classes.collapse}>
             <p>
-              <span>FullMark</span> : {item.FullMark}
+              <span>Title</span> : {item.NewsHeading}
             </p>
             <p>
-              <span>FullMarkPractical</span> : {item.FullMarkPractical}
+              <span>Announcement</span> : {item.NewsDescription}
             </p>
             <p>
-              <span>ObtainedMark</span> :{item.ObtainedMark}
-            </p>
-            <p>
-              <span>ObtainedMarkPractical</span> : {item.ObtainedMarkPractical}
-            </p>
-            <p>
-              <span>Status</span> : {item.Status}
+              <span>Posted Date</span> : {item.Created_On?.slice(0, 10)}
             </p>
           </div>
         </Collapse>
@@ -91,4 +95,4 @@ const ExamMarkApprovalListCollapse = ({ item }) => {
   );
 };
 
-export default ExamMarkApprovalListCollapse;
+export default AnnouncementListCollapse;

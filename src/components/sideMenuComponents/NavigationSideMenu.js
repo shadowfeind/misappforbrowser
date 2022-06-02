@@ -5,7 +5,7 @@ import AssignmentTurnedInIcon from "@material-ui/icons/AssignmentTurnedIn";
 import VideocamIcon from "@material-ui/icons/Videocam";
 import ReportProblemIcon from "@material-ui/icons/ReportProblem";
 import MenuBookIcon from "@material-ui/icons/MenuBook";
-import AnnouncementRoundedIcon from '@material-ui/icons/AnnouncementRounded';
+import AnnouncementRoundedIcon from "@material-ui/icons/AnnouncementRounded";
 import DescriptionIcon from "@material-ui/icons/Description";
 import SystemUpdateAltIcon from "@material-ui/icons/SystemUpdateAlt";
 import CalendarTodayIcon from "@material-ui/icons/CalendarToday";
@@ -65,78 +65,6 @@ const NavigationSideMenu = () => {
         </Typography>
       </NavLink>
       <NavLink
-        to={"/student-pid"}
-        activeStyle={isActive}
-        className={classes.textBox}
-      >
-        <Typography variant="h6">
-          <ChromeReaderMode fontSize="medium" />
-          Profile
-        </Typography>
-      </NavLink>
-      {/* <NavLink
-        to={"/academic-grading"}
-        activeStyle={isActive}
-        className={classes.textBox}
-      >
-        <Typography variant="h6">
-          <School fontSize="medium" />
-          Grading
-        </Typography>
-      </NavLink>
-      <NavLink
-        to={"/exam-division"}
-        activeStyle={isActive}
-        className={classes.textBox}
-      >
-        <Typography variant="h6">
-          <Accessible fontSize="medium" />
-          Exam Division
-        </Typography>
-      </NavLink> */}
-
-      <NavLink
-        to={"/student-class-schedule"}
-        activeStyle={isActive}
-        className={classes.textBox}
-      >
-        <Typography variant="h6">
-          <PeopleOutline fontSize="medium" />
-          Class Schedule
-        </Typography>
-      </NavLink>
-      <NavLink
-        to={"/student-leaverequest"}
-        activeStyle={isActive}
-        className={classes.textBox}
-      >
-        <Typography variant="h6">
-          <ReportProblemIcon fontSize="medium" />
-          Leave Requests
-        </Typography>
-      </NavLink>
-      {/* <NavLink
-        to={"/quick-links"}
-        activeStyle={isActive}
-        className={classes.textBox}
-      >
-        <Typography variant="h6">
-          {" "}
-          <Face fontSize="medium" />
-          Quick Links
-        </Typography>
-      </NavLink> */}
-      <NavLink
-        to={"/student-resources"}
-        activeStyle={isActive}
-        className={classes.textBox}
-      >
-        <Typography variant="h6">
-          <BookIcon fontSize="medium" />
-          E-Material
-        </Typography>
-      </NavLink>
-      <NavLink
         to={"/student-assignment-front"}
         activeStyle={isActive}
         className={classes.textBox}
@@ -144,6 +72,16 @@ const NavigationSideMenu = () => {
         <Typography variant="h6">
           <AssignmentTurnedInIcon fontSize="medium" />
           Assignment
+        </Typography>
+      </NavLink>
+      <NavLink
+        to={"/student-class-schedule"}
+        activeStyle={isActive}
+        className={classes.textBox}
+      >
+        <Typography variant="h6">
+          <PeopleOutline fontSize="medium" />
+          Class Routine
         </Typography>
       </NavLink>
       <NavLink
@@ -157,6 +95,16 @@ const NavigationSideMenu = () => {
         </Typography>
       </NavLink>
       <NavLink
+        to={"/student-resources"}
+        activeStyle={isActive}
+        className={classes.textBox}
+      >
+        <Typography variant="h6">
+          <BookIcon fontSize="medium" />
+          E-Material
+        </Typography>
+      </NavLink>
+      <NavLink
         to={"/student-old-questions"}
         activeStyle={isActive}
         className={classes.textBox}
@@ -165,6 +113,16 @@ const NavigationSideMenu = () => {
           {" "}
           <MenuBookIcon fontSize="medium" />
           Old Questions
+        </Typography>
+      </NavLink>
+      <NavLink
+        to={"/student-leaverequest"}
+        activeStyle={isActive}
+        className={classes.textBox}
+      >
+        <Typography variant="h6">
+          <ReportProblemIcon fontSize="medium" />
+          Leave Requests
         </Typography>
       </NavLink>
 
@@ -179,7 +137,6 @@ const NavigationSideMenu = () => {
           Announcement
         </Typography>
       </NavLink>
-
       <NavLink
         to={"/student-attendance"}
         activeStyle={isActive}
@@ -190,6 +147,16 @@ const NavigationSideMenu = () => {
           Attendance
         </Typography>
       </NavLink>
+      {/* <NavLink
+        to={"/student-pid"}
+        activeStyle={isActive}
+        className={classes.textBox}
+      >
+        <Typography variant="h6">
+          <ChromeReaderMode fontSize="medium" />
+          Profile
+        </Typography>
+      </NavLink> */}
     </div>
   );
 };

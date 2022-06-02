@@ -127,15 +127,17 @@ const StudentLeaveRequestListCollapse = ({
               <span>Description</span> : {item.LeaveDecription}
             </p>
             <p>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={() => updateCollegeHandler(item.IDLeaveRequest)}
-              >
-                Edit &nbsp;
-                <EditIcon style={{ fontSize: 12 }} />
-              </Button>
+              {item.Status !== "APPROVED" && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => updateCollegeHandler(item.IDLeaveRequest)}
+                >
+                  Edit &nbsp;
+                  <EditIcon style={{ fontSize: 12 }} />
+                </Button>
+              )}
               <Button
                 variant="contained"
                 color="secondary"
@@ -145,15 +147,17 @@ const StudentLeaveRequestListCollapse = ({
                 Delete &nbsp;
                 <DeleteIcon style={{ fontSize: 12 }} />
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={() => downloadHandler(item.IDLeaveRequest)}
-              >
-                Download &nbsp;
-                <CloudDownloadIcon style={{ fontSize: 12 }} />
-              </Button>
+              {item.DocumentName !== null && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => downloadHandler(item.IDLeaveRequest)}
+                >
+                  Download &nbsp;
+                  <CloudDownloadIcon style={{ fontSize: 12 }} />
+                </Button>
+              )}
             </p>
           </div>
         </Collapse>

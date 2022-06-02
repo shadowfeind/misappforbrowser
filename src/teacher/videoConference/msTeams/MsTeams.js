@@ -1,7 +1,7 @@
 import React from "react";
 
 const MsTeams = () => {
-  return <div>MsTeams</div>;
+  return <div>Currently Unavailable !!!</div>;
 };
 
 export default MsTeams;

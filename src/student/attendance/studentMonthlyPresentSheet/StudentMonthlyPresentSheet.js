@@ -3,8 +3,8 @@ import { Button, makeStyles, Toolbar, Grid } from "@material-ui/core";
 import Popup from "../../../components/Popup";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
-import LoadingComp from "../../../components/LoadingComp";
 import Notification from "../../../components/Notification";
+import LoadingComp from "../../../components/LoadingComp";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import MobileBody from "../../../components/MobileBody";
 import SelectControl from "../../../components/controls/SelectControl";
@@ -88,8 +88,11 @@ const StudentMonthlyPresentSheet = () => {
     (state) => state.getAllOtherOptionsForStudent
   );
 
-  const { getListStudentAttendance,loading, error: getListStudentAttendanceError } =
-    useSelector((state) => state.getListStudentAttendance);
+  const {
+    getListStudentAttendance,
+    loading,
+    error: getListStudentAttendanceError,
+  } = useSelector((state) => state.getListStudentAttendance);
 
   if (allStudentAttendanceDataError) {
     setNotify({
@@ -124,6 +127,10 @@ const StudentMonthlyPresentSheet = () => {
         setDdlSubject(
           allStudentAttendanceData.searchFilterModel.ddlSubjectAttendance
         );
+        setSubject(
+          allStudentAttendanceData.searchFilterModel.ddlSubjectAttendance[0]
+            ?.Key
+        );
         setDdlNepMonth(allStudentAttendanceData.searchFilterModel.ddlnpMonth);
         setDate(
           allStudentAttendanceData.searchFilterModel.currentDate.slice(0, 10)
@@ -137,14 +144,28 @@ const StudentMonthlyPresentSheet = () => {
         setClassId(allStudentAttendanceData.searchFilterModel.level);
         setShift(allStudentAttendanceData.searchFilterModel.idShift);
         setSection(allStudentAttendanceData.searchFilterModel.section);
+        dispatch(
+          getListStudentAttendanceAction(
+            allStudentAttendanceData.searchFilterModel.currentDate.slice(0, 10),
+            allStudentAttendanceData.searchFilterModel.npYear,
+            allStudentAttendanceData.searchFilterModel.npMonth,
+            allStudentAttendanceData.searchFilterModel.idAcademicYear,
+            allStudentAttendanceData.searchFilterModel.idFacultyProgramLink,
+            allStudentAttendanceData.searchFilterModel.level,
+            allStudentAttendanceData.searchFilterModel.ddlSubjectAttendance[0]
+              ?.Key,
+            allStudentAttendanceData.searchFilterModel.section,
+            allStudentAttendanceData.searchFilterModel.idShift
+          )
+        );
       });
     }
   }, [allStudentAttendanceData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_STUDENT_ATTENDANCE_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_STUDENT_ATTENDANCE_RESET });
     dispatch(getAllStudentAttendanceAction());
-  },[])
+  }, []);
 
   // const nepMonthHandler = (value) => {
   //   setNepMonth(value);
@@ -247,17 +268,19 @@ const StudentMonthlyPresentSheet = () => {
           <LoadingComp />
         ) : (
           <>
-          <MobileBody>
-        {getListStudentAttendance && (
-          <StudentMonthlyPresentSheetListCollapse
-            attendance={getListStudentAttendance}
-          />
-        )}
-        {getListStudentAttendance?.dbModelLst.length < 1 && (
-          <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
-        )}
-        </MobileBody>
-        </>
+            <MobileBody>
+              {getListStudentAttendance && (
+                <StudentMonthlyPresentSheetListCollapse
+                  attendance={getListStudentAttendance}
+                />
+              )}
+              {getListStudentAttendance?.dbModelLst.length < 1 && (
+                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                  No Data
+                </h4>
+              )}
+            </MobileBody>
+          </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />

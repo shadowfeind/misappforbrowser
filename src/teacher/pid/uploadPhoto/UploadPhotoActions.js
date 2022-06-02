@@ -1,4 +1,3 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 
 import {
@@ -15,8 +14,8 @@ export const getAllUploadPhotoAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_UPLOADPHOTO_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/PID_PhotoUpload/GetSingleToEditPhoto`,tokenConfig()
-      
+      `/api/PID_PhotoUpload/GetSingleToEditPhoto`,
+      tokenConfig()
     );
 
     dispatch({
@@ -40,8 +39,8 @@ export const putUploadPhotoAction = (image, dbData) => async (dispatch) => {
 
     const { data } = await axiosInstance.post(
       `/api/PID_PhotoUpload/FileUpload`,
-      formData,tokenConfig()
-      
+      formData,
+      tokenConfig()
     );
 
     if (data) {
@@ -55,8 +54,8 @@ export const putUploadPhotoAction = (image, dbData) => async (dispatch) => {
       console.log(jsonData);
       await axiosInstance.put(
         `/api/PID_PhotoUpload/PutPhoto`,
-        jsonData,tokenConfig()
-        
+        jsonData,
+        tokenConfig()
       );
     }
 

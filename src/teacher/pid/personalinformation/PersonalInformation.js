@@ -88,6 +88,7 @@ const useStyles = makeStyles((theme) => ({
     boxShadow: "2px -2px 10px 2px #f3f3f3",
     borderRadius: "8px",
     marginTop: "16px",
+    marginBottom: "60px",
     "& h4": {
       margin: "0",
     },
@@ -120,7 +121,7 @@ const PersonalInformation = () => {
 
   const dispatch = useDispatch();
 
-  const { getAllPersonalInformation,loading, error } = useSelector(
+  const { getAllPersonalInformation, loading, error } = useSelector(
     (state) => state.getAllPersonalInformation
   );
   const { singlePersonalInformation, error: singlePersonalInformationError } =
@@ -137,14 +138,16 @@ const PersonalInformation = () => {
     success: postTeacherPasswordSuccess,
     error: postTeacherPasswordError,
   } = useSelector((state) => state.postTeacherPassword);
-  
+
   const { success: uploadPhotoSuccess } = useSelector(
     (state) => state.uploadPhotoStudent
   );
 
-  const { getTeacherResetPassword,error:getTeacherResetPasswordError, loading: resetPasswordLoading } =
-    useSelector((state) => state.getTeacherResetPassword);
-
+  const {
+    getTeacherResetPassword,
+    error: getTeacherResetPasswordError,
+    loading: resetPasswordLoading,
+  } = useSelector((state) => state.getTeacherResetPassword);
 
   if (error) {
     setNotify({
@@ -175,7 +178,6 @@ const PersonalInformation = () => {
     dispatch({ type: POST_TEACHER_PASSWORD_RESET });
     setResetOpenPopup(false);
   }
-
 
   if (getTeacherResetPasswordError) {
     setNotify({
@@ -219,7 +221,7 @@ const PersonalInformation = () => {
   //   dispatch(getSinglePersonalInformationAction());
   //   setOpenPopup(true);
   // };
-  
+
   useEffect(() => {
     dispatch(getAllPersonalInformationAction());
   }, []);
@@ -233,13 +235,12 @@ const PersonalInformation = () => {
     setResetOpenPopup(true);
   };
 
-
   return (
     <CustomContainer>
-    {loading ? (
-          <LoadingComp />
-        ) : (
-          <>
+      {loading ? (
+        <LoadingComp />
+      ) : (
+        <>
           <div className={classes.profileContainer}>
             <h3>Profile</h3>
             {headerContent && (
@@ -265,76 +266,93 @@ const PersonalInformation = () => {
                   </div>
                   <h2>{headerContent.FullName}</h2>
                   <h4>{headerContent.Email}</h4>
-                  <h5 onClick={() =>resetPasswordHandler(getAllPersonalInformation.dbModel.IDHREmployee)} style={{ margin: "6px" }}>
+                  <h5
+                    onClick={() =>
+                      resetPasswordHandler(
+                        getAllPersonalInformation.dbModel.IDHREmployee
+                      )
+                    }
+                    style={{ margin: "6px" }}
+                  >
                     Change Password
                   </h5>
                 </div>
-            <div className={classes.profileOtherContainer}>
-              <div>
-                <h5>Main Class</h5>
-                <p>9</p>
-              </div>
-              <div
-                style={{
-                  height: "40px",
-                  width: "1px",
-                  backgroundColor: "#d3d3d3",
-                }}
-              ></div>
-              <div>
-                <h5>Status</h5>
-                <p>Active</p>
-              </div>
-              <div
-                style={{
-                  height: "40px",
-                  width: "1px",
-                  backgroundColor: "#d3d3d3",
-                }}
-              ></div>
-              <div>
-                <h5>Total Classes</h5>
-                <p>5</p>
-              </div>
-            </div>
-            <div className={classes.profileContainerDetails}>
-              <h4>About</h4>
-              <p>
-                <LocationOnIcon /> <span>Lives at </span>Tinkune, Kathmandu
-              </p>
-              <p>
-                <DraftsIcon /> <span>Email at </span> {headerContent.Email}
-              </p>
-              <p>
-                <MobileScreenShareIcon /> <span>Call at </span>{" "}
-                {headerContent.MobileNumber}
-              </p>
-              <p>
-                <PermIdentityIcon /> <span>Main Guardian Name </span>Suresh M.
-                Sanu
-              </p>
-              <p>
-                <ContactPhoneIcon /> <span>Guardian Contact </span>9812345678
-              </p>
-            </div>
-          </>
-        )}
-      </div>
-      </>
-        )}
-        <Popup
+                <div className={classes.profileOtherContainer}>
+                  <div>
+                    <h5>Main Class</h5>
+                    <p>9</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "40px",
+                      width: "1px",
+                      backgroundColor: "#d3d3d3",
+                    }}
+                  ></div>
+                  <div>
+                    <h5>Status</h5>
+                    <p>Active</p>
+                  </div>
+                  <div
+                    style={{
+                      height: "40px",
+                      width: "1px",
+                      backgroundColor: "#d3d3d3",
+                    }}
+                  ></div>
+                  <div>
+                    <h5>Total Classes</h5>
+                    <p>
+                      {
+                        getAllPersonalInformation?.TotalSubjectForTeacherAssigned
+                      }
+                    </p>
+                  </div>
+                </div>
+                <div className={classes.profileContainerDetails}>
+                  <h4>About</h4>
+                  <p>
+                    <LocationOnIcon /> <span>Lives at </span>Tinkune, Kathmandu
+                  </p>
+                  <p>
+                    <DraftsIcon /> <span>Email at </span> {headerContent.Email}
+                  </p>
+                  <p>
+                    <MobileScreenShareIcon /> <span>Call at </span>{" "}
+                    {headerContent.MobileNumber}
+                  </p>
+                  <p>
+                    <PermIdentityIcon /> <span>Main Guardian Name </span>Suresh
+                    M. Sanu
+                  </p>
+                  <p>
+                    <ContactPhoneIcon /> <span>Guardian Contact </span>
+                    9812345678
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+        </>
+      )}
+      <Popup
         openPopup={resetOpenPopup}
         setOpenPopup={setResetOpenPopup}
         title="Change Password"
       >
-        {resetPasswordLoading ? <LoadingComp /> : <>
-          <ResetPasswordForm 
-          userId = {getTeacherResetPassword && getTeacherResetPassword.IDUser}
-          // resetPassword={getTeacherResetPassword && getTeacherResetPassword}
-          // confirmPassword={getTeacherResetPassword && getTeacherResetPassword.confirmPassword}
-          // newPassword={getTeacherResetPassword && getTeacherResetPassword.NewPassword}
-          setResetOpenPopup={setResetOpenPopup} />
-        </>}
+        {resetPasswordLoading ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <ResetPasswordForm
+              userId={getTeacherResetPassword && getTeacherResetPassword.IDUser}
+              // resetPassword={getTeacherResetPassword && getTeacherResetPassword}
+              // confirmPassword={getTeacherResetPassword && getTeacherResetPassword.confirmPassword}
+              // newPassword={getTeacherResetPassword && getTeacherResetPassword.NewPassword}
+              setResetOpenPopup={setResetOpenPopup}
+            />
+          </>
+        )}
       </Popup>
       <Popup
         openPopup={editPhotoPopup}

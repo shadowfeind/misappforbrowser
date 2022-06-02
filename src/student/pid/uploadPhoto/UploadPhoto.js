@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, makeStyles } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -7,11 +7,7 @@ import {
   GET_ALL_UPLOADPHOTO_STUDENT_RESET,
   UPLOADPHOTO_STUDENT_RESET,
 } from "./UploadPhotoConstants";
-import {
-  getAllUploadPhotoStudentAction,
-  uploadPhotoActionAction,
-} from "./UploadPhotoActions";
-import { API_URL } from "../../../constants";
+import { getAllUploadPhotoStudentAction } from "./UploadPhotoActions";
 import UploadPhotoForm from "./UploadPhotoForm";
 import { getHeaderContentAction } from "../../dashboard/DashboardActions";
 import { getAllStudentPersonalInformationAction } from "../personalinformation/PersonalInformationActions";
@@ -27,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UploadPhoto = ({setEditStudentPhotoPopup}) => {
+const UploadPhoto = ({ setEditStudentPhotoPopup }) => {
   const [url, setUrl] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -77,12 +73,6 @@ const UploadPhoto = ({setEditStudentPhotoPopup}) => {
   useEffect(() => {
     dispatch(getAllUploadPhotoStudentAction());
   }, []);
-
-  //   useEffect(()=>{
-  // if (uploadPhotoSuccess){
-  //   setUrl(`${API_URL}${uploadPhotoSuccess.FullPath}`);
-  // }
-  //   },[uploadPhotoSuccess]);
 
   return (
     <CustomContainer>

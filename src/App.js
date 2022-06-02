@@ -1,19 +1,17 @@
 import React, { useEffect, Suspense, lazy } from "react";
 import "./App.css";
 import Header from "./components/Header";
+import SideMenu from "./components/SideMenu";
 import {
   createTheme,
   CssBaseline,
   makeStyles,
   ThemeProvider,
 } from "@material-ui/core";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 
 import BottomNavigationMis from "./components/BottomNavigationMis";
-
-import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const TeacherLeaveRequest = lazy(() =>
   import("./teacher/leaveRequest/TeacherLeaveRequest")
@@ -38,6 +36,9 @@ const SyllabusStudent = lazy(() => import("./student/syllabus/Syllabus"));
 const OldQuestionsStudent = lazy(() =>
   import("./student/oldQuestions/OldQuestions")
 );
+const AnnouncementStudent = lazy(() =>
+  import("./student/announcement/Announcement")
+);
 const AcademicGradingStudent = lazy(() =>
   import("./student/academicGrading/AcademicGrading")
 );
@@ -51,9 +52,6 @@ const ClassScheduleStudent = lazy(() =>
 
 // const ExamMarkEntry = lazy(() =>
 //   import("./student/examMarkEntry/ExamMarkEntry")
-const AnnouncementStudent = lazy(() =>
-  import("./student/announcementStudent/Announcement")
-);
 
 const AssignmentFrontStudent = lazy(() =>
   import("./student/assignment/AssignmentFront")
@@ -104,8 +102,7 @@ const ExamMarkApprovalTeacher = lazy(() =>
 const theme = createTheme({
   palette: {
     background: {
-      // default: "#eaeff5",
-      default: "#fff",
+      default: "##f3f3f3",
     },
     customColor: {
       main: "#253053",
@@ -129,6 +126,7 @@ const useStyles = makeStyles({
 const App = () => {
   const classes = useStyles();
   const location = useLocation();
+
   const history = useHistory();
   const { userInfo } = useSelector((state) => state.userLogin);
 
@@ -173,6 +171,10 @@ const App = () => {
               path={"/student-assignment-front-edit/:id?"}
               component={AssignmentEditForm}
             />
+            <Route
+              path={"/student-announcement"}
+              component={AnnouncementStudent}
+            />
             <Route path={"/student-syllabus"} component={SyllabusStudent} />
             <Route
               path={"/student-class-schedule"}
@@ -182,10 +184,6 @@ const App = () => {
               path={"/student-old-questions"}
               component={OldQuestionsStudent}
             />
-             <Route
-              path={"/student-announcement"}
-              component={AnnouncementStudent}
-            />
             <Route path={"/calendar"} component={Holiday} />
             <Route path={"/student-attendance"} component={AttendanceStudent} />
             {/* <Route path={"/login/:id?"} component={Login} /> */}
@@ -194,8 +192,6 @@ const App = () => {
               path={"/student-academic-grading"}
               component={AcademicGradingStudent}
             />
-
-           
             <Route
               exact
               path={"/student-subject-view/:id"}
@@ -224,28 +220,23 @@ const App = () => {
             <Route path={"/old-questions"} component={OldQuestions} />
             <Route path={"/attendance"} exact component={Attendance} />
             <Route
-              exact
-              path={"/announcement"}
-              component={Announcement}
-            />
-
-            <Route
               path={"/attendance/table-details"}
               component={StudentMonthlyPresentSheetMobileTable}
-            />
-            <Route
-              path={"/leaverequest-teacher"}
-              component={TeacherLeaveRequest}
             />
             <Route
               path={"/attendance/table-edit"}
               component={StudentMonthlyPresentSheetUpdateForm}
             />
+            <Route exact path={"/announcement"} component={Announcement} />
             <Route
               path={"/exam-mark-approval"}
               component={ExamMarkApprovalTeacher}
             />
             <Route path={"/assignment/:id?"} component={Assignment} />
+            <Route
+              path={"/leaverequest-teacher"}
+              component={TeacherLeaveRequest}
+            />
             <Route path={"/video-conference"} component={VideoConference} />
             <Route
               exact

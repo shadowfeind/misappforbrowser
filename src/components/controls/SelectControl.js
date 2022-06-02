@@ -39,9 +39,14 @@ const SelectControl = ({
         value={value}
         onChange={onChange}
         className={classes.select}
+        style={{ fontSize: "12px" }}
       >
         {options?.map((item) => (
-          <MenuItem value={item.Key} key={item.Key}>
+          <MenuItem
+            value={item.Key}
+            key={item.Key}
+            style={{ fontSize: "12px" }}
+          >
             {item.Value}
           </MenuItem>
         ))}

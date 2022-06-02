@@ -1,7 +1,7 @@
 import React from "react";
 
 const Zoom = () => {
-  return <div>Zoom</div>;
+  return <div>Currently Unavailable !!!</div>;
 };
 
 export default Zoom;

@@ -9,7 +9,7 @@ const useStyles = makeStyles((theme) => ({
 
 const CustomContainer = ({ children }) => {
   const classes = useStyles();
-  return <Paper className={classes.pageContent}>{children}</Paper>;
+  return <div className={classes.pageContent}>{children}</div>;
 };
 
 export default CustomContainer;

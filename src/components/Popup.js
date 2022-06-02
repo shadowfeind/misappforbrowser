@@ -30,6 +30,7 @@ const Popup = ({ title, children, openPopup, setOpenPopup }) => {
     <Dialog
       className={classes.root}
       maxWidth="lg"
+      fullWidth={true}
       open={openPopup}
       style={{ zIndex: "1" }}
     >

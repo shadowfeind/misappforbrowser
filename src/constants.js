@@ -3,6 +3,7 @@ import axios from "axios";
 import moment from "moment";
 
 export const API_URL = "https://mis.vidyacube.com";
+// export const API_URL = "http://103.90.86.151:55";
 
 //for fcm token
 export const tokenHeader = {
@@ -23,8 +24,8 @@ export const tokenConfig = () => {
     // console.log(moment().unix());
     // console.log(isExpired);
     // if (isExpired) {
-      // localStorage.removeItem("blueberryToken");
-      // window.location.href = "https://mis.vidyacube.com/";
+    //   localStorage.removeItem("blueberryToken");
+    //   document.location.href = "/#/login/5";
     //   return;
     // }
 
@@ -36,10 +37,11 @@ export const tokenConfig = () => {
     };
     return tokenReturn;
   } else {
-    // window.location.href = "https://mis.vidyacube.com/";
     return {};
   }
 };
+
+// const userTokenFromStorage = JSON.parse(localStorage.getItem("blueberryToken"));
 
 window.addEventListener("storage", () => {
   console.log("setting storage");
@@ -47,31 +49,19 @@ window.addEventListener("storage", () => {
   console.log(JSON.parse(localStorage.getItem("blueberryToken")));
 });
 
-// const userSession = JSON.parse(localStorage.getItem("blueberryToken"));
-
 export const axiosInstance = axios.create({
   baseURL: API_URL,
   // headers: {
   //   "Content-Type": "application/json",
-  //   Authorization: `Bearer ${userSession?.AccessToken}`,
+  //   Authorization: `Bearer ${
+  //     JSON.parse(localStorage.getItem("blueberryToken"))?.AccessToken
+  //   }`,
   // },
 });
 
+// console.log("this is token from function", userTokenFromStorage?.AccessToken);
+
 axiosInstance.interceptors.request.use(async (req) => {
-  // console.log(userSession);
-  // if (!userSession) {
-  //   document.location.href = "/#/login/5";
-  //   return;
-  // }
-  // const user = jwt_decode(userSession.AccessToken);
-  // const isExpired = user.exp - moment().unix() < 1;
-  // console.log(user.exp);
-  // console.log(moment.unix(user.exp));
-  // console.log(moment().unix());
-  // console.log("isExpired", isExpired);
-
-  // if (!isExpired) return req;
-
   const userSession = JSON.parse(localStorage.getItem("blueberryToken"));
   const user = jwt_decode(userSession?.AccessToken);
   const isExpired = user.exp - moment().unix() < 1;
@@ -100,6 +90,7 @@ axiosInstance.interceptors.request.use(async (req) => {
       config
     );
     console.log(data);
+
     data.IDHRRole = userSession.IDHRRole;
 
     localStorage.setItem("blueberryToken", JSON.stringify(data));

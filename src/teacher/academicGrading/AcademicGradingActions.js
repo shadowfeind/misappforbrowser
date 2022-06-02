@@ -25,7 +25,8 @@ export const getAllAcademicGradingAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ACADEMIC_GRADING_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/FacultyGradingSystem/GetAllAcademicGrading`,tokenConfig()
+      `/api/FacultyGradingSystem/GetAllAcademicGrading`,
+      tokenConfig()
     );
     dispatch({ type: GET_ALL_ACADEMIC_GRADING_SUCCESS, payload: data });
   } catch (error) {
@@ -41,7 +42,8 @@ export const getSingleAcademicGradingAction = () => async (dispatch) => {
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/GetToCreateFacultyGradingSystem/6/singleGetToCreate/`,tokenConfig()
+      `/api/GetToCreateFacultyGradingSystem/6/singleGetToCreate/`,
+      tokenConfig()
     );
     dispatch({ type: GET_SINGLE_ACADEMIC_GRADING_SUCCESS, payload: data });
   } catch (error) {

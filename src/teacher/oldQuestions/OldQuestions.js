@@ -68,7 +68,7 @@ const OldQuestions = () => {
     (state) => state.getSubjectOldQuestions
   );
 
-  const { listOldQuestionsTeacher,loading } = useSelector(
+  const { listOldQuestionsTeacher, loading } = useSelector(
     (state) => state.getListOldQuestionsTeacher
   );
 
@@ -115,17 +115,27 @@ const OldQuestions = () => {
   useEffect(() => {
     if (oldQuestionsTeacher) {
       setDdlClass(oldQuestionsTeacher.searchFilterModel.ddlClass);
+      setClassId(oldQuestionsTeacher.searchFilterModel.ddlClass[0].Key);
+      dispatch(
+        getSubjectOldQuestionsAction(
+          oldQuestionsTeacher.searchFilterModel.ddlClass[0].Key
+        )
+      );
     }
   }, [dispatch, oldQuestionsTeacher]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_OLD_QUESTIONS_TEACHER_RESET})
+  useEffect(() => {
+    dispatch({ type: GET_LIST_OLD_QUESTIONS_TEACHER_RESET });
     dispatch(getAllOldQuestionsTeacherAction());
-  },[])
+  }, []);
 
   useEffect(() => {
     if (subjectOldQuestions) {
       setDdlFacultySubject([...subjectOldQuestions]);
+      setFacultySubject(subjectOldQuestions[0]?.Key);
+      dispatch(
+        getListOldQuestionsTeacherAction(classId, subjectOldQuestions[0]?.Key)
+      );
     }
   }, [subjectOldQuestions]);
 
@@ -175,16 +185,18 @@ const OldQuestions = () => {
           <LoadingComp />
         ) : (
           <>
-          <MobileBody>
-        {listOldQuestionsTeacher &&
-          listOldQuestionsTeacher.dbModelTeacherLst.map((s) => (
-            <OldQuestionListCollapse item={s} key={s.$id} />
-          ))}
-        {listOldQuestionsTeacher?.dbModelTeacherLst.length < 1 && (
-          <h4 style={{ textAlign: "center", marginTop: "10px" }}>No Data</h4>
-        )}
-        </MobileBody>
-        </>
+            <MobileBody>
+              {listOldQuestionsTeacher &&
+                listOldQuestionsTeacher.dbModelTeacherLst.map((s) => (
+                  <OldQuestionListCollapse item={s} key={s.$id} />
+                ))}
+              {listOldQuestionsTeacher?.dbModelTeacherLst.length < 1 && (
+                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                  No Data
+                </h4>
+              )}
+            </MobileBody>
+          </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />

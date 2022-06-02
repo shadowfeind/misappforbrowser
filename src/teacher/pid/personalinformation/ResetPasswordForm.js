@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Grid } from "@material-ui/core";
 import InputControl from "../../../components/controls/InputControl";
 import { useForm, Form } from "../../../customHooks/useForm";
@@ -13,12 +13,11 @@ const initialFormValues = {
   ConfirmPassword: "",
 };
 
-const ResetPasswordForm = (userId,setResetOpenPopup) => {
-  const [newPassword,setNewPassword]=useState("")
-  const [confirmPassword,setConfirmPassword]=useState("")
-  const [errors,setErrors]=useState({});
+const ResetPasswordForm = (userId, setResetOpenPopup) => {
+  const [newPassword, setNewPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({});
   const dispatch = useDispatch();
-  
   const validate = () => {
     let temp = { ...errors };
 
@@ -44,7 +43,7 @@ const ResetPasswordForm = (userId,setResetOpenPopup) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
-        dispatch(postTeacherPasswordAction(userId,newPassword,confirmPassword));
+      dispatch(postTeacherPasswordAction(userId, newPassword, confirmPassword));
     }
   };
 
@@ -68,7 +67,7 @@ const ResetPasswordForm = (userId,setResetOpenPopup) => {
             }}
             value={newPassword}
             type="Password"
-            onChange={(e)=> setNewPassword(e.target.value)}
+            onChange={(e) => setNewPassword(e.target.value)}
             errors={errors.newPassword}
           />
         </Grid>
@@ -80,7 +79,7 @@ const ResetPasswordForm = (userId,setResetOpenPopup) => {
             onFocus={(e) => {
               e.target.select();
             }}
-            onChange={(e)=> setConfirmPassword(e.target.value)}
+            onChange={(e) => setConfirmPassword(e.target.value)}
             type="Password"
             errors={errors.confirmPassword}
           />

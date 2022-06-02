@@ -33,7 +33,7 @@ const ExamDivision = () => {
 
   const dispatch = useDispatch();
 
-  const { examDivision,loading, error } = useSelector(
+  const { examDivision, loading, error } = useSelector(
     (state) => state.getAllExamDivision
   );
 
@@ -55,19 +55,19 @@ const ExamDivision = () => {
   return (
     <>
       <CustomContainer>
-      {loading ? (
-          <LoadingComp />
-        ) : (
-          <>
         <MobileTopSelectContainer>
           <h3 style={{ margin: "0", textAlign: "center" }}>Exam Division</h3>
         </MobileTopSelectContainer>
-        <MobileBody>
-        {examDivision &&
-          examDivision?.dbModelLst.map((item) => (
-            <ExamDivisionListCollapse item={item} key={item.$id} />
-          ))}
-          </MobileBody>
+        {loading ? (
+          <LoadingComp />
+        ) : (
+          <>
+            <MobileBody>
+              {examDivision &&
+                examDivision?.dbModelLst.map((item) => (
+                  <ExamDivisionListCollapse item={item} key={item.$id} />
+                ))}
+            </MobileBody>
           </>
         )}
       </CustomContainer>

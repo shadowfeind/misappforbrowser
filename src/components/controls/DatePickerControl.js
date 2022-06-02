@@ -4,6 +4,20 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  input: {
+    "& input": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+    "& label": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+  },
+}));
 
 const DatePickerControl = ({ name, label, value, onChange, errors = null }) => {
   const converToDefaultEventPara = (name, value) => ({
@@ -12,7 +26,7 @@ const DatePickerControl = ({ name, label, value, onChange, errors = null }) => {
       value,
     },
   });
-
+  const classes = useStyles();
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <KeyboardDatePicker
@@ -23,11 +37,12 @@ const DatePickerControl = ({ name, label, value, onChange, errors = null }) => {
         label={label}
         name={name}
         value={value}
+        className={classes.input}
         onChange={(date) => {
           onChange(converToDefaultEventPara(name, date));
         }}
-        style={{ width: "100%" }}
         {...(errors && { error: true, helperText: errors })}
+        style={{ width: "80%", fontSize: "12px" }}
       />
     </MuiPickersUtilsProvider>
   );

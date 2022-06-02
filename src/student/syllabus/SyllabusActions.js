@@ -10,7 +10,8 @@ export const getAllSyllabusStudentAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_SYLLABUS_STUDENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/SyllabusStudent/GetAllSyllabus`,tokenConfig()
+      `/api/SyllabusStudent/GetAllSyllabus`,
+      tokenConfig()
     );
 
     dispatch({

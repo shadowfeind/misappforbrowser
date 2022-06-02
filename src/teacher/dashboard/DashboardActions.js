@@ -1,3 +1,4 @@
+import axios from "axios";
 import {
   GET_HEADER_CONTENT_FAIL,
   GET_HEADER_CONTENT_REQUEST,
@@ -13,8 +14,8 @@ export const getHeaderContentAction = () => async (dispatch) => {
     dispatch({ type: GET_HEADER_CONTENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/Home/GetHeaderContent
-      `,tokenConfig()
+      `/api/Home/GetHeaderContent`,
+      tokenConfig()
     );
 
     dispatch({ type: GET_HEADER_CONTENT_SUCCESS, payload: data });
@@ -31,7 +32,8 @@ export const getDashboardContentAction = () => async (dispatch) => {
     dispatch({ type: GET_TEACHER_DASHBOARD_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/TeacherDashboard/GetAllTeacherDashboard`,tokenConfig()
+      `/api/TeacherDashboard/GetAllTeacherDashboard`,
+      tokenConfig()
     );
 
     dispatch({ type: GET_TEACHER_DASHBOARD_SUCCESS, payload: data });

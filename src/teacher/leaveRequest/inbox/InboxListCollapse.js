@@ -127,15 +127,17 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
                 Edit &nbsp;
                 <EditIcon style={{ fontSize: 12 }} />
               </Button>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={() => downloadHandler(item.IDLeaveRequest)}
-              >
-                Download &nbsp;
-                <CloudDownloadIcon style={{ fontSize: 12 }} />
-              </Button>
+              {item.DocumentName !== null && (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => downloadHandler(item.IDLeaveRequest)}
+                >
+                  Download &nbsp;
+                  <CloudDownloadIcon style={{ fontSize: 12 }} />
+                </Button>
+              )}
             </p>
           </div>
         </Collapse>

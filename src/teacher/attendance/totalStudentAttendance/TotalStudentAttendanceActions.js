@@ -13,7 +13,8 @@ export const getAllTotalStudentAttendanceAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_TOTAL_STUDENT_ATTENDANCE_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/TotalStudentAttendance/GetAllTotalStudentAttendance`,tokenConfig()
+      `/api/TotalStudentAttendance/GetAllTotalStudentAttendance`,
+      tokenConfig()
     );
 
     dispatch({
@@ -35,7 +36,8 @@ export const getListTotalStudentAttendanceAction =
       dispatch({ type: GET_LIST_TOTAL_STUDENT_ATTENDANCE_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/TotalStudentAttendance/GetListTotalStudentAttendance?startDate=${startDate}&endDate=${endDate}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idSubject=${subject}&section=${section}&idShift=${shift}&searchKey=1`,tokenConfig()
+        `/api/TotalStudentAttendance/GetListTotalStudentAttendance?startDate=${startDate}&endDate=${endDate}&idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idSubject=${subject}&section=${section}&idShift=${shift}&searchKey=1`,
+        tokenConfig()
       );
 
       dispatch({

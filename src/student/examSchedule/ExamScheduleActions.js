@@ -14,7 +14,8 @@ export const getAllExamScheduleInitialDataAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/AcademicExamSchedule/GetAll
-        `,tokenConfig()
+        `,
+      tokenConfig()
     );
 
     dispatch({
@@ -36,7 +37,8 @@ export const getExamScheduleListAction =
 
       const { data } = await axiosInstance.get(
         `/api/AcademicExamSchedule/GetListAcademicExamSchedule?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}&idAcademicYearCalendar=${event}&searchKey=1
-          `,tokenConfig()
+          `,
+        tokenConfig()
       );
 
       dispatch({

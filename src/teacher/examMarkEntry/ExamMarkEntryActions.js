@@ -23,7 +23,8 @@ export const getAllAcademicStudentExamdataAction = () => async (dispatch) => {
 
     const { data } = await axiosInstance.get(
       `/api/AcademicStudentExamData/GetAllAcademicStudentExamData
-    `,tokenConfig()
+    `,
+      tokenConfig()
     );
 
     dispatch({
@@ -43,7 +44,8 @@ export const getEventAction = (year, program, classId) => async (dispatch) => {
     dispatch({ type: GET_EVENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/AcademicExamSchedule/GetActiveAcademicYearCalendar?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,tokenConfig()
+      `/api/AcademicExamSchedule/GetActiveAcademicYearCalendar?idAcademicYear=${year}&idFacultyProgramLink=${program}&level=${classId}`,
+      tokenConfig()
     );
 
     dispatch({
@@ -65,7 +67,8 @@ export const getEventScheduleAction =
 
       const { data } = await axiosInstance.get(
         `/api/GetActiveExamScheduleListForExamMarkEntry/${year}/${program}/${classId}/${section}/${event}/2
-    `,tokenConfig()
+    `,
+        tokenConfig()
       );
 
       dispatch({
@@ -88,7 +91,8 @@ export const getExamEntrySearchDataAction =
 
       const { data } = await axiosInstance.get(
         `/api/GetLstAcademicStudentExamData/${year}/${program}/${classId}/${section}/${shift}/${event}/${schedule}/1
-    `,tokenConfig()
+    `,
+        tokenConfig()
       );
 
       dispatch({
@@ -111,7 +115,8 @@ export const getExamEntryBulkAction =
 
       const { data } = await axiosInstance.get(
         `/api/GetBulk/${year}/${program}/${classId}/${section}/${shift}/${event}/${schedule}/1
-    `,tokenConfig()
+    `,
+        tokenConfig()
       );
 
       dispatch({

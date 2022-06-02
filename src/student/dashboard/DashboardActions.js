@@ -1,5 +1,5 @@
-
-import { axiosInstance,tokenConfig } from "../../constants";
+import axios from "axios";
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_HEADER_CONTENT_FAIL,
   GET_HEADER_CONTENT_REQUEST,
@@ -14,7 +14,8 @@ export const getHeaderContentAction = () => async (dispatch) => {
     dispatch({ type: GET_HEADER_CONTENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/Home/GetHeaderContent`,tokenConfig()
+      `/api/Home/GetHeaderContent`,
+      tokenConfig()
     );
 
     dispatch({ type: GET_HEADER_CONTENT_SUCCESS, payload: data });
@@ -31,7 +32,8 @@ export const getDashboardContentStudentAction = () => async (dispatch) => {
     dispatch({ type: GET_STUDENT_DASHBOARD_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/StudentDashboard/GetAllStudentSubmission`,tokenConfig()
+      `/api/StudentDashboard/GetAllStudentSubmission`,
+      tokenConfig()
     );
 
     dispatch({ type: GET_STUDENT_DASHBOARD_SUCCESS, payload: data });

@@ -38,7 +38,7 @@ const ClassOneSchedule = () => {
   });
   const dispatch = useDispatch();
 
-  const { allClassScheduleList, loading,error: allClassScheduleListError } =
+  const { allClassScheduleList,loading, error: allClassScheduleListError } =
     useSelector((state) => state.getListClassSchedule);
   // const { editClassSchedule, error: editClassScheduleError } = useSelector(
   //   (state) => state.getEditClassSchedule

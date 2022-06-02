@@ -171,6 +171,7 @@ const StudentLeaveRequest = () => {
     setOpenPopup(true);
     dispatch({ type: STUDENT_GET_SINGLE_TO_EDIT_LEAVE_REQUESTS_RESET });
   };
+
   return (
     <>
       <CustomContainer>
@@ -198,16 +199,16 @@ const StudentLeaveRequest = () => {
           {listLeaveRequestLoading && <LoadingComp />}
         </MobileTopSelectContainer>
         <MobileBody>
-        {listLeaveRequest &&
-          listLeaveRequest.dbModelLst.map((item) => (
-            <StudentLeaveRequestListCollapse
-              item={item}
-              key={item.$id}
-              setOpenPopUp={setOpenPopup}
-              setOpenPopupDelete={setOpenPopupDelete}
-            />
-          ))}
-          </MobileBody>
+          {listLeaveRequest &&
+            listLeaveRequest.dbModelLst.map((item) => (
+              <StudentLeaveRequestListCollapse
+                item={item}
+                key={item.$id}
+                setOpenPopUp={setOpenPopup}
+                setOpenPopupDelete={setOpenPopupDelete}
+              />
+            ))}
+        </MobileBody>
       </CustomContainer>
       <Popup
         openPopup={openPopup}

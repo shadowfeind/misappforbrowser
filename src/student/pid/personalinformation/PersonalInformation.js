@@ -136,8 +136,11 @@ const PersonalInformation = () => {
     (state) => state.uploadPhotoStudent
   );
 
-  const { getStudentResetPassword,error:getStudentResetPasswordError, loading: resetPasswordLoading } =
-    useSelector((state) => state.getStudentResetPassword);
+  const {
+    getStudentResetPassword,
+    error: getStudentResetPasswordError,
+    loading: resetPasswordLoading,
+  } = useSelector((state) => state.getStudentResetPassword);
 
   const {
     success: postStudentPasswordSuccess,
@@ -265,7 +268,14 @@ const PersonalInformation = () => {
                   </div>
                   <h2>{headerContent.FullName}</h2>
                   <h4>{headerContent.Email}</h4>
-                  <h5 onClick={() =>resetPasswordHandler(getAllPersonalInformation.dbModel.IDHREmployee)} style={{ margin: "6px" }}>
+                  <h5
+                    onClick={() =>
+                      resetPasswordHandler(
+                        getAllPersonalInformation.dbModel.IDHREmployee
+                      )
+                    }
+                    style={{ margin: "6px" }}
+                  >
                     Change Password
                   </h5>
                 </div>

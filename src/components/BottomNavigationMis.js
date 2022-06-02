@@ -40,28 +40,28 @@ const BottomNavigationMis = () => {
       value={value}
       onChange={(event, newValue) => {
         setValue(newValue);
-        if (newValue === 0) {
+        if (newValue == 0) {
           if (userInfo.IDHRRole == 5) {
             history.push("/teacher-dashboard");
           }
           if (userInfo.IDHRRole == 8) {
             history.push("/student-dashboard");
           }
-        } else if (newValue === 1) {
+        } else if (newValue == 1) {
           if (userInfo.IDHRRole == 5) {
             history.push("/calendar");
           }
           if (userInfo.IDHRRole == 8) {
             history.push("/calendar");
           }
-        } else if (newValue === 2) {
+        } else if (newValue == 2) {
           if (userInfo.IDHRRole == 5) {
             history.push("/assignment");
           }
           if (userInfo.IDHRRole == 8) {
             history.push("/student-assignment-front");
           }
-        } else if (newValue === 3) {
+        } else if (newValue == 3) {
           if (userInfo.IDHRRole == 5) {
             history.push("/resources");
           }

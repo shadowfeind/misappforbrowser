@@ -23,10 +23,9 @@ const NavProfileContainer = ({ header }) => {
       {header && (
         <>
           <img
-            src={`${API_URL}${header.FullPath}`}
+            src={`${API_URL}${header.FullPathSchoolLogo}`}
             width="60px"
             height="60px"
-            style={{ borderRadius: "50%" }}
           />
 
           <h2>{header.FullName}</h2>

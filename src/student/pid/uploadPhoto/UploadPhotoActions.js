@@ -14,7 +14,8 @@ export const getAllUploadPhotoStudentAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_UPLOADPHOTO_STUDENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/PID_PhotoUpload/GetSingleToEditPhoto`,tokenConfig()
+      `/api/PID_PhotoUpload/GetSingleToEditPhoto`,
+      tokenConfig()
     );
 
     dispatch({
@@ -39,7 +40,8 @@ export const putUploadPhotoStudentAction =
 
       const { data: imageData } = await axiosInstance.post(
         `/api/PID_PhotoUpload/FileUpload`,
-        formData,tokenConfig()
+        formData,
+        tokenConfig()
       );
 
       if (imageData) {
@@ -52,7 +54,11 @@ export const putUploadPhotoStudentAction =
           hrEmployeeModel: newData,
         });
         console.log(jsonData);
-        await axiosInstance.put(`/api/PID_PhotoUpload/PutPhoto`, jsonData,tokenConfig());
+        await axiosInstance.put(
+          `/api/PID_PhotoUpload/PutPhoto`,
+          jsonData,
+          tokenConfig()
+        );
       }
 
       dispatch({

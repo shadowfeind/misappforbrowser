@@ -39,7 +39,7 @@ const ClassFourSchedule = () => {
   });
   const dispatch = useDispatch();
 
-  const { allClassScheduleList,loading, error: allClassScheduleListError } =
+  const { allClassScheduleList, error: allClassScheduleListError } =
     useSelector((state) => state.getListClassSchedule);
   // const { editClassSchedule, error: editClassScheduleError } = useSelector(
   //   (state) => state.getEditClassSchedule
@@ -120,13 +120,7 @@ const ClassFourSchedule = () => {
             </Button>
           )}
         </Toolbar> */}
-        {loading ? (
-          <LoadingComp />
-        ) : (
-          <>
         {allClassScheduleList && <iframe src={url} width="100%" height="700" />}
-        </>
-        )}
       </CustomContainer>
       {/* <Popup
         openPopup={openPopup}

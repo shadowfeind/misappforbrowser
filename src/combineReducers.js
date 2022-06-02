@@ -235,9 +235,20 @@ import {
   postLeaveRequestReducer,
   putLeaveRequestReducer,
 } from "./teacher/leaveRequest/TeacherLeaveRequestReducers";
-import { getStudentResetPasswordReducer, postStudentPasswordReducer } from "./student/pid/personalinformation/PersonalInformationReducers";
-import { getAllTeacherAnnouncement, getFCMForTeacherAnnouncementReducer, getListTeacherAnnouncement } from "./teacher/announcement/AnnouncementReducers";
-import { getAllStudentAnnouncement, getFCMForStudentAnnouncementReducer, getListStudentAnnouncement } from "./student/announcementStudent/AnnouncementReducers";
+import {
+  getStudentResetPasswordReducer,
+  postStudentPasswordReducer,
+} from "./student/pid/personalinformation/PersonalInformationReducers";
+import {
+  getAllTeacherAnnouncement,
+  getFCMForTeacherAnnouncementReducer,
+  getListTeacherAnnouncement,
+} from "./teacher/announcement/AnnouncementReducers";
+import {
+  getAllStudentAnnouncement,
+  getFCMForStudentAnnouncementReducer,
+  getListStudentAnnouncement,
+} from "./student/announcement/AnnouncementReducers";
 
 export const reducers = combineReducers({
   getFCMToken: getFCMTokenReducer,
@@ -249,7 +260,7 @@ export const reducers = combineReducers({
   uploadPhotoStudent: uploadPhotoStudentReducer,
   getAllUploadPhotoStudent: getAllUploadPhotoStudentReducer,
   getStudentResetPassword: getStudentResetPasswordReducer,
-  postStudentPassword : postStudentPasswordReducer,
+  postStudentPassword: postStudentPasswordReducer,
   //user profile reducers ends
   //attendance start
   getAllStudentAttendance: getAllStudentAttendanceReducer,
@@ -289,10 +300,11 @@ export const reducers = combineReducers({
   studentGetSingleDeleteLeaveRequest: studentGetSingleDeleteLeaveRequestReducer,
   studentDeleteLeaveRequest: studentDeleteLeaveRequestReducer,
   studentDownloadLeaveRequest: studentDownloadLeaveRequestReducer,
-//Announcement Student:
-getAllStudentAnnouncement: getAllStudentAnnouncement,
-getListStudentAnnouncement: getListStudentAnnouncement,
-getFCMForStudentAnnouncement : getFCMForStudentAnnouncementReducer,
+
+  //Announcement Student:
+  getAllStudentAnnouncement: getAllStudentAnnouncement,
+  getListStudentAnnouncement: getListStudentAnnouncement,
+  getFCMForStudentAnnouncement: getFCMForStudentAnnouncementReducer,
 
   //TEACHER COMBINE REDUCERS:
   getDashboardContent: getDashboardContentReducer,
@@ -438,8 +450,8 @@ getFCMForStudentAnnouncement : getFCMForStudentAnnouncementReducer,
   downloadLeaveRequest: downloadLeaveRequestReducer,
   getSingleEditSentLeaveRequest: getSingleEditSentLeaveRequestReducer,
 
-//Announcement Techer:
-getAllTeacherAnnouncement : getAllTeacherAnnouncement,
-getListTeacherAnnouncement : getListTeacherAnnouncement,
-getFCMForTeacherAnnouncement : getFCMForTeacherAnnouncementReducer,
+  //Announcement Techer:
+  getAllTeacherAnnouncement: getAllTeacherAnnouncement,
+  getListTeacherAnnouncement: getListTeacherAnnouncement,
+  getFCMForTeacherAnnouncement: getFCMForTeacherAnnouncementReducer,
 });

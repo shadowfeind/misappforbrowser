@@ -4,9 +4,9 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Notification from "../../components/Notification";
+import LoadingComp from "../../components/LoadingComp";
 import DashboardCard from "./DashboardCard";
 import { subject } from "./SubjectData";
-import LoadingComp from "../../components/LoadingComp";
 import { GET_STUDENT_DASHBOARD_RESET } from "./DashboardConstants";
 import { useEffect } from "react";
 import { getDashboardContentStudentAction } from "./DashboardActions";
@@ -48,25 +48,20 @@ const Dashboard = () => {
   );
   const { userInfo } = useSelector((state) => state.userLogin);
 
-  if (error) {
-    setNotify({
-      isOpen: true,
-      message: error,
-      type: "error",
-    });
-    dispatch({ type: GET_STUDENT_DASHBOARD_RESET });
-  }
+  // if (error) {
+  //   setNotify({
+  //     isOpen: true,
+  //     message: error,
+  //     type: "error",
+  //   });
+  //   dispatch({ type: GET_STUDENT_DASHBOARD_RESET });
+  // }
 
   useEffect(() => {
     if (!userInfo) {
       history.push("/login");
     }
-    if (userInfo) {
-      if (userInfo.IDHRRole === 5) {
-        history.push("/teacher-dashboard");
-      }
-    }
-  }, [dispatch, userInfo]);
+  }, [userInfo]);
 
   useEffect(() => {
     dispatch(getDashboardContentStudentAction());

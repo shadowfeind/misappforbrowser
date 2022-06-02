@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UploadPhoto = ({setEditPhotoPopup}) => {
+const UploadPhoto = ({ setEditPhotoPopup }) => {
   const [url, setUrl] = useState("");
   const [notify, setNotify] = useState({
     isOpen: false,
@@ -72,13 +72,11 @@ const UploadPhoto = ({setEditPhotoPopup}) => {
   }
 
   useEffect(() => {
-      dispatch(getAllUploadPhotoAction());
+    dispatch(getAllUploadPhotoAction());
   }, []);
 
   return (
     <CustomContainer>
-      Upload Photo
-      <br />
       <UploadPhotoForm uploadPhoto={allUploadPhoto && allUploadPhoto} />
       <Notification notify={notify} setNotify={setNotify} />
     </CustomContainer>

@@ -1,4 +1,3 @@
-import axios from "axios";
 import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   GET_ALL_CLASS_SCHEDULE_STUDENT_FAIL,
@@ -10,7 +9,8 @@ export const getAllClassScheduleStudentAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_CLASS_SCHEDULE_STUDENT_REQUEST });
     const { data } = await axiosInstance.get(
-      `/api/ClassScheduleStudent/GetRunningClassSchedule`,tokenConfig()
+      `/api/ClassScheduleStudent/GetRunningClassSchedule`,
+      tokenConfig()
     );
 
     dispatch({ type: GET_ALL_CLASS_SCHEDULE_STUDENT_SUCCESS, payload: data });

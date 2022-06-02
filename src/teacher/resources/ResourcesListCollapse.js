@@ -47,12 +47,12 @@ const ResourcesListCollapse = ({ item }) => {
   };
   return (
     <div
-    style={{
-      padding: "6px 6px 0 6px",
-    }}
-  >
-    <div style={{ backgroundColor: "#fff" }}>
-    <ListForTable onClick={handleClick}>
+      style={{
+        padding: "6px 6px 0 6px",
+      }}
+    >
+      <div style={{ backgroundColor: "#fff" }}>
+        <ListForTable onClick={handleClick}>
           <div className={classes.listWrapper}>
             <div style={{ fontSize: "12px", color: "#666" }}>
               {item.Created_On.slice(0, 10)} <br />{" "}
@@ -66,38 +66,40 @@ const ResourcesListCollapse = ({ item }) => {
               </div>
             </div>
           </div>
-        <div>
+          <div>
             {open ? (
               <ExpandLess style={{ color: "#d1d1d1" }} />
             ) : (
               <ExpandMore style={{ color: "#d1d1d1" }} />
             )}
           </div>
-      </ListForTable>
-      <Collapse in={open} timeout="auto" unmountOnExit>
-        <div className={classes.collapse}>
-          <p>
-            <span>CourseDescription</span> : {item.CourseDescription}
-          </p>
-          <p>
-            <span>Upload Date</span> : {item.Created_On?.slice(0, 10)}
-          </p>
-          <p>
-            <span>Posted By</span> :{item.FirstName} {item.MiddleName} {item.LastName}
-          </p>
-          <p>
-            <span>IsActive</span> : {item.isActive ? "Active" : "InActive"}
-          </p>
-          <p>
-            <Button
-              variant="contained"
-              color="primary"
-              className={classes.button}
-              onClick={() => downloadHandler(item.Id)}
-            >Download &nbsp;
-              <CloudDownloadIcon style={{ fontSize: 14 }} />
-            </Button>
-            {/* <Button
+        </ListForTable>
+        <Collapse in={open} timeout="auto" unmountOnExit>
+          <div className={classes.collapse}>
+            <p>
+              <span>CourseDescription</span> : {item.CourseDescription}
+            </p>
+            <p>
+              <span>Upload Date</span> : {item.Created_On?.slice(0, 10)}
+            </p>
+            <p>
+              <span>Posted By</span> :{item.FirstName} {item.MiddleName}{" "}
+              {item.LastName}
+            </p>
+            <p>
+              <span>IsActive</span> : {item.isActive ? "Active" : "InActive"}
+            </p>
+            <p>
+              <Button
+                variant="contained"
+                color="primary"
+                className={classes.button}
+                onClick={() => downloadHandler(item.Id)}
+              >
+                Download &nbsp;
+                <CloudDownloadIcon style={{ fontSize: 14 }} />
+              </Button>
+              {/* <Button
               variant="contained"
               color="primary"
               className={classes.button}
@@ -112,11 +114,11 @@ const ResourcesListCollapse = ({ item }) => {
             >
               <DeleteIcon style={{ fontSize: 12 }} />
             </Button> */}
-          </p>
-        </div>
-      </Collapse>
-   </div>
-   </div>
+            </p>
+          </div>
+        </Collapse>
+      </div>
+    </div>
   );
 };
 

@@ -2,8 +2,8 @@ import axios from "axios";
 import {
   API_URL,
   axiosInstance,
-  tokenHeader,
   tokenConfig,
+  tokenHeader,
 } from "../../constants";
 import {
   STUDENT_DELETE_LEAVE_REQUESTS_FAIL,

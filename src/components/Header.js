@@ -17,6 +17,7 @@ import { getHeaderContentAction } from "../student/dashboard/DashboardActions";
 import Drawer from "@material-ui/core/Drawer";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Notification from "./Notification";
+import { UPLOADPHOTO_STUDENT_RESET } from "../student/pid/uploadPhoto/UploadPhotoConstants";
 
 const useStyles = makeStyles({
   root: {
@@ -91,6 +92,15 @@ const Header = () => {
   const { headerContent } = useSelector((state) => state.getHeaderContent);
 
   const { userInfo } = useSelector((state) => state.userLogin);
+
+  const { success: uploadPhotoSuccess } = useSelector(
+    (state) => state.uploadPhotoStudent
+  );
+
+  // if (uploadPhotoSuccess) {
+  // dispatch({ type: UPLOADPHOTO_STUDENT_RESET });
+  // dispatch(getHeaderContentAction());
+  // }
 
   const handleClick = (newPlacement) => (event) => {
     setAnchorEl(event.currentTarget);

@@ -25,8 +25,7 @@ export const getAllAssignmentStudentAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_ASSIGNMENT_STUDENT_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/StudentSubmission/GetAllStudentSubmission
-            `,
+      `/api/StudentSubmission/GetAllStudentSubmission`,
       tokenConfig()
     );
 

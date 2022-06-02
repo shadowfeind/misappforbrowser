@@ -8,13 +8,12 @@ import {
   TableBody,
   Toolbar,
   Grid,
-  Chip,
 } from "@material-ui/core";
 import { Search } from "@material-ui/icons";
 import useCustomTable from "../../../customHooks/useCustomTable";
 import InputControl from "../../../components/controls/InputControl";
-import LoadingComp from "../../../components/LoadingComp";
 import Popup from "../../../components/Popup";
+import LoadingComp from "../../../components/LoadingComp";
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
@@ -38,6 +37,7 @@ import AssignmentEditForm from "./AssignmentEditForm";
 import AssignmentListCollapse from "./AssignmentListCollapse";
 import MobileTopSelectContainer from "../../../components/MobileTopSelectContainer";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import Chip from "@material-ui/core/Chip";
 import MobileBody from "../../../components/MobileBody";
 
 const useStyles = makeStyles((theme) => ({
@@ -254,6 +254,15 @@ const Assignment = () => {
         setProgramValue(assignment.searchFilterModel.idFacultyProgramLink);
         setClassId(assignment.searchFilterModel.level);
         setShift(assignment.searchFilterModel.idShift);
+        dispatch(
+          getAssignmentListStudentAction(
+            assignment.searchFilterModel.idAcademicYear,
+            assignment.searchFilterModel.idFacultyProgramLink,
+            assignment.searchFilterModel.level,
+            assignment.searchFilterModel.idShift,
+            assignment.searchFilterModel.ddlSubject[0]?.Key
+          )
+        );
       });
       if (subjectIdFromDashboard) {
         setFacultySubject(subjectIdFromDashboard);
@@ -275,11 +284,11 @@ const Assignment = () => {
     dispatch(getAllAssignmentStudentAction()); //every time component is mounted this api must be called
   }, []);
 
-  useEffect(() => {
-    if (assignmentList) {
-      setTableData(assignmentList.dbstuentSubmissionLst);
-    }
-  }, [assignmentList]);
+  // useEffect(() => {
+  //   if (assignmentList) {
+  //     setTableData(assignmentList.dbstuentSubmissionLst);
+  //   }
+  // }, [assignmentList]);
 
   const handleExamScheduleSearch = (value) => {
     dispatch(
@@ -313,7 +322,7 @@ const Assignment = () => {
                 key={subject.Key}
                 label={subject.Value}
                 variant="outlined"
-                style={{ marginRight: "5px", marginBottom: "5px" }}
+                style={{ marginRight: "10px", marginBottom: "5px" }}
                 onClick={(e) => handleExamScheduleSearch(subject.Key)}
               />
             ))}
@@ -335,8 +344,7 @@ const Assignment = () => {
           <LoadingComp />
         ) : (
           <>
-          <MobileBody>
-            <div style={{ marginBottom: "30px" }}>
+            <MobileBody>
               {assignmentList?.dbstuentSubmissionLst.map((item) => (
                 <AssignmentListCollapse
                   item={item}
@@ -345,12 +353,11 @@ const Assignment = () => {
                   setOpenPopup={setOpenPopup}
                 />
               ))}
-            </div>
-            {assignmentList?.dbstuentSubmissionLst.length < 1 && (
-              <h4 style={{ textAlign: "center", marginTop: "10px" }}>
-                No Assignment
-              </h4>
-            )}
+              {assignmentList?.dbstuentSubmissionLst.length < 1 && (
+                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                  No Assignment
+                </h4>
+              )}
             </MobileBody>
           </>
         )}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import FilerobotImageEditor, {
   TABS,
   TOOLS,
@@ -22,6 +22,7 @@ import { useHistory } from "react-router-dom";
 import LockIcon from "@material-ui/icons/Lock";
 import Popup from "../../components/Popup";
 import { API_URL } from "../../constants";
+import * as markerjs2 from "markerjs2";
 
 const useStyles = makeStyles((theme) => ({
   collapse: {
@@ -56,7 +57,6 @@ const dateInPast = (firstDate, secondDate) => {
   ) {
     return true;
   }
-
   return false;
 };
 
@@ -68,6 +68,9 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
   const history = useHistory();
   const dispatch = useDispatch();
   const classes = useStyles();
+
+  const sourceImage = useRef(null);
+  const sampleImage = useRef(null);
 
   const { singleTeacherAssignment } = useSelector(
     (state) => state.getSingleToEditTeacherAssignment
@@ -84,12 +87,13 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
     dispatch(getSingleToEditTeacherAssignmentAction(id));
     // /Upload/TeacherAssignment/7d83cece-a6f0-4a9a-9d1d-c6f14db994031.jpeg;
     // console.log("this is name", name);
-    // let imageURL = `https://api.codetabs.com/v1/proxy?quest=${name}`;
-    let imageURL = `http://103.90.86.151:5000/api/getImage?q=${API_URL}${name}`;
+    // let imageURL = `https://api.codetabs.com/v1/proxy?quest=${API_URL}${name}`;
+    // let imageURL = `${API_URL}:5000/api/getImage?q=${API_URL}${name}`;
+    let imageURL = `${API_URL}${name}`;
 
     // let imageURL = "";
-    // fetch(imageURL)
-    //   .then((response) => console.log(response))
+    // fetch(`${API_URL}/api/StudentSubmittedFile/GetStudentFile`)
+    //   .then((response) => console.log("this is response", response))
     //   .catch((err) => console.log(err));
 
     // let downloadedImg = new Image();
@@ -100,6 +104,60 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
     setIsImgEditorShown(true);
     setOpenPopup(true);
   };
+
+  function showMarkerArea(sampleImage) {
+    if (sourceImage.current !== null) {
+      // debugger;
+      // create a marker.js MarkerArea
+      const markerArea = new markerjs2.MarkerArea(sourceImage.current);
+      markerArea.targetRoot = sourceImage.current.parentElement;
+      // attach an event handler to assign annotated image back to our image element
+      markerArea.addEventListener("render", async (event) => {
+        sampleImage.src = event.dataUrl;
+        const blob = await fetch(event.dataUrl).then((it) => it.blob());
+        const file = new File([blob], "fileName.jpg", {
+          type: "image/jpeg",
+          lastModified: new Date(),
+        });
+        dispatch(
+          putSingleToEditTeacherAssignmentStudentAction(
+            file,
+            singleTeacherAssignment?.dbTeacherAssignmentModel
+          )
+        );
+      });
+      // launch marker.js
+      markerArea.show();
+    }
+    // const markerArea = new markerjs2.MarkerArea(sourceImage.current);
+    // since the container div is set to position: relative it is now our positioning root
+    // end we have to let marker.js know that
+    // markerArea.targetRoot = sourceImage;
+    // markerArea.addEventListener("render", (event) => {
+    //   console.log("event", event);
+    //   target.src = event.dataUrl;
+    //   // save the state of MarkerArea
+    //   maState = event.state;
+    // });
+    // markerArea.show();
+    // // if previous state is present - restore it
+    // if (maState) {
+    //   markerArea.restoreState(maState);
+    // }
+  }
+
+  // useEffect(() => {
+  //   if (imgToEdit && sampleImage.current !== null) {
+  //     debugger;
+  //     showMarkerArea(sampleImage);
+  //   }
+  // }, [imgToEdit, sampleImage]);
+
+  sampleImage.current !== null &&
+    sampleImage.current.addEventListener("click", () => {
+      showMarkerArea(sampleImage.current);
+    });
+
   const handleClick = () => {
     setOpen(!open);
   };
@@ -140,7 +198,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
                 // fontWeight: "bolder",
               }}
             >
-              {item.AssignmentName?.slice(0, 18)}
+              {item.FullName?.slice(0, 18)}
               <div
                 style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
               >
@@ -151,7 +209,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
                 )}
               </div>
             </div>
-            {item.DocumentSubmitted && (
+            {item.DocumentName && (
               <div
                 style={{
                   paddingLeft: "18px",
@@ -160,7 +218,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
                 <img
                   width="30px"
                   height="30px"
-                  src={`${API_URL}${item.DocumentSubmitted}`}
+                  src={`${API_URL}${item.DocumentName}`}
                 />
               </div>
             )}
@@ -201,22 +259,23 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
                 Teacher &nbsp;
                 <CloudDownloadIcon style={{ fontSize: 12 }} />
               </Button>
-              {item.DocumentSubmitted !== null && (
-                <Button
-                  variant="contained"
-                  color="primary"
-                  className={classes.button}
-                  onClick={() =>
-                    downloadSubmittedHandler(
-                      item.DocumentSubmitted,
-                      item.IDAssignment
-                    )
-                  }
-                >
-                  Student &nbsp;
-                  <CloudDownloadIcon style={{ fontSize: 12 }} />
-                </Button>
-              )}
+              {item.DocumentSubmitted !== null &&
+                item.DocumentSubmitted !== "/Upload/TeacherAssignment/" && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() =>
+                      downloadSubmittedHandler(
+                        item.DocumentSubmitted,
+                        item.IDAssignment
+                      )
+                    }
+                  >
+                    Student &nbsp;
+                    <CloudDownloadIcon style={{ fontSize: 12 }} />
+                  </Button>
+                )}
               <Button
                 variant="contained"
                 color="primary"
@@ -231,6 +290,44 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
         </Collapse>
 
         <Popup
+          openPopup={openPopup}
+          setOpenPopup={setOpenPopup}
+          title="Edit Assignment"
+        >
+          {imgToEdit && (
+            // <img src={imgToEdit} ref={imageRef} style={{ width: "100%" }} />
+
+            <div
+              style={{
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                paddingTop: "50px",
+              }}
+            >
+              <img
+                ref={sourceImage}
+                src={imgToEdit}
+                crossOrigin="anonymous"
+                style={{ maxWidth: "600px", maxHeight: "80%" }}
+              />
+              <img
+                ref={sampleImage}
+                src={imgToEdit}
+                crossOrigin="anonymous"
+                style={{
+                  maxWidth: "600px",
+                  maxHeight: "100%",
+                  position: "absolute",
+                }}
+              />
+            </div>
+          )}
+        </Popup>
+
+        {/* <Popup
           openPopup={openPopup}
           setOpenPopup={setOpenPopup}
           title="Edit Assignment"
@@ -253,7 +350,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
               defaultToolId={TOOLS.TEXT} // or 'Text'
             />
           )}
-        </Popup>
+        </Popup> */}
       </div>
     </div>
   );

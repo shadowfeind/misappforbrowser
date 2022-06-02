@@ -1,5 +1,5 @@
-
-import {axiosInstance,tokenConfig} from "../../constants";
+import axios from "axios";
+import { API_URL, axiosInstance, tokenConfig } from "../../constants";
 import {
   STUDENT_GET_ALL_ACADEMIC_GRADING_REQUEST,
   STUDENT_GET_ALL_ACADEMIC_GRADING_SUCCESS,
@@ -26,7 +26,8 @@ export const getAllAcademicGradingAction = () => async (dispatch) => {
     dispatch({ type: STUDENT_GET_ALL_ACADEMIC_GRADING_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/FacultyGradingSystem/GetAllAcademicGrading`,tokenConfig()
+      `/api/FacultyGradingSystem/GetAllAcademicGrading`,
+      tokenConfig()
     );
     dispatch({ type: STUDENT_GET_ALL_ACADEMIC_GRADING_SUCCESS, payload: data });
   } catch (error) {
@@ -42,7 +43,8 @@ export const getSingleAcademicGradingAction = () => async (dispatch) => {
     dispatch({ type: STUDENT_GET_SINGLE_ACADEMIC_GRADING_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/GetToCreateFacultyGradingSystem/6/singleGetToCreate/`,tokenConfig()
+      `/api/GetToCreateFacultyGradingSystem/6/singleGetToCreate/`,
+      tokenConfig()
     );
     dispatch({
       type: STUDENT_GET_SINGLE_ACADEMIC_GRADING_SUCCESS,
@@ -97,7 +99,8 @@ export const getSingleAcademicGradingforEditAction =
       dispatch({ type: STUDENT_GET_SINGLE_ACADEMIC_GRADING_EDIT_REQUEST });
 
       const { data } = await axiosInstance.get(
-        `/api/GetToEditSingleFacultyGradingSystem/${IDFacultyGradingSystem}/6/singleEdit`,tokenConfig()
+        `/api/GetToEditSingleFacultyGradingSystem/${IDFacultyGradingSystem}/6/singleEdit`,
+        tokenConfig()
       );
       dispatch({
         type: STUDENT_GET_SINGLE_ACADEMIC_GRADING_EDIT_SUCCESS,

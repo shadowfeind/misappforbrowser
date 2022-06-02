@@ -1,11 +1,10 @@
-
 import { API_URL, axiosInstance, tokenConfig } from "../../../constants";
 import {
   GET_ACTIVE_SUBJECT_FAIL,
   GET_ACTIVE_SUBJECT_REQUEST,
-    GET_ACTIVE_SUBJECT_SUCCESS,
-    GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_FAIL,
-    GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_REQUEST,
+  GET_ACTIVE_SUBJECT_SUCCESS,
+  GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_FAIL,
+  GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_REQUEST,
   GET_ALL_EXAM_MARK_APPROVAL_SEARCHDATA_SUCCESS,
   GET_ALL_OTHER_OPTIONS_FOR_SELECT_FAIL,
   GET_ALL_OTHER_OPTIONS_FOR_SELECT_REQUEST,
@@ -71,7 +70,7 @@ export const getExamMarkApprovalScheduleHeaderAction =
     }
   };
 
-  export const getExamMarkApprovalSearchDataAction =
+export const getExamMarkApprovalSearchDataAction =
   (year, program, classId, section, shift, event, schedule) =>
   async (dispatch) => {
     try {
@@ -94,7 +93,7 @@ export const getExamMarkApprovalScheduleHeaderAction =
     }
   };
 
-  export const getBulkExamMarkApprovalSearchDataAction =
+export const getBulkExamMarkApprovalSearchDataAction =
   (year, program, classId, section, shift, event, schedule) =>
   async (dispatch) => {
     try {
@@ -117,7 +116,7 @@ export const getExamMarkApprovalScheduleHeaderAction =
     }
   };
 
-  export const postBulkExamMarkApprovalAction =
+export const postBulkExamMarkApprovalAction =
   (students, search) => async (dispatch) => {
     try {
       dispatch({ type: POST_BULK_EXAM_MARK_APPROVAL_REQUEST });
@@ -148,7 +147,7 @@ export const getExamMarkApprovalScheduleHeaderAction =
     }
   };
 
-  export const getAllOtherOptionsForSelectTeacherAction =
+export const getAllOtherOptionsForSelectTeacherAction =
   (id, subject) => async (dispatch) => {
     try {
       dispatch({ type: GET_ALL_OTHER_OPTIONS_FOR_SELECT_TEACHER_REQUEST });
@@ -204,25 +203,24 @@ export const getExamMarkApprovalScheduleHeaderAction =
     }
   };
 
-  // export const getActiveSubjectAction =
-  // (subject, id) => async (dispatch) => {
-  //   try {
-  //     dispatch({ type: GET_ACTIVE_SUBJECT_REQUEST });
+// export const getActiveSubjectAction =
+// (subject, id) => async (dispatch) => {
+//   try {
+//     dispatch({ type: GET_ACTIVE_SUBJECT_REQUEST });
 
-  //     const { data } = await axiosInstance.get(
-  //       `/api/ApproveAcademicStudentExamDataTeacher/GetActiveAcademicYearCalendar?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
-  //       tokenConfig()
-  //     );
+//     const { data } = await axiosInstance.get(
+//       `/api/ApproveAcademicStudentExamDataTeacher/GetActiveAcademicYearCalendar?idAcademicFacultySubjectLink=${subject}&idTeacher=${id}`,
+//       tokenConfig()
+//     );
 
-  //     dispatch({
-  //       type: GET_ACTIVE_SUBJECT_SUCCESS,
-  //       payload: data,
-  //     });
-  //   } catch (error) {
-  //     dispatch({
-  //       type: GET_ACTIVE_SUBJECT_FAIL,
-  //       payload: error.message ? error.message : error.Message,
-  //     });
-  //   }
-  // };
-
+//     dispatch({
+//       type: GET_ACTIVE_SUBJECT_SUCCESS,
+//       payload: data,
+//     });
+//   } catch (error) {
+//     dispatch({
+//       type: GET_ACTIVE_SUBJECT_FAIL,
+//       payload: error.message ? error.message : error.Message,
+//     });
+//   }
+// };

@@ -125,6 +125,12 @@ const OldQuestions = () => {
   useEffect(() => {
     if (oldQuestions) {
       setDdlClass(oldQuestions.searchFilterModel.ddlClass);
+      setClassId(oldQuestions.searchFilterModel.ddlClass[0]?.Key);
+      dispatch(
+        getSubjectOptionsForOldQuestionsStudentAction(
+          oldQuestions.searchFilterModel.ddlClass[0]?.Key
+        )
+      );
     }
   }, [dispatch, oldQuestions]);
 
@@ -133,15 +139,22 @@ const OldQuestions = () => {
     dispatch(getAllOldQuestionsStudentAction());
   }, []);
 
-  useEffect(() => {
-    if (listOldQuestionsStudent) {
-      setTableData(listOldQuestionsStudent.dbModelStudentLst);
-    }
-  }, [listOldQuestionsStudent]);
+  // useEffect(() => {
+  //   if (listOldQuestionsStudent) {
+  //     setTableData(listOldQuestionsStudent.dbModelStudentLst);
+  //   }
+  // }, [listOldQuestionsStudent]);
 
   useEffect(() => {
     if (subjectOptions) {
       setDdlFacultySubject([...subjectOptions.subject]);
+      setFacultySubject(subjectOptions.subject[0]?.Key);
+      dispatch(
+        getListOldQuestionsStudentAction(
+          classId,
+          subjectOptions.subject[0]?.Key
+        )
+      );
     }
   }, [subjectOptions]);
 
@@ -193,18 +206,18 @@ const OldQuestions = () => {
           <LoadingComp />
         ) : (
           <>
-          <MobileBody>
-            <div style={{ marginBottom: "30px" }}>
-              {listOldQuestionsStudent &&
-                listOldQuestionsStudent.dbModelStudentLst.map((s) => (
-                  <OldQuestionListCollapse item={s} key={s.$id} />
-                ))}
-            </div>
-            {listOldQuestionsStudent?.dbModelStudentLst.length < 1 && (
-              <h4 style={{ textAlign: "center", marginTop: "10px" }}>
-                No Data
-              </h4>
-            )}
+            <MobileBody>
+              <div style={{ marginBottom: "30px" }}>
+                {listOldQuestionsStudent &&
+                  listOldQuestionsStudent.dbModelStudentLst.map((s) => (
+                    <OldQuestionListCollapse item={s} key={s.$id} />
+                  ))}
+              </div>
+              {listOldQuestionsStudent?.dbModelStudentLst.length < 1 && (
+                <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+                  No Data
+                </h4>
+              )}
             </MobileBody>
           </>
         )}

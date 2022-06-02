@@ -3,12 +3,16 @@ import { makeStyles, TextField } from "@material-ui/core";
 import React from "react";
 
 const useStyles = makeStyles((theme) => ({
-  // input: {
-  //   "& input": {
-  //     fontSize: "12px",
-  //     padding: "12px",
-  //   },
-  // },
+  input: {
+    "& input": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+    "& label": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+  },
 }));
 
 const InputControl = ({
@@ -28,6 +32,7 @@ const InputControl = ({
       value={value}
       onChange={onChange}
       className={classes.input}
+      // style={{ fontSize: "12px" }}
       {...other}
       {...(errors && { error: true, helperText: errors })}
     />

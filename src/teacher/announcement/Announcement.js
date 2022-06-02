@@ -19,38 +19,56 @@ import Notification from "../../components/Notification";
 import SearchIcon from "@material-ui/icons/Search";
 import ConfirmDialog from "../../components/ConfirmDialog";
 import {
-    KeyboardDatePicker,
-    MuiPickersUtilsProvider,
-  } from "@material-ui/pickers";
-  import DateFnsUtils from "@date-io/date-fns";
-import { ANNOUNCEMENT_TEACHER_FCM_RESET, GET_ALL_ANNOUNCEMENT_TEACHER_RESET, GET_LIST_ANNOUNCEMENT_TEACHER_RESET } from "./AnnouncementConstants";
-import { getAllTeacherAnnouncementAction, getListTeacherAnnouncementAction } from "./AnnouncementActions";
-import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  ANNOUNCEMENT_TEACHER_FCM_RESET,
+  GET_ALL_ANNOUNCEMENT_TEACHER_RESET,
+  GET_LIST_ANNOUNCEMENT_TEACHER_RESET,
+} from "./AnnouncementConstants";
+import {
+  getAllTeacherAnnouncementAction,
+  getListTeacherAnnouncementAction,
+} from "./AnnouncementActions";
+
 import AnnouncementTeacherListCollapse from "./AnnouncementListCollapse";
 import MobileBody from "../../components/MobileBody";
 
-  const useStyles = makeStyles((theme) => ({
-    searchInput: {
-      width: "75%",
+const useStyles = makeStyles((theme) => ({
+  searchInput: {
+    width: "75%",
+    fontSize: "12px",
+  },
+  button: {
+    position: "absolute",
+    right: "10px",
+  },
+  keydate: {
+    "& input": {
       fontSize: "12px",
+      // padding: "12px",
     },
-    button: {
-      position: "absolute",
-      right: "10px",
+    "& label": {
+      fontSize: "12px",
+      // padding: "12px",
     },
-  }));
-  
-  const tableHeader = [
-    { id: "NewsHeading", label: "News Heading" },
-    { id: "NewsDescription", label: "News Description" },
-    { id: "Created_On", label: "Created On" },
-    { id: "Updated_On", label: "Updated On" },
-    { id: "IsActive", label: "IsActive" },
-  ];
+  },
+}));
 
-  const Announcement = () => {
-    const [date, setDate] = useState();
-    const [tableData, setTableData] = useState([]);
+const tableHeader = [
+  { id: "NewsHeading", label: "News Heading" },
+  { id: "NewsDescription", label: "News Description" },
+  { id: "Created_On", label: "Created On" },
+  { id: "Updated_On", label: "Updated On" },
+  { id: "IsActive", label: "IsActive" },
+];
+
+const Announcement = () => {
+  const [date, setDate] = useState();
+  const [dateToSend, setDateToSend] = useState();
+  const [tableData, setTableData] = useState([]);
   const [filterFn, setFilterFn] = useState({
     fn: (item) => {
       return item;
@@ -73,7 +91,9 @@ import MobileBody from "../../components/MobileBody";
 
   const dispatch = useDispatch();
 
-  const { announcement, error,loading } = useSelector((state) => state.getAllTeacherAnnouncement);
+  const { announcement, error, loading } = useSelector(
+    (state) => state.getAllTeacherAnnouncement
+  );
 
   const {
     announcementList,
@@ -81,11 +101,9 @@ import MobileBody from "../../components/MobileBody";
     loading: announcementListLoading,
   } = useSelector((state) => state.getListTeacherAnnouncement);
 
-
   const { announcementFCM, error: announcementFCMError } = useSelector(
     (state) => state.getFCMForTeacherAnnouncement
   );
-
 
   if (error) {
     setNotify({
@@ -121,98 +139,64 @@ import MobileBody from "../../components/MobileBody";
   useEffect(() => {
     if (announcement) {
       setDate(announcement?.searchFilterModel?.CreatedDate?.slice(0, 10));
-      setTableData(announcement?.dbModelLst);
+      setDateToSend(announcement?.searchFilterModel?.CreatedDate?.slice(0, 10));
+      dispatch(
+        getListTeacherAnnouncementAction(
+          announcement?.searchFilterModel?.CreatedDate?.slice(0, 10)
+        )
+      );
     }
   }, [dispatch, announcement]);
 
-  useEffect(() => {
-    if (announcementList) {
-      setTableData(announcementList.dbModelLst);
-    }
-  }, [announcementList]);
-
-  const {
-    TableContainer,
-    TblHead,
-    TblPagination,
-    tableDataAfterPagingAndSorting,
-  } = useCustomTable(tableData, tableHeader, filterFn);
-
-  const handleSearch = (e) => {
-    setFilterFn({
-      fn: (item) => {
-        if (e.target.value === "") {
-          return item;
-        } else {
-          return item.filter((x) =>
-            x.NewsHeading.toLowerCase().includes(e.target.value)
-          );
-        }
-      },
-    });
-  };
-
   const listSearchHandler = () => {
-    dispatch(getListTeacherAnnouncementAction(date));
+    dispatch(getListTeacherAnnouncementAction(dateToSend));
   };
 
   return (
-
     <>
-    <CustomContainer>
+      <CustomContainer>
         <Toolbar>
-        {/* <InputControl
-            className={classes.searchInput}
-            label="Search Announcement"
-            InputProps={{
-              startAdornment: (
-                <InputAdornment announcement="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-            onChange={handleSearch}
-          /> */}
           <Grid item xs={12}>
-          <div style={{ marginLeft: "12px" }}>
-          <div style={{ height: "15px" }}></div>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                inputVariant="outlined"
-                format="dd-MM-yyyy"
-                name="CurrentYear"
-                label="Current Year"
-                value={date}
-                onChange={(e) => {
-                  const newDate = new Date(e);
-                  setDate(newDate.toLocaleDateString().slice(0, 10));
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          </div>
-          <div style={{ height: "15px" }}></div>
-         </Grid>
-        
+            <div style={{ marginLeft: "12px" }}>
+              <div style={{ height: "15px" }}></div>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  inputVariant="outlined"
+                  format="dd-MM-yyyy"
+                  name="CurrentYear"
+                  label="Current Year"
+                  value={date}
+                  className={classes.keydate}
+                  onChange={(e) => {
+                    const newDate = new Date(e);
+                    setDateToSend(JSON.stringify(e).slice(1, 11));
+                    setDate(e);
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </div>
+            <div style={{ height: "15px" }}></div>
+          </Grid>
+
           <Button
             variant="contained"
             color="primary"
             onClick={listSearchHandler}
             style={{ marginLeft: "12px" }}
           >
-           <SearchIcon />
+            <SearchIcon />
           </Button>
-
-            </Toolbar>
-            <div style={{ height: "15px" }}></div>
+        </Toolbar>
+        <div style={{ height: "15px" }}></div>
         {announcementListLoading && <LoadingComp />}
         {loading ? (
           <LoadingComp />
         ) : (
           <>
-          <MobileBody>
-        {/* <TableContainer className={classes.table}>
+            <MobileBody>
+              {/* <TableContainer className={classes.table}>
           <TblHead />
 
           <TableBody>
@@ -225,7 +209,7 @@ import MobileBody from "../../components/MobileBody";
           </TableBody>
         </TableContainer>
         <TblPagination /> */}
-        {announcementList?.dbModelLst.map((item) => (
+              {announcementList?.dbModelLst.map((item) => (
                 <AnnouncementTeacherListCollapse
                   item={item}
                   key={item.$id}
@@ -238,8 +222,8 @@ import MobileBody from "../../components/MobileBody";
                   No Announcement
                 </h4>
               )}
-              </MobileBody>
-        </>
+            </MobileBody>
+          </>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
@@ -248,5 +232,6 @@ import MobileBody from "../../components/MobileBody";
         setConfirmDialog={setConfirmDialog}
       />
     </>
-  )}
-  export default Announcement;
+  );
+};
+export default Announcement;

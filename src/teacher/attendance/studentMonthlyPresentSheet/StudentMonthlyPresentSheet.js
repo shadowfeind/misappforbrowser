@@ -50,6 +50,16 @@ const useStyles = makeStyles((theme) => ({
   customInput: {
     minWidth: "200px",
   },
+  keydate: {
+    "& input": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+    "& label": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+  },
 }));
 
 const StudentMonthlyPresentSheet = () => {
@@ -202,6 +212,9 @@ const StudentMonthlyPresentSheet = () => {
   }
 
   useEffect(() => {
+    if (!allStudentMonthlyPresentSheetData) {
+      dispatch(getAllStudentPresentSheetDataAction());
+    }
     if (allStudentMonthlyPresentSheetData) {
       setProgramDdl(
         allStudentMonthlyPresentSheetData.searchFilterModel
@@ -209,6 +222,10 @@ const StudentMonthlyPresentSheet = () => {
       );
       setDdlSubject(
         allStudentMonthlyPresentSheetData.searchFilterModel.ddlSubjectForTeacher
+      );
+      setSubject(
+        allStudentMonthlyPresentSheetData.searchFilterModel
+          .ddlSubjectForTeacher[0].Key
       );
       setDdlClass(
         allStudentMonthlyPresentSheetData.searchFilterModel.ddlLevelPrimitive
@@ -238,11 +255,6 @@ const StudentMonthlyPresentSheet = () => {
       setNepYear(allStudentMonthlyPresentSheetData.searchFilterModel.npYear);
     }
   }, [allStudentMonthlyPresentSheetData, dispatch]);
-
-  useEffect(()=>{
-    dispatch({type:GET_LIST_STUDENT_PRESENT_RESET})
-    dispatch(getAllStudentPresentSheetDataAction());
-  },[])
 
   // useEffect(() => {
   //   if (subjectOptions) {
@@ -449,10 +461,11 @@ const StudentMonthlyPresentSheet = () => {
                   disableToolbar
                   variant="inline"
                   inputVariant="outlined"
-                  format="dd-MM-yyyy"
+                  format="MM-dd-yyyy"
                   name="CurrentYear"
-                  label="Current Year"
+                  label="Current Date"
                   value={date}
+                  className={classes.keydate}
                   onChange={(e) => {
                     const newDate = new Date(e);
                     setDate(newDate.toLocaleDateString().slice(0, 10));

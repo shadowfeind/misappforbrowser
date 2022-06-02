@@ -10,7 +10,6 @@ import {
 import CustomContainer from "../../../components/CustomContainer";
 import { useDispatch, useSelector } from "react-redux";
 import Notification from "../../../components/Notification";
-import LoadingComp from "../../../components/LoadingComp";
 import ConfirmDialog from "../../../components/ConfirmDialog";
 import SelectControl from "../../../components/controls/SelectControl";
 import { Search } from "@material-ui/icons";
@@ -49,6 +48,16 @@ const useStyles = makeStyles((theme) => ({
   customInput: {
     minWidth: "200px",
   },
+  keydate: {
+    "& input": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+    "& label": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+  },
 }));
 
 const tableHeader = [
@@ -67,12 +76,12 @@ const TotalStudentAttendance = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlSubject, setDdlSubject] = useState([]);
 
-  const [programValue, setProgramValue] = useState();
-  const [classId, setClassId] = useState();
-  const [acaYear, setAcaYear] = useState();
-  const [shift, setShift] = useState();
-  const [section, setSection] = useState();
-  const [subject, setSubject] = useState();
+  const [programValue, setProgramValue] = useState("");
+  const [classId, setClassId] = useState("");
+  const [acaYear, setAcaYear] = useState("");
+  const [shift, setShift] = useState("");
+  const [section, setSection] = useState("");
+  const [subject, setSubject] = useState("");
   const [errors, setErrors] = useState({});
   const [startDate, setStartDate] = useState();
   const [endDate, setEndDate] = useState();
@@ -131,7 +140,7 @@ const TotalStudentAttendance = () => {
   );
 
   const {
-    listTotalStudentAttendanceData,loading,
+    listTotalStudentAttendanceData,
     error: listTotalStudentAttendanceDataError,
   } = useSelector((state) => state.getListTotalStudentAttendance);
 
@@ -161,18 +170,37 @@ const TotalStudentAttendance = () => {
   }
 
   useEffect(() => {
+    if (!allTotalStudentAttendanceData) {
+      dispatch(getAllTotalStudentAttendanceAction());
+    }
     if (allTotalStudentAttendanceData) {
       setProgramDdl(
         allTotalStudentAttendanceData.searchFilterModel.ddlFacultyProgramLink
       );
+      setProgramValue(
+        allTotalStudentAttendanceData.searchFilterModel.ddlFacultyProgramLink[0]
+          .Key
+      );
       setDdlClass(allTotalStudentAttendanceData.searchFilterModel.ddlClass);
+      setClassId(
+        allTotalStudentAttendanceData.searchFilterModel.ddlClass[0].Key
+      );
       setAcademicYearDdl(
         allTotalStudentAttendanceData.searchFilterModel.ddlAcademicYear
+      );
+      setAcaYear(
+        allTotalStudentAttendanceData.searchFilterModel.ddlAcademicYear[0].Key
       );
       setDdlShift(
         allTotalStudentAttendanceData.searchFilterModel.ddlAcademicShift
       );
+      setShift(
+        allTotalStudentAttendanceData.searchFilterModel.ddlAcademicShift[0].Key
+      );
       setDdlSection(allTotalStudentAttendanceData.searchFilterModel.ddlSection);
+      setSection(
+        allTotalStudentAttendanceData.searchFilterModel.ddlSection[0].Key
+      );
       setStartDate(
         allTotalStudentAttendanceData.searchFilterModel.currentDate.slice(0, 10)
       );
@@ -182,14 +210,10 @@ const TotalStudentAttendance = () => {
     }
   }, [allTotalStudentAttendanceData, dispatch]);
 
-  useEffect(()=>{
-    dispatch({type:GET_LIST_TOTAL_STUDENT_ATTENDANCE_RESET})
-    dispatch(getAllTotalStudentAttendanceAction());
-  },[])
-
   useEffect(() => {
     if (subjectOptions) {
       setDdlSubject(subjectOptions);
+      setSubject(subjectOptions[0].Key);
     }
   }, [subjectOptions]);
 
@@ -267,7 +291,7 @@ const TotalStudentAttendance = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Program/Faculty"
@@ -277,7 +301,7 @@ const TotalStudentAttendance = () => {
                 options={programDdl ? programDdl : test}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl
@@ -330,10 +354,11 @@ const TotalStudentAttendance = () => {
                   disableToolbar
                   variant="inline"
                   inputVariant="outlined"
-                  format="dd-MM-yyyy"
+                  format="MM-dd-yyyy"
                   name="StartDate"
-                  label="Start Year"
+                  label="From Date"
                   value={startDate}
+                  className={classes.keydate}
                   onChange={(e) => {
                     const newDate = new Date(e);
                     setStartDate(newDate.toLocaleDateString().slice(0, 10));
@@ -348,10 +373,11 @@ const TotalStudentAttendance = () => {
                   disableToolbar
                   variant="inline"
                   inputVariant="outlined"
-                  format="dd-MM-yyyy"
+                  format="MM-dd-yyyy"
                   name="EndDate"
-                  label="End Year"
+                  label="To Date"
                   value={endDate}
+                  className={classes.keydate}
                   onChange={(e) => {
                     const newDate = new Date(e);
                     setEndDate(newDate.toLocaleDateString().slice(0, 10));
@@ -393,10 +419,6 @@ const TotalStudentAttendance = () => {
           </TableContainer>
         )}
         {listTotalStudentAttendanceData && <TblPagination />} */}
-        {loading ? (
-          <LoadingComp />
-        ) : (
-          <>
         {listTotalStudentAttendanceData &&
           listTotalStudentAttendanceData?.dbStudentClassAttendanceModelLst?.map(
             (item) => {
@@ -404,16 +426,15 @@ const TotalStudentAttendance = () => {
                 listTotalStudentAttendanceData.dbModelTotalStudentAttendanceCountLst.filter(
                   (a) => a.IDHREmployee === item.IDHREmployee
                 );
-              
+              return (
                 <TotalStudentAttendanceListCollapse
                   item={item}
                   key={item.$id}
                   attendance={currentAttendance}
                 />
+              );
             }
           )}
-          </>
-        )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />
       <ConfirmDialog

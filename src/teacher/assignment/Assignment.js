@@ -42,8 +42,6 @@ import SearchIcon from "@material-ui/icons/Search";
 import ZoomInIcon from "@material-ui/icons/ZoomIn";
 import AssignmentListCollapse from "./AssignmentListCollapse";
 import MobileBody from "../../components/MobileBody";
-import ImageEditor from "tui-image-editor";
-import FileSave from "file-saver";
 
 const useStyles = makeStyles((theme) => ({
   searchInput: {
@@ -58,6 +56,16 @@ const useStyles = makeStyles((theme) => ({
   },
   customInput: {
     minWidth: "200px",
+  },
+  keydate: {
+    "& input": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
+    "& label": {
+      fontSize: "12px",
+      // padding: "12px",
+    },
   },
 }));
 
@@ -75,6 +83,7 @@ const Assignment = () => {
   const [subject, setSubject] = useState("");
   const [errors, setErrors] = useState({});
   const [date, setDate] = useState();
+  const [dateToSend, setDateToSend] = useState();
 
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -207,7 +216,7 @@ const Assignment = () => {
         subject,
         section,
         shift,
-        date
+        JSON.stringify(date).slice(1, 11)
       )
     );
   }
@@ -260,7 +269,7 @@ const Assignment = () => {
         subject,
         section,
         shift,
-        date
+        JSON.stringify(date).slice(1, 11)
       )
     );
   }
@@ -279,6 +288,9 @@ const Assignment = () => {
         setDdlSubject(
           allAssignmentTeacherData.searchFilterModel.ddlSubjectForTeacher
         );
+        setSubject(
+          allAssignmentTeacherData.searchFilterModel.ddlSubjectForTeacher[0].Key
+        );
         setDdlClass(
           allAssignmentTeacherData.searchFilterModel.ddlLevelPrimitive
         );
@@ -289,6 +301,16 @@ const Assignment = () => {
         setDate(
           allAssignmentTeacherData.searchFilterModel.StartDate.slice(0, 10)
         );
+        dispatch(
+          getAllOtherOptionsForSelectAction(
+            allAssignmentTeacherData.modelDb.IDHREmployee,
+            allAssignmentTeacherData.searchFilterModel.ddlSubjectForTeacher[0]
+              .Key
+          )
+        );
+        // setDateToSend(
+        //   allAssignmentTeacherData.searchFilterModel.StartDate.slice(0, 10)
+        // );
       });
       if (subjectIdFromDashboard) {
         setSubject(subjectIdFromDashboard);
@@ -329,7 +351,7 @@ const Assignment = () => {
           subject,
           section,
           shift,
-          date
+          JSON.stringify(date).slice(1, 11)
         )
       );
     }
@@ -345,7 +367,7 @@ const Assignment = () => {
           section,
           shift,
           subject,
-          date
+          JSON.stringify(date).slice(1, 11)
         )
       );
       setOpenPopup(true);
@@ -410,7 +432,7 @@ const Assignment = () => {
             ? allOtherOptions.section[0].Key
             : "",
           allOtherOptions.shift.length > 0 ? allOtherOptions.shift[0].Key : "",
-          date
+          JSON.stringify(date)?.slice(1, 11)
         )
       );
     }
@@ -545,12 +567,19 @@ const Assignment = () => {
                   name="CurrentYear"
                   label="Current Year"
                   value={date}
+                  className={classes.keydate}
                   onChange={(e) => {
-                    const newDate = new Date(e);
-                    setDate(newDate.toLocaleDateString());
+                    setDate(e);
                   }}
                 />
               </MuiPickersUtilsProvider>
+              {/* <DatePickerControl
+                name="CurrentYear"
+                label="Current Year"
+                value={date}
+                onChange={() => setDate(e.target.value)}
+                errors={errors.ToDate}
+              /> */}
             </Grid>
             <div style={{ height: "10px", width: "10px" }}></div>
             <Grid item xs={12}>
@@ -586,6 +615,8 @@ const Assignment = () => {
             </Grid>
           </Grid>
         </MobileTopSelectContainer>
+        {/* {dateToSend && <h5>This date for api {dateToSend}</h5>}
+        {date && <h5>This date for datepicker {JSON.stringify(date)}</h5>} */}
         {loading ? (
           <LoadingComp />
         ) : (

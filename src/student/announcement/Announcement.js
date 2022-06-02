@@ -24,7 +24,7 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
-import AnnouncementTableCollapse from "./AnnouncementTableCollapse";
+
 import {
   getAllStudentAnnouncementAction,
   getListStudentAnnouncementAction,
@@ -126,19 +126,24 @@ const Announcement = () => {
   useEffect(() => {
     if (announcement) {
       setDate(announcement?.searchFilterModel?.CreatedDate?.slice(0, 10));
-      setTableData(announcement?.dbModelLst);
+      dispatch(
+        getListStudentAnnouncementAction(
+          announcement?.searchFilterModel?.CreatedDate?.slice(0, 10)
+        )
+      );
+      // setTableData(announcement?.dbModelLst);
     }
   }, [dispatch, announcement]);
 
-  useEffect(() => {
-    dispatch({ type: "GET_LINK", payload: "/announcement" });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch({ type: "GET_LINK", payload: "/announcement" });
+  // }, [dispatch]);
 
-  useEffect(() => {
-    if (announcementList) {
-      setTableData(announcementList.dbModelLst);
-    }
-  }, [announcementList]);
+  // useEffect(() => {
+  //   if (announcementList) {
+  //     setTableData(announcementList.dbModelLst);
+  //   }
+  // }, [announcementList]);
 
   // const {
   //   TableContainer,
@@ -182,27 +187,27 @@ const Announcement = () => {
             onChange={handleSearch}
           /> */}
           <Grid item xs={12}>
-          <div style={{ marginLeft: "12px" }}>
-          <div style={{ height: "15px" }}></div>
-            <MuiPickersUtilsProvider utils={DateFnsUtils}>
-              <KeyboardDatePicker
-                disableToolbar
-                variant="inline"
-                inputVariant="outlined"
-                format="dd-MM-yyyy"
-                name="CurrentYear"
-                label="Current Year"
-                value={date}
-                onChange={(e) => {
-                  const newDate = new Date(e);
-                  setDate(newDate.toLocaleDateString().slice(0, 10));
-                }}
-              />
-            </MuiPickersUtilsProvider>
-          </div>
-          <div style={{ height: "15px" }}></div>
+            <div style={{ marginLeft: "12px" }}>
+              <div style={{ height: "15px" }}></div>
+              <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                <KeyboardDatePicker
+                  disableToolbar
+                  variant="inline"
+                  inputVariant="outlined"
+                  format="MM-dd-yyyy"
+                  name="CurrentYear"
+                  label="Current Year"
+                  value={date}
+                  onChange={(e) => {
+                    const newDate = new Date(e);
+                    setDate(newDate.toLocaleDateString().slice(0, 10));
+                  }}
+                />
+              </MuiPickersUtilsProvider>
+            </div>
+            <div style={{ height: "15px" }}></div>
           </Grid>
-          
+
           <Button
             variant="contained"
             color="primary"
@@ -218,8 +223,8 @@ const Announcement = () => {
           <LoadingComp />
         ) : (
           <>
-          <MobileBody>
-            {/* <TableContainer className={classes.table}>
+            <MobileBody>
+              {/* <TableContainer className={classes.table}>
               <TblHead />
 
               <TableBody>
@@ -229,7 +234,7 @@ const Announcement = () => {
               </TableBody>
             </TableContainer>
             <TblPagination /> */}
-            {announcementList?.dbModelLst.map((item) => (
+              {announcementList?.dbModelLst.map((item) => (
                 <AnnouncementListCollapse
                   item={item}
                   key={item.$id}
@@ -242,7 +247,7 @@ const Announcement = () => {
                   No Announcement
                 </h4>
               )}
-              </MobileBody>
+            </MobileBody>
           </>
         )}
       </CustomContainer>

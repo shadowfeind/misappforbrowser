@@ -32,7 +32,7 @@ const SyllabusFive = () => {
   const dispatch = useDispatch();
 
  
-  const { listSyllabus, loading,error: listSyllabusError } = useSelector(
+  const { listSyllabus,loading, error: listSyllabusError } = useSelector(
     (state) => state.getListSyllabus
   );
 

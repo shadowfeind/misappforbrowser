@@ -11,7 +11,7 @@ import ImportContactsIcon from "@material-ui/icons/ImportContacts";
 import AssignmentIcon from "@material-ui/icons/Assignment";
 import NotificationsActiveIcon from "@material-ui/icons/NotificationsActive";
 
-export const DashboardCard = ({ subject }) => {
+export const DashboardCard = ({ subject, subCount }) => {
   const useStyles = makeStyles((theme) => ({
     root: {
       borderRadius: "10px",
@@ -32,6 +32,18 @@ export const DashboardCard = ({ subject }) => {
       fontSize: "16px",
       paddingBottom: "3px",
     },
+    badge: {
+      minWidth: "15px",
+      minHeight: "15px",
+      color: "white",
+      fontSize: "12px",
+      bottom: "10px",
+      position: "absolute",
+      backgroundColor: "red",
+      borderRadius: "50%",
+      left: "88px",
+      bottom: "20px",
+    },
     cardAction: {
       display: "flex",
       justifyContent: "space-between",
@@ -44,6 +56,11 @@ export const DashboardCard = ({ subject }) => {
       },
     },
   }));
+
+  const currentSubCount = subCount.find(
+    (x) => x.IDAcademicFacultySubjectLink === subject.Key
+  );
+
   const classes = useStyles();
   const history = useHistory();
 
@@ -79,6 +96,11 @@ export const DashboardCard = ({ subject }) => {
           <IconButton aria-label="add to favorites">
             <AssignmentIcon style={{ fontSize: "16px" }} />
             <h6>Assignment</h6>
+            {currentSubCount?.totalAssignmentcount > 0 && (
+              <span className={classes.badge}>
+                {currentSubCount?.totalAssignmentcount}
+              </span>
+            )}
           </IconButton>
         </Link>
         <Link to={`/resources/${subject.Key}`}>

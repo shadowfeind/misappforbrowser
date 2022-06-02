@@ -13,8 +13,8 @@ import { withStyles, makeStyles } from "@material-ui/core/styles";
 
 const StyledTableCell = withStyles((theme) => ({
   head: {
-    backgroundColor: theme.palette.common.grey,
-    color: theme.palette.common.black,
+    // backgroundColor: theme.palette.common.white,
+    // color: theme.palette.common.black,
   },
   body: {
     fontSize: 14,
@@ -30,7 +30,7 @@ const StyledTableRow = withStyles((theme) => ({
 }))(TableRow);
 const useStyles = makeStyles({
   table: {
-    minWidth: 700,
+    minWidth: 300,
   },
 });
 
@@ -40,12 +40,16 @@ const AssignmentTableCollapseAll = ({ allAssignment, setOpenPopup2 }) => {
     <>
       <TableContainer component={Paper}>
         <Table className={classes.table} aria-label="customized table">
-          <TableHead>
+          <TableHead style={{ backgroundColor: "#253053", color: "#fff" }}>
             <TableRow>
-              <StyledTableCell>Assignment Name </StyledTableCell>
-              <StyledTableCell>Assignment Summary</StyledTableCell>
-              <StyledTableCell>Assignment Date</StyledTableCell>
-              <StyledTableCell>Due Date</StyledTableCell>
+              <StyledTableCell style={{ color: "#fff" }}>
+                Assignment Name{" "}
+              </StyledTableCell>
+              <StyledTableCell style={{ color: "#fff" }}>
+                Assignment Date
+                <br />
+                Due Date
+              </StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -53,17 +57,16 @@ const AssignmentTableCollapseAll = ({ allAssignment, setOpenPopup2 }) => {
               allAssignment.map((s) => (
                 <StyledTableRow key={s.IDHREmployee}>
                   <StyledTableCell component="th" scope="row">
-                    {s.AssignmentName}
+                    {s.AssignmentName?.slice(0, 18)}
                   </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {s.AssignmentSummary}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
-                    {s.AssignmentDate.slice(0, 10)}
-                  </StyledTableCell>
-                  <StyledTableCell component="th" scope="row">
+                  <StyledTableCell
+                    style={{ color: "#666" }}
+                    component="th"
+                    scope="row"
+                  >
+                    {s.AssignmentDate.slice(0, 10)} <br />{" "}
                     {s.DueDate.slice(0, 10)}
-                  </StyledTableCell>{" "}
+                  </StyledTableCell>
                 </StyledTableRow>
               ))}
           </TableBody>

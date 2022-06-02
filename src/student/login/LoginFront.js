@@ -5,6 +5,7 @@ import { login } from "./LoginActions";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Notification from "../../components/Notification";
+import logo from "../../images/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   LoginFront: {
@@ -116,7 +117,15 @@ const LoginFront = ({ setReg }) => {
   return (
     <>
       <div className={classes.LoginFront}>
-        <h1>School MIS</h1>
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "40px",
+            marginTop: "40px",
+          }}
+        >
+          <img src={logo} width="90px" height="90px" />
+        </div>
         <label>username:</label>
         <input
           type="text"

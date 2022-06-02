@@ -19,7 +19,8 @@ export const getAllPgClassScheuleAction = () => async (dispatch) => {
     dispatch({ type: GET_ALL_PG_CLASS_SCHEDULE_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/ClassSchedulePG/GetAllClassSchedulePG`,tokenConfig()
+      `/api/ClassSchedulePG/GetAllClassSchedulePG`,
+      tokenConfig()
     );
 
     dispatch({
@@ -39,7 +40,8 @@ export const getListClassScheuleAction = (id) => async (dispatch) => {
     dispatch({ type: GET_LIST_CLASS_SCHEDULE_REQUEST });
 
     const { data } = await axiosInstance.get(
-      `/api/ClassSchedulePG/GetListClassSchedulePG/${id}?searchKey=1`,tokenConfig()
+      `/api/ClassSchedulePG/GetListClassSchedulePG/${id}?searchKey=1`,
+      tokenConfig()
     );
 
     dispatch({

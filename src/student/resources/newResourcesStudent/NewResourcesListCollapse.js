@@ -78,7 +78,8 @@ const NewResourcesListCollapse = ({ item }) => {
               <span>Upload Date</span> : {item.Created_On?.slice(0, 10)}
             </p>
             <p>
-              <span>Posted By</span> :{item.FirstName} {item.MiddleName} {item.LastName}
+              <span>Posted By</span> :{item.FirstName} {item.MiddleName}{" "}
+              {item.LastName}
             </p>
             <p>
               <span>IsActive</span> : {item.isActive ? "Active" : "InActive"}

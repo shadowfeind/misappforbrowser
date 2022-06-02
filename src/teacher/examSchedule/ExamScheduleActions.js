@@ -1,5 +1,4 @@
-
-import { API_URL, axiosInstance,tokenConfig } from "../../constants";
+import { API_URL, axiosInstance } from "../../constants";
 import {
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_FAIL,
   GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_REQUEST,
@@ -13,7 +12,8 @@ export const getAllExamScheduleInitialDataAction = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_REQUEST });
 
-    const { data } = await axiosInstance.get(`/api/AcademicExamSchedule/GetAll`,tokenConfig());
+    const { data } = await axiosInstance.get(`/api/AcademicExamSchedule/GetAll
+        `);
 
     dispatch({
       type: GET_ALL_EXAM_SCHEDULE_INITIAL_DATA_SUCCESS,
@@ -33,7 +33,8 @@ export const getExamScheduleListAction =
       dispatch({ type: GET_EXAM_SCHEDULE_LIST_REQUEST });
 
       const { data } =
-        await axiosInstance.get(`/api/GetListAcademicExamSchedule/${year}/${program}/${classId}/${event}/0`,tokenConfig());
+        await axiosInstance.get(`/api/GetListAcademicExamSchedule/${year}/${program}/${classId}/${event}/0
+          `);
 
       dispatch({
         type: GET_EXAM_SCHEDULE_LIST_SUCCESS,
