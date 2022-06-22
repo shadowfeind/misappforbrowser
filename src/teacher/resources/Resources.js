@@ -236,6 +236,12 @@ const Resources = () => {
         setSubject(
           allInitialData.searchFilterModel.ddlSubjectForTeacher[0]?.Key
         );
+        dispatch(
+          getAllOtherOptionsForResourcesSelectAction(
+            allInitialData.modelDb.IDHREmployee,
+            allInitialData.searchFilterModel.ddlSubjectForTeacher[0]?.Key
+          )
+        );
         setDdlClass(allInitialData.searchFilterModel.ddlLevelPrimitive);
         setAcademicYearDdl(allInitialData.searchFilterModel.ddlAcademicYear);
         setDdlShift(allInitialData.searchFilterModel.ddlAcademicShift);
@@ -268,46 +274,46 @@ const Resources = () => {
     if (allOtherResourcesOptions) {
       setAcaYear(
         allOtherResourcesOptions.year.length > 0
-          ? allOtherResourcesOptions.year[0].Key
+          ? allOtherResourcesOptions.year[0]?.Key
           : ""
       );
       setProgramValue(
         allOtherResourcesOptions.program.length > 0
-          ? allOtherResourcesOptions.program[0].Key
+          ? allOtherResourcesOptions.program[0]?.Key
           : ""
       );
       setClassId(
         allOtherResourcesOptions.classId.length > 0
-          ? allOtherResourcesOptions.classId[0].Key
+          ? allOtherResourcesOptions.classId[0]?.Key
           : ""
       );
       setSection(
         allOtherResourcesOptions.section.length > 0
-          ? allOtherResourcesOptions.section[0].Key
+          ? allOtherResourcesOptions.section[0]?.Key
           : ""
       );
       setShift(
         allOtherResourcesOptions.shift.length > 0
-          ? allOtherResourcesOptions.shift[0].Key
+          ? allOtherResourcesOptions.shift[0]?.Key
           : ""
       );
       dispatch(
         getAllResourcesListAction(
           subject,
           allOtherResourcesOptions.year.length > 0
-            ? allOtherResourcesOptions.year[0].Key
+            ? allOtherResourcesOptions.year[0]?.Key
             : "",
           allOtherResourcesOptions.program.length > 0
-            ? allOtherResourcesOptions.program[0].Key
+            ? allOtherResourcesOptions.program[0]?.Key
             : "",
           allOtherResourcesOptions.classId.length > 0
-            ? allOtherResourcesOptions.classId[0].Key
+            ? allOtherResourcesOptions.classId[0]?.Key
             : "",
           allOtherResourcesOptions.section.length > 0
-            ? allOtherResourcesOptions.section[0].Key
+            ? allOtherResourcesOptions.section[0]?.Key
             : "",
           allOtherResourcesOptions.shift.length > 0
-            ? allOtherResourcesOptions.shift[0].Key
+            ? allOtherResourcesOptions.shift[0]?.Key
             : ""
         )
       );
@@ -328,6 +334,7 @@ const Resources = () => {
   };
 
   const handleSearchResources = () => {
+    console.log(subject, acaYear, programValue, classId, section, shift);
     if (validate()) {
       dispatch(
         getAllResourcesListAction(
@@ -353,6 +360,7 @@ const Resources = () => {
   };
 
   const handleCreate = () => {
+    console.log(subject, acaYear, programValue, classId, section, shift);
     if (validate()) {
       dispatch(
         getCreateResourceAction(

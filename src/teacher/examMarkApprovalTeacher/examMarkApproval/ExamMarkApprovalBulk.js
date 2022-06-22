@@ -53,11 +53,18 @@ const ExamMarkApprovalBulk = ({
   bulkData,
   statusData,
   search,
+  ddlSchedule,
+  schedule,
+  ddlEvent,
+  event,
   setOpenPopup,
 }) => {
   const [bulk, setBulk] = useState([]);
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  let currentSubject = ddlSchedule?.filter((x) => x.Key === schedule);
+  let currentEvent = ddlEvent?.filter((x) => x.Key === event);
 
   const onChangeHandler = (subject, value, name, index) => {
     let showValue =
@@ -96,6 +103,8 @@ const ExamMarkApprovalBulk = ({
   }, [bulkData]);
   return (
     <>
+      <h5>Subject: {currentSubject && currentSubject[0].Value}</h5>
+      <h5>Term: {currentEvent && currentEvent[0].Value}</h5>
       <TableContainer style={{ maxHeight: "260px" }} component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>

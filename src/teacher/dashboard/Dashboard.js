@@ -52,7 +52,7 @@ const Dashboard = () => {
   // }
   useEffect(() => {
     if (userInfo) {
-      if (userInfo.IDHRRole === 8) {
+      if (userInfo.IDHRRole == 8) {
         history.push("/student-dashboard");
       }
     }

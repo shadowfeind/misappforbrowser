@@ -57,13 +57,13 @@ const ExamMarkApproval = () => {
   const [ddlSection, setDdlSection] = useState([]);
   const [ddlEvent, setDdlEvent] = useState([]);
   const [ddlSchedule, setDdlSchedule] = useState([]);
+  const [schedule, setSchedule] = useState("");
   const [programValue, setProgramValue] = useState("");
   const [classId, setClassId] = useState("");
   const [acaYear, setAcaYear] = useState("");
   const [shift, setShift] = useState("");
   const [section, setSection] = useState("");
   const [event, setEvent] = useState("");
-  const [schedule, setSchedule] = useState("");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -424,6 +424,10 @@ const ExamMarkApproval = () => {
               }
               search={bulkData && bulkData.searchFilterModel}
               bulkData={bulkData && bulkData.dbModelLsts}
+              ddlSchedule={ddlSchedule}
+              schedule={schedule}
+              ddlEvent={ddlEvent}
+              event={event}
               setOpenPopup={setOpenPopup}
             />
           </>

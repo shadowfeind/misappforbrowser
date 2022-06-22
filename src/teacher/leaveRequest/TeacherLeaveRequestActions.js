@@ -125,28 +125,6 @@ export const postLeaveRequestAction =
     try {
       dispatch({ type: POST_LEAVE_REQUESTS_REQUEST });
 
-      const { data } = await axiosInstance.get(
-        `/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`,
-        tokenConfig()
-      );
-      if (data) {
-        const fcmBody = {
-          registration_ids: [data.Message],
-          collapse_key: "type_a",
-          notification: {
-            body: leaveRequestPost.LeaveDecription?.slice(0, 25),
-            title: SchoolShortName,
-          },
-        };
-        const fbody = JSON.stringify(fcmBody);
-
-        await axios.post(
-          "https://fcm.googleapis.com/fcm/send",
-          fbody,
-          tokenHeader
-        );
-      }
-
       if (image) {
         let formData = new FormData();
         formData.append("ImageUploaded", image);
@@ -183,6 +161,27 @@ export const postLeaveRequestAction =
         type: POST_LEAVE_REQUESTS_FAIL,
         payload: error.message ? error.message : error.Message,
       });
+    }
+    const { data } = await axiosInstance.get(
+      `/api/LeaveRequest/GetFCMToken/${leaveRequestPost.ReceiverID}`,
+      tokenConfig()
+    );
+    if (data) {
+      const fcmBody = {
+        registration_ids: [data.Message],
+        collapse_key: "type_a",
+        notification: {
+          body: leaveRequestPost.LeaveDecription?.slice(0, 25),
+          title: SchoolShortName,
+        },
+      };
+      const fbody = JSON.stringify(fcmBody);
+
+      await axios.post(
+        "https://fcm.googleapis.com/fcm/send",
+        fbody,
+        tokenHeader
+      );
     }
   };
 
@@ -234,28 +233,6 @@ export const putLeaveRequestApproveAction =
     try {
       dispatch({ type: PUT_LEAVE_REQUESTS_REQUEST });
 
-      const { data } = await axiosInstance.get(
-        `/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`,
-        tokenConfig()
-      );
-      if (data) {
-        const fcmBody = {
-          registration_ids: [data.Message],
-          collapse_key: "type_a",
-          notification: {
-            body: `Your leave request has been ${leaveRequest.Status}`,
-            title: SchoolShortName,
-          },
-        };
-        const fbody = JSON.stringify(fcmBody);
-
-        await axios.post(
-          "https://fcm.googleapis.com/fcm/send",
-          fbody,
-          tokenHeader
-        );
-      }
-
       const newData = { ...leaveRequest };
       const jsonData = JSON.stringify({ dbModel: newData });
 
@@ -271,6 +248,27 @@ export const putLeaveRequestApproveAction =
         type: PUT_LEAVE_REQUESTS_FAIL,
         payload: error.message ? error.message : error.Message,
       });
+    }
+    const { data } = await axiosInstance.get(
+      `/api/LeaveRequest/GetFCMToken/${leaveRequest.SenderID}`,
+      tokenConfig()
+    );
+    if (data) {
+      const fcmBody = {
+        registration_ids: [data.Message],
+        collapse_key: "type_a",
+        notification: {
+          body: `Your leave request has been ${leaveRequest.Status}`,
+          title: SchoolShortName,
+        },
+      };
+      const fbody = JSON.stringify(fcmBody);
+
+      await axios.post(
+        "https://fcm.googleapis.com/fcm/send",
+        fbody,
+        tokenHeader
+      );
     }
   };
 

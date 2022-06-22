@@ -171,7 +171,7 @@ const Announcement = () => {
                   className={classes.keydate}
                   onChange={(e) => {
                     const newDate = new Date(e);
-                    setDateToSend(JSON.stringify(e).slice(1, 11));
+                    setDateToSend(JSON.stringify(e)?.slice(1, 11));
                     setDate(e);
                   }}
                 />

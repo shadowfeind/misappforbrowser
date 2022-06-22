@@ -617,27 +617,27 @@ const Assignment = () => {
         </MobileTopSelectContainer>
         {/* {dateToSend && <h5>This date for api {dateToSend}</h5>}
         {date && <h5>This date for datepicker {JSON.stringify(date)}</h5>} */}
-        {loading ? (
+        {/* {loading ? (
           <LoadingComp />
-        ) : (
-          <MobileBody>
-            {getListTeacherAssignment?.dbTeacherAssignmentLstBySection.map(
-              (item) => (
-                <AssignmentListCollapse
-                  item={item}
-                  key={item.$id}
-                  setOpenPopup3={setOpenPopup3}
-                />
-              )
-            )}
-            {getListTeacherAssignment?.dbTeacherAssignmentLstBySection?.length <
-              1 && (
-              <h4 style={{ textAlign: "center", marginTop: "10px" }}>
-                No Assignment
-              </h4>
-            )}
-          </MobileBody>
-        )}
+        ) : ( */}
+        <MobileBody>
+          {getListTeacherAssignment?.dbTeacherAssignmentLstBySection.map(
+            (item) => (
+              <AssignmentListCollapse
+                item={item}
+                key={item.$id}
+                setOpenPopup3={setOpenPopup3}
+              />
+            )
+          )}
+          {getListTeacherAssignment?.dbTeacherAssignmentLstBySection?.length <
+            1 && (
+            <h4 style={{ textAlign: "center", marginTop: "10px" }}>
+              No Assignment
+            </h4>
+          )}
+        </MobileBody>
+        {/* )} */}
       </CustomContainer>
       <Popup
         openPopup={openPopup}

@@ -40,7 +40,7 @@ const TotalStudentAttendanceListCollapse = ({ item, attendance }) => {
               backgroundColor: "#253053",
             }}
           >
-            {item.FullName[0]}
+            {item?.FullName[0]}
           </span>
           <span style={{ paddingLeft: "12px" }}>{item.FullName}</span>{" "}
         </p>
@@ -50,7 +50,7 @@ const TotalStudentAttendanceListCollapse = ({ item, attendance }) => {
         <div className={classes.collapse}>
           <p>
             <span>Present Days</span> :{" "}
-            {attendance.length !== 0 ? attendance[0].Total : ""}
+            {attendance.length !== 0 ? attendance[0]?.Total : ""}
           </p>
           <p>
             <span>RollNo</span> : {item.RollNo}

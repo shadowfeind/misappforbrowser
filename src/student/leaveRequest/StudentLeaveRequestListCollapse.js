@@ -37,6 +37,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
   },
+  leaveHeader: {
+    fontSize: "12px",
+    marginTop: "-2px",
+    marginBottom: "2px",
+    color: "#666",
+  },
 }));
 
 const StudentLeaveRequestListCollapse = ({
@@ -83,7 +89,10 @@ const StudentLeaveRequestListCollapse = ({
                 // fontWeight: "bolder",
               }}
             >
-              {item.LeaveDecription?.slice(0, 25)}...
+              <small>Requested To: {item.FirsName} </small>
+              <div className={classes.leaveHeader}>
+                {item.LeaveDecription?.slice(0, 45)}...
+              </div>
               <div
                 style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
               >
@@ -116,6 +125,7 @@ const StudentLeaveRequestListCollapse = ({
               {item.MiddleName}
               {item.LastName}
             </p>
+            <p>{item.LeaveDecription}</p>
             <p>
               <span>Date</span> : {item.FromDate?.slice(0, 10)} /{" "}
               {item.ToDate?.slice(0, 10)}

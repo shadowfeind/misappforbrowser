@@ -12,6 +12,7 @@ import { Route, Switch, useLocation, useHistory } from "react-router-dom";
 
 import BottomNavigationMis from "./components/BottomNavigationMis";
 import { useSelector } from "react-redux";
+import LoadingComp from "./components/LoadingComp";
 
 const TeacherLeaveRequest = lazy(() =>
   import("./teacher/leaveRequest/TeacherLeaveRequest")
@@ -132,10 +133,10 @@ const App = () => {
 
   useEffect(() => {
     if (userInfo) {
-      if (userInfo.IDHRRole === 8) {
+      if (userInfo.IDHRRole == 8) {
         history.push("/student-dashboard");
       }
-      if (userInfo.IDHRRole === 5) {
+      if (userInfo.IDHRRole == 5) {
         history.push("/teacher-dashboard");
       }
     } else {
@@ -147,7 +148,7 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <div className={classes.appMain}>
         <Header />
-        <Suspense fallback={<div></div>}>
+        <Suspense fallback={<LoadingComp />}>
           <Switch>
             <Route
               path={"/student-exam-division"}

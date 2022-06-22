@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { postStudentPresentListAction } from "./StudentMonthlyPresentSheetActions";
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import LoadingComp from "../../../components/LoadingComp";
 import JobHistoryForm from "../../pid/jobHistory/JobHistoryForm";
 import Notification from "../../../components/Notification";
@@ -68,9 +68,14 @@ const StudentMonthlyPresentSheetUpdateForm = () => {
 
   useEffect(() => {
     if (getListForUpdateStudentPresent) {
-      setStuAttendance([
-        ...getListForUpdateStudentPresent.dbStudentClassAttendanceModelAttendanceLst,
-      ]);
+      let tempAttendance =
+        getListForUpdateStudentPresent?.dbStudentClassAttendanceModelAttendanceLst?.map(
+          (x) => {
+            return { ...x, IsPresent: true };
+          }
+        );
+      setStuAttendance([...tempAttendance]);
+      setChecked(true);
     }
   }, [getListForUpdateStudentPresent]);
 
@@ -175,39 +180,49 @@ const StudentMonthlyPresentSheetUpdateForm = () => {
           </>
         )}
       </TableContainer>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "start",
-          marginBottom: "20px",
-        }}
-      >
-        <Button
-          variant="contained"
-          color="secondary"
-          onClick={() => history.push("/attendance")}
+
+      {stuAttendance?.length > 0 ? (
+        <div
           style={{
-            margin: "10px 0 0 10px",
-            padding: "5px 10px",
-            fontsize: "12px",
+            display: "flex",
+            justifyContent: "start",
+            marginBottom: "20px",
           }}
         >
-          <ClearIcon />
-        </Button>
-        <Button
-          variant="contained"
-          color="primary"
-          type="submit"
-          style={{
-            margin: "10px 0 0 10px",
-            padding: "5px 10px",
-            fontsize: "12px",
-          }}
-          onClick={formCheckSubmitHandler}
-        >
-          <CheckIcon />
-        </Button>
-      </div>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={() => history.push("/attendance")}
+            style={{
+              margin: "10px 0 0 10px",
+              padding: "5px 10px",
+              fontsize: "12px",
+            }}
+          >
+            <ClearIcon />
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            style={{
+              margin: "10px 0 0 10px",
+              padding: "5px 10px",
+              fontsize: "12px",
+            }}
+            onClick={formCheckSubmitHandler}
+          >
+            <CheckIcon />
+          </Button>{" "}
+        </div>
+      ) : (
+        <Link to={"/attendance"}>
+          <p style={{ textAlign: "center", padding: "10px 0", color: "#000" }}>
+            No Students Go Back
+          </p>
+        </Link>
+      )}
+
       <Notification notify={notify} setNotify={setNotify} />
     </div>
   );

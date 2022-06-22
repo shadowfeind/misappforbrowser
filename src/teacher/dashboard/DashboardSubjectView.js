@@ -48,7 +48,7 @@ const DashboardSubjectView = () => {
     }
     if (dashboardContent) {
       currentSubjectHolder =
-        dashboardContent.searchFilterModel.ddlSubject.filter(
+        dashboardContent.searchFilterModel.ddlSubject?.filter(
           (x) => x.Key === Number(id)
         );
       setCurrentSubject([...currentSubjectHolder]);

@@ -2,7 +2,7 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import BottomNavigation from "@material-ui/core/BottomNavigation";
 import BottomNavigationAction from "@material-ui/core/BottomNavigationAction";
-import WorkIcon from "@material-ui/icons/Work";
+import ReportProblemIcon from "@material-ui/icons/ReportProblem";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import DateRangeIcon from "@material-ui/icons/DateRange";
 import AssignmentIcon from "@material-ui/icons/Assignment";
@@ -63,10 +63,10 @@ const BottomNavigationMis = () => {
           }
         } else if (newValue == 3) {
           if (userInfo.IDHRRole == 5) {
-            history.push("/resources");
+            history.push("/leaverequest-teacher");
           }
           if (userInfo.IDHRRole == 8) {
-            history.push("/student-resources");
+            history.push("/student-leaverequest");
           }
         } else {
           if (userInfo.IDHRRole == 5) {
@@ -97,8 +97,8 @@ const BottomNavigationMis = () => {
       />
       <BottomNavigationAction
         className={classes.bnav}
-        label="E-Material"
-        icon={<WorkIcon />}
+        label="Leave"
+        icon={<ReportProblemIcon />}
       />
       <BottomNavigationAction
         className={classes.bnav}

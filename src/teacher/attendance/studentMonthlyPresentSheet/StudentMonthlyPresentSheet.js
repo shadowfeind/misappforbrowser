@@ -162,30 +162,8 @@ const StudentMonthlyPresentSheet = () => {
       type: "success",
     });
     dispatch({ type: POST_LIST_STUDENT_PRESENT_RESET });
-    // setOpenPopup(false);
-    // dispatch(
-    //   getListStudentPresentAction(
-    //     acaYear,
-    //     programValue,
-    //     classId,
-    //     subject,
-    //     section,
-    //     shift,
-    //     nepYear,
-    //     nepMonth,
-    //     date
-    //   )
-    // );
   }
-  //eng date api not working
-  //   if (engDateError) {
-  //     setNotify({
-  //       isOpen: true,
-  //       message: engDateError,
-  //       type: "error",
-  //     });
-  //     dispatch({ type: GET_ENGLISH_DATE_RESET });
-  //   }
+
   if (getListStudentPresentError) {
     setNotify({
       isOpen: true,
@@ -210,11 +188,10 @@ const StudentMonthlyPresentSheet = () => {
     });
     dispatch({ type: GET_LIST_FOR_PRESENT_STUDENT_RESET });
   }
-
   useEffect(() => {
-    if (!allStudentMonthlyPresentSheetData) {
-      dispatch(getAllStudentPresentSheetDataAction());
-    }
+    dispatch(getAllStudentPresentSheetDataAction());
+  }, []);
+  useEffect(() => {
     if (allStudentMonthlyPresentSheetData) {
       setProgramDdl(
         allStudentMonthlyPresentSheetData.searchFilterModel
@@ -225,7 +202,14 @@ const StudentMonthlyPresentSheet = () => {
       );
       setSubject(
         allStudentMonthlyPresentSheetData.searchFilterModel
-          .ddlSubjectForTeacher[0].Key
+          .ddlSubjectForTeacher[0]?.Key
+      );
+      dispatch(
+        getAllOtherOptionsForSelectAction(
+          allStudentMonthlyPresentSheetData.modelDb.IDHREmployee,
+          allStudentMonthlyPresentSheetData.searchFilterModel
+            .ddlSubjectForTeacher[0]?.Key
+        )
       );
       setDdlClass(
         allStudentMonthlyPresentSheetData.searchFilterModel.ddlLevelPrimitive
@@ -246,7 +230,7 @@ const StudentMonthlyPresentSheet = () => {
         allStudentMonthlyPresentSheetData.searchFilterModel.ddlnpYear
       );
       setDate(
-        allStudentMonthlyPresentSheetData.searchFilterModel.currentDate.slice(
+        allStudentMonthlyPresentSheetData.searchFilterModel.currentDate?.slice(
           0,
           10
         )
@@ -255,12 +239,6 @@ const StudentMonthlyPresentSheet = () => {
       setNepYear(allStudentMonthlyPresentSheetData.searchFilterModel.npYear);
     }
   }, [allStudentMonthlyPresentSheetData, dispatch]);
-
-  // useEffect(() => {
-  //   if (subjectOptions) {
-  //     setDdlSubject(subjectOptions);
-  //   }
-  // }, [subjectOptions]);
 
   const validate = () => {
     let temp = {};
@@ -342,19 +320,25 @@ const StudentMonthlyPresentSheet = () => {
   useEffect(() => {
     if (allOtherOptions) {
       setAcaYear(
-        allOtherOptions.year.length > 0 ? allOtherOptions.year[0].Key : ""
+        allOtherOptions.year.length > 0 ? allOtherOptions.year[0]?.Key : ""
       );
       setProgramValue(
-        allOtherOptions.program.length > 0 ? allOtherOptions.program[0].Key : ""
+        allOtherOptions.program.length > 0
+          ? allOtherOptions.program[0]?.Key
+          : ""
       );
       setClassId(
-        allOtherOptions.classId.length > 0 ? allOtherOptions.classId[0].Key : ""
+        allOtherOptions.classId.length > 0
+          ? allOtherOptions.classId[0]?.Key
+          : ""
       );
       setSection(
-        allOtherOptions.section.length > 0 ? allOtherOptions.section[0].Key : ""
+        allOtherOptions.section.length > 0
+          ? allOtherOptions.section[0]?.Key
+          : ""
       );
       setShift(
-        allOtherOptions.shift.length > 0 ? allOtherOptions.shift[0].Key : ""
+        allOtherOptions.shift.length > 0 ? allOtherOptions.shift[0]?.Key : ""
       );
     }
   }, [allOtherOptions]);
@@ -463,12 +447,12 @@ const StudentMonthlyPresentSheet = () => {
                   inputVariant="outlined"
                   format="MM-dd-yyyy"
                   name="CurrentYear"
-                  label="Current Date"
+                  label="Current Year"
                   value={date}
                   className={classes.keydate}
                   onChange={(e) => {
                     const newDate = new Date(e);
-                    setDate(newDate.toLocaleDateString().slice(0, 10));
+                    setDate(newDate.toLocaleDateString()?.slice(0, 10));
                   }}
                 />
               </MuiPickersUtilsProvider>

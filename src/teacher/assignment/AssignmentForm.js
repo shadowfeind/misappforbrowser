@@ -105,7 +105,8 @@ const AssignmentForm = ({ students, setOpenPopup, formDatas }) => {
 
     temp.TotalMark = !fieldValues.TotalMark ? "This feild is required" : "";
 
-    temp.image = !image ? "This feild is required" : "";
+    temp.lstStudents =
+      selectedStudents?.length < 1 ? "Select atleast one student" : "";
 
     temp.DueDate =
       fieldValues.DueDate == null || fieldValues.DueDate == ""
@@ -327,7 +328,9 @@ const AssignmentForm = ({ students, setOpenPopup, formDatas }) => {
             width={200}
           />
         )}
-
+        <div style={{ textAlign: "center", color: "red" }}>
+          {errors.lstStudents && errors.lstStudents}
+        </div>
         <div
           style={{
             display: "flex",

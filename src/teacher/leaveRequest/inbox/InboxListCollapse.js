@@ -36,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
   },
+  leaveHeader: {
+    fontSize: "12px",
+    marginTop: "-2px",
+    marginBottom: "2px",
+    color: "#666",
+  },
 }));
 
 const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
@@ -65,7 +71,7 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
         <ListForTable onClick={handleClick}>
           <div className={classes.listWrapper}>
             <div style={{ fontSize: "12px", color: "#666" }}>
-              {item.FromDate.slice(0, 10)} <br /> {item.ToDate.slice(0, 10)}
+              {item.FromDate?.slice(0, 10)} <br /> {item.ToDate?.slice(0, 10)}
             </div>
             <div
               style={{
@@ -74,7 +80,10 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
                 // fontWeight: "bolder",
               }}
             >
-              {item.LeaveDecription?.slice(0, 25)}...
+              <small>Requested By: {item.FirsName} </small>
+              <div className={classes.leaveHeader}>
+                {item.LeaveDecription?.slice(0, 45)}...
+              </div>
               <div
                 style={{ fontSize: "10px", color: "#444", marginTop: "-3px" }}
               >
@@ -107,6 +116,7 @@ const InboxListCollapse = ({ item, setOpenPopUp, setOpenPopupDelete }) => {
               {item.MiddleName}
               {item.LastName}
             </p>
+            <p>{item.LeaveDecription}</p>
             <p>
               <span>Date</span> : {item.FromDate?.slice(0, 10)} /{" "}
               {item.ToDate?.slice(0, 10)}

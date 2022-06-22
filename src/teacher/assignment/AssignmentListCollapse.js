@@ -209,7 +209,7 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
                 )}
               </div>
             </div>
-            {item.DocumentName && (
+            {item.DocumentName !== "/Upload/TeacherAssignment/" && (
               <div
                 style={{
                   paddingLeft: "18px",
@@ -250,15 +250,19 @@ const AssignmentListCollapse = ({ item, setOpenPopup3 }) => {
               <span>Obtained Marks</span> : {item.ObtainedMarks}
             </p>
             <p>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={() => downloadHandler(item.IDAssignment)}
-              >
-                Teacher &nbsp;
-                <CloudDownloadIcon style={{ fontSize: 12 }} />
-              </Button>
+              {item.DocumentName !== null &&
+                item.DocumentName !== "/Upload/TeacherAssignment/" && (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    className={classes.button}
+                    onClick={() => downloadHandler(item.IDAssignment)}
+                  >
+                    Teacher &nbsp;
+                    <CloudDownloadIcon style={{ fontSize: 12 }} />
+                  </Button>
+                )}
+
               {item.DocumentSubmitted !== null &&
                 item.DocumentSubmitted !== "/Upload/TeacherAssignment/" && (
                   <Button

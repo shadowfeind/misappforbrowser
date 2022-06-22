@@ -5,7 +5,7 @@ import { login } from "./LoginActions";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Notification from "../../components/Notification";
-import logo from "../../images/logo.png";
+// import logo from "../../images/logo.png";
 
 const useStyles = makeStyles((theme) => ({
   LoginFront: {
@@ -104,10 +104,10 @@ const LoginFront = ({ setReg }) => {
 
   useEffect(() => {
     if (userInfo) {
-      if (userInfo.IDHRRole === 8) {
+      if (userInfo.IDHRRole == 8) {
         history.push("/student-dashboard");
       }
-      if (userInfo.IDHRRole === 5) {
+      if (userInfo.IDHRRole == 5) {
         history.push("/teacher-dashboard");
       }
     }
@@ -124,7 +124,7 @@ const LoginFront = ({ setReg }) => {
             marginTop: "40px",
           }}
         >
-          <img src={logo} width="90px" height="90px" />
+          {/* <img src={logo} width="90px" height="90px" /> */}
         </div>
         <label>username:</label>
         <input
@@ -154,7 +154,7 @@ const LoginFront = ({ setReg }) => {
         ) : (
           <button onClick={handleLogin}>Sign In</button>
         )}
-        <span onClick={() => setReg(true)}>forgot password</span>
+        {/* <span onClick={() => setReg(true)}>forgot password</span> */}
       </div>
       <Notification notify={notify} setNotify={setNotify} />
     </>

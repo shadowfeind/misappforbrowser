@@ -2,7 +2,8 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import moment from "moment";
 
-export const API_URL = "https://mis.vidyacube.com";
+// export const API_URL = "https://mis.vidyacube.com";
+export const API_URL = "https://divinelight.vidyacube.com";
 // export const API_URL = "http://103.90.86.151:55";
 
 //for fcm token

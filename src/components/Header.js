@@ -154,7 +154,7 @@ const Header = () => {
           </Drawer>
 
           <Link
-            to={userInfo && userInfo.IDHRRole === 8 ? "/student-pid" : "/pid"}
+            to={userInfo && userInfo.IDHRRole == 8 ? "/student-pid" : "/pid"}
           >
             <IconButton onClick={handleClick("top-end")}>
               {headerContent && (
