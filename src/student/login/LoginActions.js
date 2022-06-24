@@ -76,5 +76,6 @@ export const logout = () => (dispatch) => {
   dispatch({ type: GET_HEADER_CONTENT_RESET });
   dispatch({ type: GET_STUDENT_DASHBOARD_RESET });
   dispatch({ type: GET_TEACHER_DASHBOARD_RESET });
-  window.location.href = "https://divinelight.vidyacube.com/";
+  // window.location.href = "https://divinelight.vidyacube.com/";
+  window.location.href = "https://mis.vidyacube.com/";
 };

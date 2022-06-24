@@ -60,6 +60,7 @@ const ExamMarkApprovalBulk = ({
   setOpenPopup,
 }) => {
   const [bulk, setBulk] = useState([]);
+  const [submitDisabler, setSubmitDisabler] = useState(false);
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -88,6 +89,7 @@ const ExamMarkApprovalBulk = ({
   };
 
   const formCheckSubmitHandler = () => {
+    setSubmitDisabler(true);
     dispatch(postBulkExamMarkApprovalAction(bulk, search));
   };
 
@@ -101,6 +103,7 @@ const ExamMarkApprovalBulk = ({
       setBulk(bulkData);
     }
   }, [bulkData]);
+  const symbolsArr = ["e", "E", "+", "-"];
   return (
     <>
       <h5>Subject: {currentSubject && currentSubject[0].Value}</h5>
@@ -141,6 +144,9 @@ const ExamMarkApprovalBulk = ({
                       name="ObtainedMark"
                       value={subject.ObtainedMark}
                       type="number"
+                      onKeyDown={(e) =>
+                        symbolsArr.includes(e.key) && e.preventDefault()
+                      }
                       variant="outlined"
                       className={classes.input}
                       inputProps={{ tabIndex: "1" }}
@@ -161,6 +167,9 @@ const ExamMarkApprovalBulk = ({
                         value={subject.ObtainedMarkPractical}
                         name="ObtainedMarkPractical"
                         type="number"
+                        onKeyDown={(e) =>
+                          symbolsArr.includes(e.key) && e.preventDefault()
+                        }
                         variant="outlined"
                         inputProps={{
                           tabIndex: "2",
@@ -180,37 +189,6 @@ const ExamMarkApprovalBulk = ({
                     </StyledTableCell>
                   )}
 
-                  {/* <StyledTableCell align="left">
-                    <FormControl
-                      variant="filled"
-                      className={classes.formControl}
-                    >
-                      <InputLabel htmlFor="filled-age-native-simple">
-                        Status
-                      </InputLabel>
-                      <Select
-                        native
-                        defaultValue={subject.StudentExamStatus}
-                        name="StudentExamStatus"
-                        id={`status_${subject.IDHREmployee}`}
-                        onChange={(e) =>
-                          onChangeHandler(
-                            subject,
-                            e.target.value,
-                            e.target.name,
-                            index
-                          )
-                        }
-                      >
-                        {statusData &&
-                          statusData.map((section) => (
-                            <option key={section.Value} value={section.Key}>
-                              {section.Value}
-                            </option>
-                          ))}
-                      </Select>
-                    </FormControl>
-                  </StyledTableCell> */}
                   <StyledTableCell align="left">
                     {subject.FullMark}
                   </StyledTableCell>
@@ -250,9 +228,10 @@ const ExamMarkApprovalBulk = ({
             padding: "5px 10px",
             fontsize: "12px",
           }}
+          disabled={submitDisabler}
           onClick={formCheckSubmitHandler}
         >
-          SUBMIT
+          {submitDisabler ? "PROCESSING..." : "SUBMIT"}
         </Button>
       </div>
     </>

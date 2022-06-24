@@ -84,6 +84,7 @@ const AssignmentEditForm = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const classes = useStyles();
+  const [submitDisabler, setSubmitDisabler] = useState(false);
 
   const { values, setValues, handleInputChange, errors, setErrors } =
     useForm(initialFormValues);
@@ -123,6 +124,7 @@ const AssignmentEditForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setSubmitDisabler(true);
       dispatch(putSingleAssignmentStudentAction(image, values));
     }
   };
@@ -269,9 +271,10 @@ const AssignmentEditForm = () => {
             color="primary"
             type="submit"
             style={{ margin: "10px 0 0 10px" }}
+            disabled={submitDisabler}
             onClick={handleSubmit}
           >
-            SUBMIT
+            {submitDisabler ? "PROCESSING..." : "SUBMIT"}
           </Button>
         </div>
       </div>

@@ -233,15 +233,7 @@ const Resources = () => {
     if (allInitialData) {
       unstable_batchedUpdates(() => {
         setDdlSubject(allInitialData.searchFilterModel.ddlSubjectForTeacher);
-        setSubject(
-          allInitialData.searchFilterModel.ddlSubjectForTeacher[0]?.Key
-        );
-        dispatch(
-          getAllOtherOptionsForResourcesSelectAction(
-            allInitialData.modelDb.IDHREmployee,
-            allInitialData.searchFilterModel.ddlSubjectForTeacher[0]?.Key
-          )
-        );
+
         setDdlClass(allInitialData.searchFilterModel.ddlLevelPrimitive);
         setAcademicYearDdl(allInitialData.searchFilterModel.ddlAcademicYear);
         setDdlShift(allInitialData.searchFilterModel.ddlAcademicShift);
@@ -256,6 +248,16 @@ const Resources = () => {
             subjectIdFromDashboard
           )
         );
+      } else {
+        setSubject(
+          allInitialData.searchFilterModel.ddlSubjectForTeacher[0]?.Key
+        );
+        dispatch(
+          getAllOtherOptionsForResourcesSelectAction(
+            allInitialData.modelDb.IDHREmployee,
+            allInitialData.searchFilterModel.ddlSubjectForTeacher[0]?.Key
+          )
+        );
       }
     }
   }, [allInitialData, dispatch]);
@@ -265,11 +267,6 @@ const Resources = () => {
     dispatch(getAllInitialResourcesDataAction());
   }, []);
 
-  useEffect(() => {
-    if (allResources) {
-      setTableData([...allResources.dbModelTeacherLst]);
-    }
-  }, [allResources]);
   useEffect(() => {
     if (allOtherResourcesOptions) {
       setAcaYear(
@@ -334,7 +331,6 @@ const Resources = () => {
   };
 
   const handleSearchResources = () => {
-    console.log(subject, acaYear, programValue, classId, section, shift);
     if (validate()) {
       dispatch(
         getAllResourcesListAction(
@@ -360,7 +356,6 @@ const Resources = () => {
   };
 
   const handleCreate = () => {
-    console.log(subject, acaYear, programValue, classId, section, shift);
     if (validate()) {
       dispatch(
         getCreateResourceAction(
@@ -392,59 +387,6 @@ const Resources = () => {
                 errors={errors.subject}
               />
             </Grid>
-            {/* <Grid item xs={3}>
-              <SelectControl
-                name="Academic Year"
-                label="Academic Year"
-                value={acaYear}
-                onChange={(e) => setAcaYear(e.target.value)}
-                options={academicYearDdl ? academicYearDdl : test}
-                errors={errors.acaYear}
-              />
-            </Grid>
-            <Grid item xs={3}>
-              <SelectControl
-                name="Program/Faculty"
-                label="Program/Faculty"
-                value={programValue}
-                onChange={(e) => setProgramValue(e.target.value)}
-                options={programDdl ? programDdl : test}
-                errors={errors.programValue}
-              />
-            </Grid> */}
-            {/* <Grid item xs={12}>
-              <div style={{ height: "10px" }}></div>
-              <SelectControl
-                name="Classes"
-                label="Classes"
-                value={classId}
-                onChange={(e) => setClassId(e.target.value)}
-                options={ddlClass ? ddlClass : test}
-                errors={errors.classId}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <div style={{ height: "10px" }}></div>
-              <SelectControl
-                name="Shift"
-                label="Shift"
-                value={shift}
-                onChange={(e) => setShift(e.target.value)}
-                options={ddlShift ? ddlShift : test}
-                errors={errors.shift}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <div style={{ height: "10px" }}></div>
-              <SelectControl
-                name="Section"
-                label="Section"
-                value={section}
-                onChange={(e) => setSection(e.target.value)}
-                options={ddlSection ? ddlSection : test}
-                errors={errors.section}
-              />
-            </Grid> */}
 
             <Grid item xs={12}>
               <Button

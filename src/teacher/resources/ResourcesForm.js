@@ -29,6 +29,7 @@ const initialFormValues = {
 const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
+  const [submitDisabler, setSubmitDisabler] = useState(false);
 
   const dispatch = useDispatch();
   const validate = (fieldValues = values) => {
@@ -89,6 +90,7 @@ const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validate()) {
+      setSubmitDisabler(true);
       dispatch(postResourceAction(image, values, searchFilterModel, dbModel));
     }
   };
@@ -163,10 +165,11 @@ const ResourcesForm = ({ setOpenPopup, searchFilterModel, dbModel }) => {
         <Button
           variant="contained"
           color="primary"
+          disabled={submitDisabler}
           onClick={handleSubmit}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {submitDisabler ? "PROCESSING..." : "SUBMIT"}
         </Button>
       </div>
     </>

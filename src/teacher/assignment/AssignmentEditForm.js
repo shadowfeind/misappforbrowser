@@ -61,6 +61,7 @@ const AssignmentEditForm = ({
 }) => {
   const [image, setImage] = useState(null);
   const [imgSrc, setImgSrc] = useState(null);
+  const [submitDisabler, setSubmitDisabler] = useState(false);
 
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -108,9 +109,8 @@ const AssignmentEditForm = ({
   };
 
   const handleSubmit = () => {
-    console.log("working");
     if (validate()) {
-      console.log("working in validation");
+      setSubmitDisabler(true);
       dispatch(putSingleToEditTeacherAssignmentAction(image, values));
     }
   };
@@ -258,10 +258,11 @@ const AssignmentEditForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={submitDisabler}
           style={{ margin: "10px 0 0 10px" }}
           onClick={handleSubmit}
         >
-          SUBMIT
+          {submitDisabler ? "PROCESSING..." : "SUBMIT"}
         </Button>
       </div>
     </div>

@@ -35,6 +35,7 @@ const StudentLeaveRequestForm = ({
   const dispatch = useDispatch();
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
+  const [submitDisabler, setSubmitDisabler] = useState(false);
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -58,6 +59,7 @@ const StudentLeaveRequestForm = ({
     e.preventDefault();
 
     if (validate()) {
+      setSubmitDisabler(true);
       if (values.IDLeaveRequest === 0) {
         dispatch(
           studentPostLeaveRequestAction(
@@ -245,9 +247,10 @@ const StudentLeaveRequestForm = ({
           color="primary"
           type="submit"
           style={{ margin: "10px 0 0 10px" }}
+          disabled={submitDisabler}
           onClick={handleSubmit}
         >
-          SUBMIT
+          {submitDisabler ? "PROCESSING..." : "SUBMIT"}
         </Button>
       </div>
     </div>

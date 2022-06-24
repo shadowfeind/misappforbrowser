@@ -33,6 +33,7 @@ const TeacherLeaveRequestApproveForm = ({
   const dispatch = useDispatch();
   const [image, setImage] = useState("");
   const [imgSrc, setImgSrc] = useState("");
+  const [submitDisabler, setSubmitDisabler] = useState(false);
 
   const validate = (fieldValues = values) => {
     let temp = { ...errors };
@@ -56,6 +57,7 @@ const TeacherLeaveRequestApproveForm = ({
     e.preventDefault();
 
     if (validate()) {
+      setSubmitDisabler(true);
       dispatch(
         putLeaveRequestApproveAction(
           values,
@@ -191,9 +193,10 @@ const TeacherLeaveRequestApproveForm = ({
           variant="contained"
           color="primary"
           type="submit"
+          disabled={submitDisabler}
           style={{ margin: "10px 0 0 10px" }}
         >
-          SUBMIT
+          {submitDisabler ? "PROCESSING..." : "SUBMIT"}
         </Button>
       </div>
     </Form>
