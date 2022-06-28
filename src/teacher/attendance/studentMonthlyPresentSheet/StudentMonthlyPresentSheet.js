@@ -191,6 +191,7 @@ const StudentMonthlyPresentSheet = () => {
   useEffect(() => {
     dispatch(getAllStudentPresentSheetDataAction());
   }, []);
+
   useEffect(() => {
     if (allStudentMonthlyPresentSheetData) {
       setProgramDdl(
@@ -230,7 +231,7 @@ const StudentMonthlyPresentSheet = () => {
         allStudentMonthlyPresentSheetData.searchFilterModel.ddlnpYear
       );
       setDate(
-        allStudentMonthlyPresentSheetData.searchFilterModel.currentDate?.slice(
+        allStudentMonthlyPresentSheetData.searchFilterModel.currentDate.slice(
           0,
           10
         )
@@ -268,7 +269,7 @@ const StudentMonthlyPresentSheet = () => {
           shift,
           nepYear,
           nepMonth,
-          date
+          JSON.stringify(date).slice(1, 11)
         )
       );
       history.push("/attendance/table-details");
@@ -279,7 +280,7 @@ const StudentMonthlyPresentSheet = () => {
     if (validate()) {
       dispatch(
         getListForUpdateStudentPresentAction(
-          date,
+          JSON.stringify(date).slice(1, 11),
           nepYear,
           nepMonth,
           acaYear,
@@ -297,13 +298,13 @@ const StudentMonthlyPresentSheet = () => {
   const nepMonthHandler = (value) => {
     setNepMonth(value);
     if (nepYear) {
-      dispatch(getEnglishDateAction(value, nepYear));
+      dispatch(getEnglishDateAction(nepYear, value));
     }
   };
   const nepYearHandler = (value) => {
     setNepYear(value);
     if (nepMonth) {
-      dispatch(getEnglishDateAction(nepMonth, value));
+      dispatch(getEnglishDateAction(value, nepMonth));
     }
   };
 
@@ -342,6 +343,12 @@ const StudentMonthlyPresentSheet = () => {
       );
     }
   }, [allOtherOptions]);
+
+  useEffect(() => {
+    if (engDate) {
+      setDate(engDate?.Key);
+    }
+  }, [engDate]);
 
   return (
     <>
@@ -445,14 +452,14 @@ const StudentMonthlyPresentSheet = () => {
                   disableToolbar
                   variant="inline"
                   inputVariant="outlined"
-                  format="MM-dd-yyyy"
+                  format="dd-MM-yyyy"
                   name="CurrentYear"
                   label="Current Year"
                   value={date}
                   className={classes.keydate}
                   onChange={(e) => {
-                    const newDate = new Date(e);
-                    setDate(newDate.toLocaleDateString()?.slice(0, 10));
+                    // const newDate = new Date(e);
+                    setDate(e);
                   }}
                 />
               </MuiPickersUtilsProvider>

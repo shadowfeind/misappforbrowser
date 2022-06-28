@@ -219,7 +219,7 @@ const TotalStudentAttendance = () => {
   useEffect(() => {
     if (subjectOptions) {
       setDdlSubject(subjectOptions);
-      setSubject(subjectOptions[0].Key);
+      setSubject(subjectOptions[0]?.Key);
     }
   }, [subjectOptions]);
 
@@ -254,8 +254,8 @@ const TotalStudentAttendance = () => {
           subject,
           section,
           shift,
-          startDate,
-          endDate
+          JSON.stringify(startDate).slice(1, 11),
+          JSON.stringify(endDate).slice(1, 11)
         )
       );
     }
@@ -297,7 +297,7 @@ const TotalStudentAttendance = () => {
                 errors={errors.acaYear}
               />
             </Grid>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl
                 name="Program/Faculty"
@@ -307,7 +307,7 @@ const TotalStudentAttendance = () => {
                 options={programDdl ? programDdl : test}
                 errors={errors.programValue}
               />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <div style={{ height: "10px" }}></div>
               <SelectControl
@@ -360,14 +360,13 @@ const TotalStudentAttendance = () => {
                   disableToolbar
                   variant="inline"
                   inputVariant="outlined"
-                  format="MM-dd-yyyy"
+                  format="dd-MM-yyyy"
                   name="StartDate"
-                  label="Start Year"
+                  label="From Date"
                   value={startDate}
                   className={classes.keydate}
                   onChange={(e) => {
-                    const newDate = new Date(e);
-                    setStartDate(newDate.toLocaleDateString().slice(0, 10));
+                    setStartDate(e);
                   }}
                 />
               </MuiPickersUtilsProvider>
@@ -379,14 +378,13 @@ const TotalStudentAttendance = () => {
                   disableToolbar
                   variant="inline"
                   inputVariant="outlined"
-                  format="MM-dd-yyyy"
+                  format="dd-MM-yyyy"
                   name="EndDate"
-                  label="End Year"
+                  label="To Date"
                   value={endDate}
                   className={classes.keydate}
                   onChange={(e) => {
-                    const newDate = new Date(e);
-                    setEndDate(newDate.toLocaleDateString().slice(0, 10));
+                    setEndDate(e);
                   }}
                 />
               </MuiPickersUtilsProvider>

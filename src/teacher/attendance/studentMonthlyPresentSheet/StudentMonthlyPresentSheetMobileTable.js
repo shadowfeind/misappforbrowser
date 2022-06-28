@@ -7,25 +7,32 @@ import StudentMonthlyPresentSheetTableCollapse from "./StudentMonthlyPresentShee
 
 const StudentMonthlyPresentSheetMobileTable = () => {
   const history = useHistory();
-  const { getListStudentPresent,loading, error: getListStudentPresentError } =
-    useSelector((state) => state.getListStudentPresent);
+  const {
+    getListStudentPresent,
+    loading,
+    error: getListStudentPresentError,
+  } = useSelector((state) => state.getListStudentPresent);
 
   return (
     <div style={{ padding: "16px" }}>
-    {loading ? (
-          <LoadingComp />
-        ) : (
-          <>
-      <h3 onClick={() => history.push("/attendance")}>Go Back</h3>
-      {getListStudentPresent ? (
-        <StudentMonthlyPresentSheetTableCollapse
-          students={getListStudentPresent && getListStudentPresent}
-        />
+      {loading ? (
+        <LoadingComp />
       ) : (
-        "No data"
+        <>
+          <h3 onClick={() => history.push("/attendance")}>Go Back</h3>
+          {getListStudentPresent ? (
+            <StudentMonthlyPresentSheetTableCollapse
+              students={getListStudentPresent && getListStudentPresent}
+              fromDate={
+                getListStudentPresent &&
+                getListStudentPresent.searchFilterModel.fromDate
+              }
+            />
+          ) : (
+            "No data"
+          )}
+        </>
       )}
-      </>
-        )}
     </div>
   );
 };
