@@ -33,9 +33,11 @@ const Syllabus = () => {
   const { allSyllabus, error: allSyllabusError } = useSelector(
     (state) => state.getAllSyllabus
   );
-  const { listSyllabus,loading, error: listSyllabusError } = useSelector(
-    (state) => state.getListSyllabus
-  );
+  const {
+    listSyllabus,
+    loading,
+    error: listSyllabusError,
+  } = useSelector((state) => state.getListSyllabus);
 
   if (allSyllabusError) {
     setNotify({
@@ -60,7 +62,7 @@ const Syllabus = () => {
       dispatch(getAllSyllabusAction());
     }
     if (allSyllabus) {
-      dispatch(getListSyllabusAction(allSyllabus.dbModelLst[0].Id));
+      dispatch(getListSyllabusAction(allSyllabus.dbModelLst[0]?.Id));
     }
   }, [allSyllabus]);
 
@@ -77,12 +79,10 @@ const Syllabus = () => {
   return (
     <>
       <CustomContainer>
-      {loading ? (
+        {loading ? (
           <LoadingComp />
         ) : (
-          <>
-        {listSyllabus && <iframe src={url} width="100%" height="700" />}
-        </>
+          <>{listSyllabus && <iframe src={url} width="100%" height="700" />}</>
         )}
       </CustomContainer>
       <Notification notify={notify} setNotify={setNotify} />

@@ -106,9 +106,11 @@ const StudentMonthlyPresentSheet = () => {
     error: allStudentMonthlyPresentSheetDataError,
   } = useSelector((state) => state.getAllStudentMonthlyPresentSheet);
 
-  const { allOtherOptions, error: allOtherOptionsError } = useSelector(
-    (state) => state.getAllOtherOptionsForSelect
-  );
+  const {
+    allOtherOptions,
+    error: allOtherOptionsError,
+    loading: allOtherOptionsLoading,
+  } = useSelector((state) => state.getAllOtherOptionsForSelect);
 
   const { engDate, error: engDateError } = useSelector(
     (state) => state.getEnglishDate
@@ -470,12 +472,14 @@ const StudentMonthlyPresentSheet = () => {
                   variant="contained"
                   color="primary"
                   type="submit"
+                  disabled={allOtherOptionsLoading}
                   style={{ margin: "10px 0 0 10px" }}
                   onClick={handleUpdate}
                 >
                   <EditIcon />
                 </Button>
                 <Button
+                  disabled={allOtherOptionsLoading}
                   variant="contained"
                   color="primary"
                   type="submit"

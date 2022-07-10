@@ -107,9 +107,11 @@ const Assignment = () => {
   const { allAssignmentTeacherData, error: allAssignmentTeacherDataError } =
     useSelector((state) => state.getAllAssignmentTeacher);
 
-  const { allOtherOptions, error: allOtherOptionsError } = useSelector(
-    (state) => state.getAllOtherOptionsForAssignmentSelect
-  );
+  const {
+    allOtherOptions,
+    error: allOtherOptionsError,
+    loading: allOtherOptionsLoading,
+  } = useSelector((state) => state.getAllOtherOptionsForAssignmentSelect);
 
   const {
     getListTeacherAssignment,
@@ -300,15 +302,9 @@ const Assignment = () => {
         );
         setDdlSection(allAssignmentTeacherData.searchFilterModel.ddlSection);
         setDate(
-          allAssignmentTeacherData.searchFilterModel.StartDate?.slice(0, 10)
+          allAssignmentTeacherData.searchFilterModel.StartDate.slice(0, 10)
         );
-        dispatch(
-          getAllOtherOptionsForSelectAction(
-            allAssignmentTeacherData.modelDb.IDHREmployee,
-            allAssignmentTeacherData.searchFilterModel.ddlSubjectForTeacher[0]
-              ?.Key
-          )
-        );
+
         // setDateToSend(
         //   allAssignmentTeacherData.searchFilterModel.StartDate.slice(0, 10)
         // );
@@ -319,6 +315,14 @@ const Assignment = () => {
           getAllOtherOptionsForSelectAction(
             allAssignmentTeacherData.modelDb.IDHREmployee,
             subjectIdFromDashboard
+          )
+        );
+      } else {
+        dispatch(
+          getAllOtherOptionsForSelectAction(
+            allAssignmentTeacherData.modelDb.IDHREmployee,
+            allAssignmentTeacherData.searchFilterModel.ddlSubjectForTeacher[0]
+              ?.Key
           )
         );
       }
@@ -591,6 +595,7 @@ const Assignment = () => {
             <div style={{ height: "10px", width: "10px" }}></div>
             <Grid item xs={12}>
               <Button
+                disabled={allOtherOptionsLoading}
                 variant="contained"
                 color="primary"
                 type="submit"
@@ -600,6 +605,7 @@ const Assignment = () => {
                 <AddBoxIcon />
               </Button>
               <Button
+                disabled={allOtherOptionsLoading}
                 variant="contained"
                 color="primary"
                 type="submit"
@@ -622,12 +628,14 @@ const Assignment = () => {
             </Grid>
           </Grid>
         </MobileTopSelectContainer>
+
         {/* {dateToSend && <h5>This date for api {dateToSend}</h5>}
         {date && <h5>This date for datepicker {JSON.stringify(date)}</h5>} */}
         {/* {loading ? (
           <LoadingComp />
         ) : ( */}
         <MobileBody>
+          {allOtherOptionsLoading && <LoadingComp />}
           {getListTeacherAssignment?.dbTeacherAssignmentLstBySection.map(
             (item) => (
               <AssignmentListCollapse

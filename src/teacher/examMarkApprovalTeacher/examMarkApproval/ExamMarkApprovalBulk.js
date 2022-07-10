@@ -106,8 +106,8 @@ const ExamMarkApprovalBulk = ({
   const symbolsArr = ["e", "E", "+", "-"];
   return (
     <>
-      <h5>Subject: {currentSubject && currentSubject[0].Value}</h5>
-      <h5>Term: {currentEvent && currentEvent[0].Value}</h5>
+      <h5>Subject: {currentSubject && currentSubject[0]?.Value}</h5>
+      <h5>Term: {currentEvent && currentEvent[0]?.Value}</h5>
       <TableContainer style={{ maxHeight: "260px" }} component={Paper}>
         <Table className={classes.table} aria-label="customized table">
           <TableHead>
